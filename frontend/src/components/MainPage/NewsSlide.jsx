@@ -70,15 +70,11 @@ export default function NewsSlide() {
 
     return (
       <div className={styles['slide-container']}>
-        <div className={styles['carousel']}>
-          <div className={styles['card-container']}>
-            {images.map((img, idx) => (
-              <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
-                <img src={img} alt={`Slide ${idx}`} />
-              </div>
-            ))}
+        {images.map((img, idx) => (
+          <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
+            <img src={img} alt={`Slide ${idx}`} />
           </div>
-        </div>
+        ))}
       </div>
     );
   };
