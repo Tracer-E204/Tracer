@@ -44,7 +44,7 @@
 
 - ERD
   
-  - ![E204_ERD.png](C:\Users\SSAFY\Downloads\E204_ERD.png)
+  - ![E204_ERD](/uploads/8945800ca57974076c4ffdacbf8eb66e/E204_ERD.png)
 
 - 간트차트 (진행 중)
   
@@ -58,4 +58,4 @@
   
   - https://www.figma.com/file/uUDdHXoiwxVG0hc7D2ACcJ/Tracer?node-id=0%3A1&t=HfDK5yXH08jBljAt-1
   
-  - ![](C:\Users\SSAFY\AppData\Roaming\marktext\images\2023-03-17-11-18-14-image.png)
+  - ![E204_figma](/uploads/d79995095b462c8ba79fefdd34d8f542/E204_figma.png)
