@@ -5,9 +5,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: violet;
+  background-color: black;
+  color: white;
 }
-
+.header {
+  vertical-align: top;
+}
 .carousel {
   background-color: red;
 }
