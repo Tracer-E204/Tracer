@@ -26,7 +26,7 @@ export default function NewsSlide() {
     }, [delay]);
   };
 
-  const images = [image1, image2, image3, image4, image5, image6];
+  const images = [image1, image2, image3, image4, image5, image6, image1, image2, image3, image4, image5, image6];
 
   const Carousel = props => {
     const { images } = props;
@@ -38,29 +38,29 @@ export default function NewsSlide() {
       setActive((activeIndex + 1) % len);
     }, 5000);
 
-    //Return style according to index
     const getStyle = idx => {
-      //Counting from the left, the distance between idx and currentKey
-      const distance_left = idx - activeIndex;
-      //Counting from the right, the distance between idx and currentKey
-      const distance_right = distance_left > 0 ? distance_left - len : distance_left + len;
-      //Select the distance with the smallest absolute value
-      const distance = Math.abs(distance_left) > Math.abs(distance_right) ? distance_right : distance_left;
+      const distanceLeft = idx - activeIndex;
+      const distanceRight = distanceLeft > 0 ? distanceLeft - len : distanceLeft + len;
+      const distance = Math.abs(distanceLeft) > Math.abs(distanceRight) ? distanceRight : distanceLeft;
 
       const styleObj = {};
 
       if (distance === 0) {
-        //activeIndex
+        // activeIndex
         styleObj.left = '33.3%';
         styleObj.zIndex = 999;
         styleObj.opacity = 1;
         styleObj.transform = 'scale(1)';
       } else {
-        styleObj.left = distance > 0 ? `${16.7 + distance * 40}%` : `${50 + distance * 40}%`;
+        const scale = 1 - Math.abs(distance) * 0.2; // decrease scale based on distance
+        const overlap = 13 * Math.abs(distance); // overlap distance between images
+        styleObj.left = distance > 0 ? `${33.3 - overlap}%` : `${33.3 + overlap}%`;
+        styleObj.transform = `scale(${scale})`;
+        styleObj.opacity = Math.max(0.5, scale); // decrease opacity based on scale
       }
 
       //The distance is not less than 2, hide
-      if (Math.abs(distance) >= 2) {
+      if (Math.abs(distance) >= 3) {
         styleObj.opacity = 0;
         styleObj.transform = 'scale(0)';
       }
@@ -70,6 +70,9 @@ export default function NewsSlide() {
 
     return (
       <div className={styles['slide-container']}>
+        <div className={styles['header']}>
+          <h1>Daily News</h1>
+        </div>
         {images.map((img, idx) => (
           <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
             <img src={img} alt={`Slide ${idx}`} />
