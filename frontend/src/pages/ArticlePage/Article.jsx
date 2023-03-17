@@ -34,6 +34,54 @@ export default function Article() {
 
   return (
     <Box className={styles['article-modal']}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '80%',
+          height: '50%',
+          position: 'absolute',
+          zIndex: 1,
+          border: 1,
+          top: 180,
+          left: 137,
+          backgroundColor: 'white',
+          borderRadius: 10,
+          visibility: expanded ? 'visible' : 'hidden',
+        }}
+      >
+        <Typography sx={{ textAlign: 'left', marginLeft: '30px', marginRight: '30px' }}>
+          <div style={{ fontSize: '20px', lineHeight: '28px', fontWeight: 'bold', letterSpacing: '-1px', mb: 13 }}>
+            3줄 요약
+          </div>
+          <p
+            style={{
+              fontSize: '12px',
+              color: '#767678',
+              lineHeight: '19px',
+              letterSpacing: '-0.74px',
+              marginBottom: '0px',
+            }}
+          >
+            자동 추출 기술로 요약된 내용입니다. 요약 기술의 특성상 본문의 주요 내용이 제외될 수 있어, 전체 맥락을
+            이해하기 위해서는 기사 본문 전체 보기를 권장합니다.
+          </p>
+          <hr></hr>
+          <p style={{ marginBottom: 8, fontSize: '18px', fontWeight: 'bold', lineHeight: '27px' }}>
+            [친절한 뉴스K] 열악한 외국인 비닐 숙소 여전…실태 파악 안 돼
+          </p>
+          <div style={{ fontSize: '15px', lineHeight: '25px', fontWeight: 400, letterSpacing: '-1px', mb: 4 }}>
+            이 노동자가 살던 숙소의 참혹한 여건이 공개되면서 공분이 일고 있습니다.
+            <br />
+            <br />
+            하지만 외국인 노동자들은 여전히 기본적인 주거 환경조차 보장받지 못하고 있습니다.
+            <br />
+            <br />
+            이들의 열악한 주거 환경을 개선하고 반복되는 죽음을 막기 위한 대책이 시급합니다.
+          </div>
+        </Typography>
+      </Box>
       <Typography id="modal-modal-title" variant="h5" component="h2" className={styles.title}>
         {get_title()}
       </Typography>
@@ -47,19 +95,6 @@ export default function Article() {
         <span>
           <img src={Three} alt="" onClick={handleExpandClick} />
         </span>
-      </Typography>
-      <Typography>
-        {expanded ? (
-          <div>
-            Hi
-            <br />
-            hello
-            <br />
-            안녕
-          </div>
-        ) : (
-          ''
-        )}
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
         {get_content()}
