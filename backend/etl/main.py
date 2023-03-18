@@ -155,4 +155,4 @@ scheduler.start()
 
 # 매일 0시 0분에 배치 처리 작업 예약
 # scheduler.add_job(root, "cron", hour=15, minute=48)
-scheduler.add_job(dump, "cron", hour=20, minute=0)
+scheduler.add_job(dump, "cron", hour=20, minute=50)
