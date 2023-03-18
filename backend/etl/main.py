@@ -7,9 +7,10 @@ from datetime import datetime, timedelta
 import os
 from config.db import engineconn
 from db_class import News
-
+from pytz import timezone
 app = FastAPI()
 
+tz = timezone("Asia/Seoul")
 engine = engineconn()
 session = engine.sessionmaker()
 
@@ -149,9 +150,9 @@ def dump():
     #         json.dump(item, f, ensure_ascii=False)
     #         f.write('\n')
 #배치 스케줄러
-scheduler = BackgroundScheduler()
+scheduler = BackgroundScheduler(timezone=tz)
 scheduler.start()
 
 # 매일 0시 0분에 배치 처리 작업 예약
 # scheduler.add_job(root, "cron", hour=15, minute=48)
-scheduler.add_job(dump, "cron", hour=17, minute=7)
+scheduler.add_job(dump, "cron", hour=20, minute=0)
