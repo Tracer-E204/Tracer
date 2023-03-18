@@ -8,5 +8,6 @@ WORKDIR /app
 COPY . .
 
 RUN pip install -r requirements.txt
+RUN pip install uvicorn
 
 CMD uvicorn --host=0.0.0.0 --port 8000 main:app
