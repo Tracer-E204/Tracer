@@ -1,0 +1,29 @@
+.slide-container {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+.header {
+  vertical-align: top;
+}
+.carousel {
+  background-color: red;
+}
+
+.card {
+  width: 33.3%;
+  transition: all 1s;
+  position: absolute;
+  opacity: 0.8;
+  transform: scale(0.8);
+  z-index: 998;
+  cursor: pointer;
+  user-select: none;
+  img {
+  }
+}
