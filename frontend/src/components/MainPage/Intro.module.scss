@@ -1,0 +1,17 @@
+.intro-container {
+  background-image: url(./assets/images/intro.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro-title {
+  color: white;
+}
+
+.intro-script {
+  color: white;
+}
