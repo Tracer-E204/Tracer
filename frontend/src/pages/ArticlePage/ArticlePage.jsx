@@ -1,24 +1,27 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Article from './Article';
+import React, { useState } from 'react';
+// import Test from './Test';
+import Test1 from './test1';
+import styles from './test1.module.scss';
+// 모달을 노출하는 페이지
+function Modal() {
+  // 모달창 노출 여부 state
+  const [modalOpen, setModalOpen] = useState(false);
 
-export default function BasicModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Article />
-      </Modal>
+      <button onClick={showModal}>모달 띄우기</button>
+      {modalOpen && (
+        <div className={styles.container1}>
+          <Test1 setModalOpen={setModalOpen} />
+        </div>
+      )}
     </div>
   );
 }
+
+export default Modal;

@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Three from '../../assets/images/three.png';
 import styles from './Article.module.scss';
+import FloatingBar from './FloatingBar.jsx';
+import styles1 from './FloatingBar.moudle.scss';
 
 export default function Article() {
   const article = [
@@ -35,19 +37,8 @@ export default function Article() {
   return (
     <Box className={styles['article-modal']}>
       <Box
+        className={styles.threeline}
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '80%',
-          height: '50%',
-          position: 'absolute',
-          zIndex: 1,
-          border: 1,
-          top: 180,
-          left: 137,
-          backgroundColor: 'white',
-          borderRadius: 10,
           visibility: expanded ? 'visible' : 'hidden',
         }}
       >
@@ -90,7 +81,7 @@ export default function Article() {
       </Typography>
       <Typography className={styles.metadata}>
         <span>
-          {article[0].press} | 2023.03.14 {article.time}
+          {article[0].press} | 2023.03.14 {article[0].time}
         </span>
         <span>
           <img src={Three} alt="" onClick={handleExpandClick} />
@@ -99,6 +90,7 @@ export default function Article() {
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
         {get_content()}
       </Typography>
+      <FloatingBar className={styles1['floating-bar']} />
     </Box>
   );
 }
