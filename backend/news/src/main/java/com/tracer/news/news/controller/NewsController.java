@@ -14,6 +14,6 @@ public class NewsController {
 
     @GetMapping("/")
     public ResponseEntity<Object> test(){
-        return ResponseEntity.status(HttpStatus.OK).body("hello world");
+        return ResponseEntity.status(HttpStatus.OK).body("hello tablemin");
     }
 }
