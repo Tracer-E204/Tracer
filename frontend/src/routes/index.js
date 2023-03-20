@@ -3,7 +3,7 @@ import MainLayout from 'layouts/MainLayout';
 import MainPage from 'pages/MainPage/MainPage';
 import NotFound from 'pages/NotFound/NotFound';
 import ArticlePage from 'pages/ArticlePage/ArticlePage';
-import SearchResult from 'components/SearchResultPage/SearchResult';
+import SearchResult from 'pages/SearchResultPage/SearchResult';
 
 const router = createBrowserRouter([
   {
