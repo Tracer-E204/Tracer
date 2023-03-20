@@ -1,13 +1,13 @@
-package com.tracer.keyword;
+package com.tracer.timeline;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KeywordApplication {
+public class TimelineApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KeywordApplication.class, args);
+		SpringApplication.run(TimelineApplication.class, args);
 	}
 
 }
