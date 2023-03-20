@@ -14,3 +14,4 @@ class News(Base):
     news_press = Column(VARCHAR)
     news_reporter = Column(VARCHAR)
     news_type = Column(INT)
+    news_thumbnail = Column(VARCHAR)
