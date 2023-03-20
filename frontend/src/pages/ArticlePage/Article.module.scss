@@ -10,8 +10,11 @@
   border: 2px solid #000;
   box-shadow: 24px;
   padding: 32px;
-  overflow: auto;
+  overflow-y: auto;
 
+  .article-modal::-webkit-scrollbar {
+    display: none;
+  }
   .title {
     font-size: 32px;
     font-weight: 900;
@@ -36,4 +39,19 @@
       }
     }
   }
+}
+
+.threeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 50%;
+  position: absolute;
+  z-index: 1;
+  border: 1px solid;
+  top: 180px;
+  left: 137px;
+  background-color: white;
+  border-radius: 10px;
 }
