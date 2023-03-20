@@ -39,7 +39,7 @@ export default function NewsSlide() {
     }, 5000);
 
     const getStyle = idx => {
-      const distanceLeft = idx - activeIndex;
+      const distanceLeft = activeIndex - idx;
       const distanceRight = distanceLeft > 0 ? distanceLeft - len : distanceLeft + len;
       const distance = Math.abs(distanceLeft) > Math.abs(distanceRight) ? distanceRight : distanceLeft;
 
@@ -73,6 +73,7 @@ export default function NewsSlide() {
         <div className={styles['header']}>
           <h1>Daily News</h1>
         </div>
+
         {images.map((img, idx) => (
           <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
             <img src={img} alt={`Slide ${idx}`} />
