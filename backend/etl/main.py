@@ -63,6 +63,9 @@ def root():
                     for item in items:
                         tit = item.find('strong',{'class':'tit_thumb'}).a
                         tit_press = item.find(('span',{'class':'info_news'})).get_text().split(' · ')
+                        thumbnail = ''
+                        if item.find('img'):
+                            thumbnail = item.find('img')['src']
                         content = getContent(tit['href'])
                         # 디비 뉴스 테이블에 저장될 것들
                         news = News(
@@ -73,10 +76,12 @@ def root():
                             news_dt=str(datetime.today().strftime('%Y-%m-%d')),
                             news_time=tit_press[1],
                             news_reporter=str(content[2])[0:3],
-                            news_type=t
+                            news_type=content[3],
+                            news_thumbnail=str(thumbnail)
                         )
-                        session.add(news)
-                        session.commit()
+                        print(news.news_thumbnail)
+                        # session.add(news)
+                        # session.commit()
                         # hdfs 파일에 저장될 것들
                         # hdfs.append({
                         #     'news_id':news.news_id,
@@ -131,6 +136,9 @@ def dump():
                         for item in items:
                             tit = item.find('strong', {'class': 'tit_thumb'}).a
                             tit_press = item.find(('span', {'class': 'info_news'})).get_text().split(' · ')
+                            thumbnail = ''
+                            if item.find('img'):
+                                thumbnail = item.find('img')['src']
                             content = getContent(tit['href'])
                             news = News(
                                 news_title=tit.get_text(),
@@ -140,10 +148,12 @@ def dump():
                                 news_date=str(start_date.strftime('%Y-%m-%d')),
                                 news_time=tit_press[1],
                                 news_reporter=str(content[2])[0:3],
-                                news_type=t
+                                news_type=t,
+                                news_thumbnail=str(thumbnail)
                             )
-                            session.add(news)
-                            session.commit()
+                            print(news.news_thumbnail)
+                            # session.add(news)
+                            # session.commit()
         start_date += timedelta(days=1)
     # with open('dump.json', 'w', encoding='utf-8') as f:
     #     for item in result:
@@ -155,4 +165,5 @@ scheduler.start()
 
 # 매일 0시 0분에 배치 처리 작업 예약
 # scheduler.add_job(root, "cron", hour=15, minute=48)
-scheduler.add_job(dump, "cron", hour=20, minute=50)
+scheduler.add_job(dump, "cron", hour=13, minute=22)
+dump()

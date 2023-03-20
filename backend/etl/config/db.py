@@ -6,7 +6,7 @@ app = {
     'user': 'root',
     'password': 'tracer204',
     'host': 'j8e204.p.ssafy.io',
-    'dbconn': 'tracer',
+    'dbconn': 'news',
     'port': '3306'
 }
 
