@@ -14,6 +14,7 @@
 
 .header {
   position: fixed;
+  display: flex;
   top: 0;
   width: 100%;
   z-index: 10;
@@ -21,6 +22,7 @@
   &.scroll {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
+  border-bottom: 2px solid black;
 }
 
 .nav {
@@ -51,4 +53,16 @@
 
 // 0 ~ 640
 @include breakpoint(sm) {
+}
+
+.logo-img {
+  width: 60%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+.searchbar {
+  align-items: c;
+  width: 60%;
 }
