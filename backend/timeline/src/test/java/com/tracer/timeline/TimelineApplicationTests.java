@@ -1,10 +1,10 @@
-package com.tracer.keyword;
+package com.tracer.timeline;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class KeywordApplicationTests {
+class TimelineApplicationTests {
 
 	@Test
 	void contextLoads() {
