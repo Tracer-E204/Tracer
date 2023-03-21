@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j8e204.p.ssafy.io:3308/timeline?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://j8e204.p.ssafy.io:3306/timeline?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: tracer204
   main:
