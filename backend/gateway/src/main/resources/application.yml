@@ -1,0 +1,52 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Hello Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: news-service
+          predicates:
+            - Path=/news/**
+          uri: lb://NEWS-SERVICE
+          filters:
+            - name: NewsFilter
+              args:
+                baseMessage: News Service Filter
+                preLogger: true
+                postLogger: true
+        - id: keyword-service
+          predicates:
+            - Path=/keyword/**
+          uri: lb://KEYWORD-SERVICE
+          filters:
+            - name: KeywordFilter
+              args:
+                baseMessage: Keyword Service Filter
+                preLogger: true
+                postLogger: true
+        - id: timeline-service
+          predicates:
+            - Path=/timeline/**
+          uri: lb://TIMELINE-SERVICE
+          filters:
+            - name: TimelineFilter
+              args:
+                baseMessage: Timeline Service Filter
+                preLogger: true
+                postLogger: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

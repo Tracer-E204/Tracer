@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/keyword")
 public class KeywordController {
     @GetMapping("/")
     public ResponseEntity<Object> test(){
