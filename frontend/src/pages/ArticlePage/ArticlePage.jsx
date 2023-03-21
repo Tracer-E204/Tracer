@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-// import Test from './Test';
 import Test1 from './test1';
 import styles from './test1.module.scss';
+
 // 모달을 노출하는 페이지
 function Modal() {
   // 모달창 노출 여부 state
@@ -11,7 +11,6 @@ function Modal() {
   const showModal = () => {
     setModalOpen(true);
   };
-
   return (
     <div>
       <button onClick={showModal}>모달 띄우기</button>
