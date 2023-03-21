@@ -1,4 +1,4 @@
-package com.tracer.news.news.controller;
+package com.tracer.timeline.timeline.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/")
-public class NewsController {
-
+public class TimelineController {
     @GetMapping("/")
     public ResponseEntity<Object> test(){
-        return ResponseEntity.status(HttpStatus.OK).body("hello news test");
+        return ResponseEntity.status(HttpStatus.OK).body("hello timeline");
     }
 }
