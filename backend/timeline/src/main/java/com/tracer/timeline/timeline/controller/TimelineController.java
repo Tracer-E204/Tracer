@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/timeline")
 public class TimelineController {
     @GetMapping("/")
     public ResponseEntity<Object> test(){
