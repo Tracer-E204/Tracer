@@ -1,4 +1,9 @@
+server:
+  port: 0
+
 spring:
+  application:
+    name: news
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://j8e204.p.ssafy.io:3306/news?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
