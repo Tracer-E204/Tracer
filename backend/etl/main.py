@@ -15,7 +15,7 @@ engine = engineconn()
 session = engine.sessionmaker()
 
 # 뉴스 디테일 크롤러
-def getContent(str):
+def getContent(str,press):
     result = []
     nextUrl = str
     response = requests.get(nextUrl)
@@ -26,13 +26,17 @@ def getContent(str):
         html = soup.select('div.article_view')
         reporter = soup.find('span', {'class': 'txt_info'}).get_text()
         con = soup.select('div.article_view p')
+        if press == 'KBS':
+            tags = soup.find_all('figure')
+            tag_to_remove = tags[-1]
+            tag_to_remove.extract()
         for p in con:
             ret_content += p.text
         result.insert(0, html[0])
         result.insert(1, ret_content)
         result.insert(2, reporter)
     else:
-        ret_content = 'status_code:{}'.format(status_code)
+        return
     return result
 # 매일 수행하는 뉴스 리스트 크롤러
 def root():
@@ -139,7 +143,7 @@ def dump():
                             thumbnail = ''
                             if item.find('img'):
                                 thumbnail = item.find('img')['src']
-                            content = getContent(tit['href'])
+                            content = getContent(tit['href'],tit_press[0])
                             news = News(
                                 news_title=tit.get_text(),
                                 news_source=str(content[0]),
@@ -165,5 +169,5 @@ scheduler.start()
 
 # 매일 0시 0분에 배치 처리 작업 예약
 # scheduler.add_job(root, "cron", hour=15, minute=48)
-scheduler.add_job(dump, "cron", hour=13, minute=22)
+# scheduler.add_job(dump, "cron", hour=13, minute=22)
 dump()
