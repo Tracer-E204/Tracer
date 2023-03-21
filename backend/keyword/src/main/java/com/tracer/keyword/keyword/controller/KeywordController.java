@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class KeywordController {
     @GetMapping("/")
     public ResponseEntity<Object> test(){
-        return ResponseEntity.status(HttpStatus.OK).body("hello keyword");
+        return ResponseEntity.status(HttpStatus.OK).body("hello keyword test");
     }
 }
