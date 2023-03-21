@@ -1,9 +1,10 @@
 server:
   port: 0
+  shutdown: graceful
 
 spring:
   application:
-    name: news
+    name: news-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://j8e204.p.ssafy.io:3306/news?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -28,7 +29,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
-
-# 환영 메시지를 위한 greeting
-greeting:
-  message: Welcome
