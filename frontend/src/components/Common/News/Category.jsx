@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Tabs from '@mui/joy/Tabs';
+import TabList from '@mui/joy/TabList';
+import Tab from '@mui/joy/Tab';
 import styles from './Category.module.scss';
 
 export default function Category() {
@@ -16,23 +19,37 @@ export default function Category() {
       text: 'title',
     },
   ];
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleClick = index => {
+    setActiveTab(index);
+  };
+
   return (
-    //카테고리 wrap
-    <div className={styles['category-container']}>
-      {/* map 메서드로 각 카테고리들(NavLink)을 생성 */}
-      {categories.map(c => (
-        //key에는 고유한 이름이 들어가도록 c.name을 쓴다
-        <div
-          key={categories.name}
-          //active 상태면 active 클래스를, 아니면 그없
-          className={({ isActive }) => 'nav' + (isActive ? 'active' : undefined)}
-          //NavLink의 주소!
-          //'all'이면 기본페이지로 그 외의 카테고리면 '/카테고리이름'
-          to={c.name === 'all' ? '/' : `/${c.name}`}
+    <Tabs className={styles['category']} defaultValue={1}>
+      <TabList className={styles['tablist']}>
+        <Tab
+          className={`${styles.tab} ${activeTab === 0 ? styles.active : ''}`}
+          value={1}
+          onClick={() => handleClick(0)}
         >
-          {c.text}
-        </div>
-      ))}
-    </div>
+          제목 + 내용
+        </Tab>
+        <Tab
+          className={`${styles.tab} ${activeTab === 1 ? styles.active : ''}`}
+          value={2}
+          onClick={() => handleClick(1)}
+        >
+          제목
+        </Tab>
+        <Tab
+          className={`${styles.tab} ${activeTab === 2 ? styles.active : ''}`}
+          value={3}
+          onClick={() => handleClick(2)}
+        >
+          내용
+        </Tab>
+      </TabList>
+    </Tabs>
   );
 }

@@ -1,36 +1,27 @@
-//카테고리 wrap 스타일
-.category-container {
-  display: flex;
-  padding: 1rem;
-  width: 768px;
-  margin: 0 auto;
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    overflow-x: auto;
-  }
+.category {
+  width: fit-content !important ;
 }
-//카테고리 NavLink
-.nav {
-  font-size: 1.125rem;
-  cursor: pointer;
-  white-space: pre;
-  text-decoration: none;
-  color: inherit;
-  padding-bottom: 0.25rem;
 
-  &:hover {
-    color: #495057;
-  }
-  & + & {
-    margin-left: 1rem;
-  }
-  //카테고리가 active일 경우 적용될 클래스: active
-  &.active {
-    font-weight: 600;
-    border-bottom: 2px solid #22b8cf;
-    color: #22b8cf;
-    &:hover {
-      color: #3bc9db;
-    }
-  }
+.tablist {
+  background-color: transparent !important;
+}
+
+.tab {
+  background-color: #e8e8e8 !important;
+  font-size: x-small !important;
+  font-weight: bolder !important;
+}
+
+.tab:hover {
+  background-color: black !important;
+  color: white !important;
+  font-size: x-small !important;
+  font-weight: bolder !important;
+}
+
+.active {
+  background-color: black !important;
+  color: white !important;
+  font-size: x-small !important;
+  font-weight: bolder !important;
 }

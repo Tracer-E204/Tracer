@@ -73,7 +73,6 @@ export default function NewsSlide() {
         <div className={styles['header']}>
           <h1>Daily News</h1>
         </div>
-
         {images.map((img, idx) => (
           <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
             <img src={img} alt={`Slide ${idx}`} />
