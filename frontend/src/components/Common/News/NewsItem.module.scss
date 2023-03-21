@@ -2,26 +2,29 @@
   width: 100%;
   margin: auto;
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 5px;
+  grid-template-columns: 4fr 1fr;
+  gap: 30 px;
+  padding: 2px;
+  padding-bottom: 8px;
 }
 
 .title-content {
   display: grid;
-  gap: 5px;
+  grid-template-rows: 1fr 2fr 5fr;
+  gap: 0px;
 }
 
 .title {
-  background-color: lightblue;
+  color: (rgb(61, 116, 255));
+  align-items: center;
   font-size: 17px;
   font-weight: bold;
+  padding-top: 3px;
 }
 
 .content {
-  background-color: lightcoral;
   margin: 0;
-  outline: 1px solid black;
-  color: black;
+  color: rgb(73, 73, 73);
   font-size: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -31,17 +34,23 @@
   text-align: left;
   word-wrap: break-word;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
 .thumbnail {
-  background-color: lightcyan;
-  margin-right: 1rem;
+  display: flex;
   img {
-    display: block;
+    margin: auto;
     width: 160px;
     height: 100px;
     object-fit: cover;
   }
+}
+
+.sub-info {
+  display: flex;
+  gap: 5px;
+  color: gray;
+  font-size: 3%;
 }

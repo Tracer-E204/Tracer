@@ -1,5 +1,7 @@
 .newsList {
   box-sizing: border-box;
+  display: grid;
+  gap: 5px;
   padding-bottom: 3rem;
   width: 768px;
   margin: 0 auto;
