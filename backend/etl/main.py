@@ -50,7 +50,6 @@ def root():
     }
     init_date = datetime.today()
     date = init_date.strftime("%Y%m%d")
-
     url = 'https://news.daum.net/breakingnews/{}?regDate={}&page={}'
     hmap = ['society','economic','foreign','digital']
     for t,subject in enumerate(hmap, start=0):
