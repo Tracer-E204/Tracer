@@ -16,7 +16,6 @@ public class ReqNewsSearch {
     private Integer offset;
     private Integer limit;
     private String newsPress;
-    @DateTimeFormat
     private LocalDate newsStartDt;
     private LocalDate newsEndDt;
 }
