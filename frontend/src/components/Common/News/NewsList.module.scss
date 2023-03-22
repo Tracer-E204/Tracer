@@ -5,9 +5,16 @@
   padding-bottom: 3rem;
   margin: 0 auto;
   margin-top: 2rem;
+  height: 1080px;
+  overflow: auto;
+
   @media screen and (max-width: 768px) {
     width: 100%;
     padding-left: 1rem;
     padding-right: 1rem;
   }
+}
+
+.newsList::-webkit-scrollbar {
+  display: none;
 }

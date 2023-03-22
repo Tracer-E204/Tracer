@@ -2,9 +2,12 @@
 .container {
   max-width: 120rem;
   margin: 0 auto;
-  padding: 0 $spacing-lg;
+  padding: $spacing-lg;
+  padding-left: 10rem;
+  padding-right: 10rem;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
+
   @include breakpoint(md) {
     padding: 0 $spacing-md;
   }
