@@ -128,10 +128,15 @@ public class NewsService {
                             .build()
             );
         }
+        Long totalCount = newsTitleAndNewsContentPage.getTotalElements() + newsTitlePage.getTotalElements() + newsContentPage.getTotalElements();
+        Integer totalPage = 0;
+        if(reqNewsSearch.getLimit() != null && reqNewsSearch.getLimit() != 0){
+            totalPage= totalCount%reqNewsSearch.getLimit() == 0 ? (int)(totalCount/reqNewsSearch.getLimit()) : (int)(totalCount/ reqNewsSearch.getLimit()) + 1;
+        }
 
         resNewsSearch.setList(newsList);
-        resNewsSearch.setTotalPage(newsTitleAndNewsContentPage.getTotalPages() + newsTitlePage.getTotalPages() + newsContentPage.getTotalPages());
-        resNewsSearch.setTotalCount(newsTitleAndNewsContentPage.getTotalElements() + newsTitlePage.getTotalElements() + newsContentPage.getTotalElements());
+        resNewsSearch.setTotalPage(totalPage);
+        resNewsSearch.setTotalCount(totalCount);
 
         return resNewsSearch;
     }
