@@ -87,8 +87,6 @@ def root():
                             news_type=content[3],
                             news_thumbnail=str(thumbnail)
                         )
-                        print(news.news_title)
-                        print(news.news_reporter)
                         # session.add(news)
                         # session.commit()
                         # hdfs 파일에 저장될 것들
