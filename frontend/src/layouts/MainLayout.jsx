@@ -1,4 +1,3 @@
-import Footer from 'components/Common/Footer/Footer';
 import { Outlet } from 'react-router-dom';
 import Container from 'containers/Container';
 import { ToastContainer } from 'react-toastify';
@@ -14,7 +13,6 @@ const MainLayout = () => {
           <Outlet />
         </Container>
       </main>
-      <Footer />
       <ToastContainer position="bottom-center" limit={2} closeButton={false} autoClose={2000} hideProgressBar />
     </div>
   );
