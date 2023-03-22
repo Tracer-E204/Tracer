@@ -27,14 +27,18 @@ def getContent(str,press):
         reporter = soup.find('span', {'class': 'txt_info'}).get_text()
         con = soup.select('div.article_view p')
         if press == 'KBS':
-            tags = soup.find_all('figure')
-            tag_to_remove = tags[-1]
-            tag_to_remove.extract()
+            if soup.find_all('figure'):
+                tags = soup.find_all('figure')
+                tag_to_remove = tags[-1]
+                tag_to_remove.extract()
         for p in con:
             ret_content += p.text
         result.insert(0, html[0])
         result.insert(1, ret_content)
-        result.insert(2, reporter)
+        if reporter[-1].isdigit():
+            result.insert(2, "")
+        else:
+            result.insert(2, reporter)
     else:
         return
     return result
@@ -83,7 +87,8 @@ def root():
                             news_type=content[3],
                             news_thumbnail=str(thumbnail)
                         )
-                        print(news.news_thumbnail)
+                        print(news.news_title)
+                        print(news.news_reporter)
                         # session.add(news)
                         # session.commit()
                         # hdfs 파일에 저장될 것들
@@ -110,9 +115,9 @@ def dump():
     url = 'https://news.daum.net/breakingnews/{}?regDate={}&page={}'
 
     result = []
-    hmap = ['society', 'economic', 'foreign', 'digital']
-    start = "2022-02-07"
-    last = "2023-03-17"
+    hmap = ['society', 'economic', 'foreign', 'digital', 'culture']
+    start = "2023-01-02"
+    last = "2023-03-22"
     start_date = datetime.strptime(start, "%Y-%m-%d")
     last_date = datetime.strptime(last, "%Y-%m-%d")
     while start_date <= last_date:
@@ -151,13 +156,13 @@ def dump():
                                 news_press=tit_press[0],
                                 news_date=str(start_date.strftime('%Y-%m-%d')),
                                 news_time=tit_press[1],
-                                news_reporter=str(content[2])[0:3],
+                                news_reporter=str(content[2]),
                                 news_type=t,
                                 news_thumbnail=str(thumbnail)
                             )
-                            print(news.news_thumbnail)
-                            # session.add(news)
-                            # session.commit()
+
+                            session.add(news)
+                            session.commit()
         start_date += timedelta(days=1)
     # with open('dump.json', 'w', encoding='utf-8') as f:
     #     for item in result:
