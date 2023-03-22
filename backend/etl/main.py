@@ -116,7 +116,7 @@ def dump():
 
     result = []
     hmap = ['society', 'economic', 'foreign', 'digital', 'culture']
-    start = "2023-01-02"
+    start = "2023-01-01"
     last = "2023-03-22"
     start_date = datetime.strptime(start, "%Y-%m-%d")
     last_date = datetime.strptime(last, "%Y-%m-%d")
@@ -160,7 +160,6 @@ def dump():
                                 news_type=t,
                                 news_thumbnail=str(thumbnail)
                             )
-
                             session.add(news)
                             session.commit()
         start_date += timedelta(days=1)
