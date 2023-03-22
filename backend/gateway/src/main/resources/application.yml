@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: apigateway-service
+    name: local-apigateway-service
   cloud:
     gateway:
       default-filters:
@@ -13,30 +13,30 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: news-service
+        - id: local-news-service
           predicates:
             - Path=/news/**
-          uri: lb://NEWS-SERVICE
+          uri: lb://LOCAL-NEWS-SERVICE
           filters:
             - name: NewsFilter
               args:
                 baseMessage: News Service Filter
                 preLogger: true
                 postLogger: true
-        - id: keyword-service
+        - id: local-keyword-service
           predicates:
             - Path=/keyword/**
-          uri: lb://KEYWORD-SERVICE
+          uri: lb://LOCAL-KEYWORD-SERVICE
           filters:
             - name: KeywordFilter
               args:
                 baseMessage: Keyword Service Filter
                 preLogger: true
                 postLogger: true
-        - id: timeline-service
+        - id: local-timeline-service
           predicates:
             - Path=/timeline/**
-          uri: lb://TIMELINE-SERVICE
+          uri: lb://LOCAL-TIMELINE-SERVICE
           filters:
             - name: TimelineFilter
               args:
@@ -49,4 +49,4 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://j8e204.p.ssafy.io:8761/eureka
