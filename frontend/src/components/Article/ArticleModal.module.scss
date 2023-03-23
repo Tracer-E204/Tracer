@@ -1,12 +1,12 @@
 .modal__content {
   position: relative;
-  top: 8%;
+  top: 15%;
   left: 0;
   width: 50%;
   height: fit-content;
   min-height: 90%;
   margin: 0 auto;
-  margin-bottom: 8%;
+  margin-bottom: 12%;
   border-radius: 10px;
   background: #fff;
   padding: 1em 2em;
@@ -24,9 +24,12 @@
   /* 모달창 크기 */
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
+  bottom: 0;
   right: 0;
+  z-index: 50;
   background: rgba(77, 77, 77, 0.7);
   transition: all 2s;
   overflow-y: auto;

@@ -23,7 +23,7 @@ export default function NewsList() {
   // console.log(data);
 
   return (
-    <div className={styles['newsList']}>
+    <div className={styles.newsList}>
       {/* <Category />
       {data.map(n => (
         <NewsItem key={n.news_reporter} article={n} />
