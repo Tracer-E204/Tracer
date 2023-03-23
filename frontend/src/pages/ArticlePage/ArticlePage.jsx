@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Test1 from './test1';
-import styles from './test1.module.scss';
-import styles1 from './ArticlePage.module.scss';
+import Test1 from '../../components/Article/ArticleModal';
+import styles from '../../components/Article/ArticleModal.module.scss';
 
 // 모달을 노출하는 페이지
 function Modal() {
@@ -13,8 +12,9 @@ function Modal() {
     setModalOpen(true);
   };
   return (
-    <div className={styles1.main}>
+    <div>
       <button onClick={showModal}>모달 띄우기</button>
+      <div style={{ height: '1500px' }}>hihihi</div>
       {modalOpen && (
         <div className={styles.container1}>
           <Test1 setModalOpen={setModalOpen} />

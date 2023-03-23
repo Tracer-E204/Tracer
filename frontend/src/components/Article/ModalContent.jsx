@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Three from '../../assets/images/three.png';
-import styles from './Article.module.scss';
-import test from './test.json';
+import styles from './ModalContent.module.scss';
 
 export default function Test2() {
   const article = [
@@ -91,7 +90,7 @@ export default function Test2() {
           {article[0].news_press} | {article[0].news_date} {article[0].news_time}
         </span>
         <span>
-          <img src={Three} alt="" onClick={handleExpandClick} />
+          <img className={styles.three} src={Three} alt="" onClick={handleExpandClick} />
         </span>
       </div>
       <div className={styles.description}>

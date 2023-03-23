@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Xbutton from '../../assets/images/Xbutton.png';
-import styles from './test1.module.scss';
-import Test2 from './test2';
+import styles from './ArticleModal.module.scss';
+import Test2 from './ModalContent';
 import FloatingBar from './FloatingBar.jsx';
 import styles1 from './FloatingBar.moudle.scss';
 
