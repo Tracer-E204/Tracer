@@ -10,7 +10,7 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins: "*"
-            allow-credentials: true
+            allow-credentials: false
             allowedHeaders:
               - x-requested-with
               - authorization
