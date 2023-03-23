@@ -1,6 +1,7 @@
 package com.tracer.news.news.vo;
 
-import com.tracer.news.news.dto.NewsList;
+import com.tracer.news.news.dto.CountPerPressDto;
+import com.tracer.news.news.dto.NewsListDto;
 import lombok.*;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public class ResNewsSearch {
     private Long totalCount;
     private Integer totalPage;
 
-    private List<NewsList> list;
+    private List<NewsListDto> list;
 }

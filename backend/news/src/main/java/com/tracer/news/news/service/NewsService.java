@@ -1,7 +1,9 @@
 package com.tracer.news.news.service;
 
-import com.tracer.news.news.dto.NewsList;
+import com.tracer.news.news.dto.CountPerPressDto;
+import com.tracer.news.news.dto.NewsListDto;
 import com.tracer.news.news.entity.News;
+import com.tracer.news.news.mapping.NewsPressMapping;
 import com.tracer.news.news.repository.NewsRepository;
 import com.tracer.news.news.vo.ReqNewsSearch;
 import com.tracer.news.news.vo.ResNewsSearch;
@@ -15,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,50 +36,36 @@ public class NewsService {
         sb.append("%");
         sb.append(reqNewsSearch.getWord());
         sb.append("%");
-        PageRequest pageRequest =PageRequest.of(reqNewsSearch.getOffset(), reqNewsSearch.getLimit(), Sort.by("newsDate","newsTime").descending());
+//        PageRequest pageRequest =PageRequest.of(reqNewsSearch.getOffset(), reqNewsSearch.getLimit(), Sort.by("newsDate","newsTime").descending());
+        Sort sort = Sort.by(
+                Sort.Order.desc("newsDate"),
+                Sort.Order.desc("newsTime")
+        );
+        List<News> newsTitleAndNewsContentPage = null;
+        List<News> newsTitlePage = null;
+        List<News> newsContentPage = null;
 
-        Page<News> newsTitleAndNewsContentPage = null;
-        Page<News> newsTitlePage = null;
-        Page<News> newsContentPage = null;
-
-        if(reqNewsSearch.getNewsPress() == null && reqNewsSearch.getNewsStartDt() == null && reqNewsSearch.getNewsEndDt() == null){
+        if(reqNewsSearch.getNewsStartDt() == null && reqNewsSearch.getNewsEndDt() == null){
             newsTitleAndNewsContentPage =
-                    newsRepository.findByNewTitleLikeAndNewsContentLike(sb.toString(), sb.toString(), pageRequest);
+                    newsRepository.findByNewTitleLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
             newsTitlePage =
-                    newsRepository.findByNewTitleLikeAndNewsContentNotLike(sb.toString(), sb.toString(), pageRequest);
+                    newsRepository.findByNewTitleLikeAndNewsContentNotLike(sb.toString(), sb.toString(), sort);
             newsContentPage =
-                    newsRepository.findByNewTitleNotLikeAndNewsContentLike(sb.toString(), sb.toString(), pageRequest);
-        }else if(reqNewsSearch.getNewsPress() != null && reqNewsSearch.getNewsStartDt() == null && reqNewsSearch.getNewsEndDt() == null){
+                    newsRepository.findByNewTitleNotLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
+        }else if(reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
             newsTitleAndNewsContentPage =
-                    newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsPressEquals(sb.toString(), sb.toString(), reqNewsSearch.getNewsPress(), pageRequest);
+                    newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
             newsTitlePage =
-                    newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsPressEquals(sb.toString(), sb.toString(), reqNewsSearch.getNewsPress(), pageRequest);
+                    newsRepository.findByNewTitleLikeAndNewsContentNotLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
             newsContentPage =
-                    newsRepository.findByNewTitleLikeAndNewsContentNotLikeAndNewsPressEquals(sb.toString(), sb.toString(), reqNewsSearch.getNewsPress(), pageRequest);
-        }else if(reqNewsSearch.getNewsPress() == null && reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
-            newsTitleAndNewsContentPage =
-                    newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), pageRequest);
-            newsTitlePage =
-                    newsRepository.findByNewTitleLikeAndNewsContentNotLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), pageRequest);
-            newsContentPage =
-                    newsRepository.findByNewTitleNotLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), pageRequest);
-        }else if(reqNewsSearch.getNewsPress() != null && reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
-            newsTitleAndNewsContentPage =
-                    newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsPressEqualsAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsPress(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), pageRequest);
-            newsTitlePage =
-                    newsRepository.findByNewTitleLikeAndNewsContentNotLikeAndNewsPressEqualsAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsPress(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), pageRequest);
-            newsContentPage =
-                    newsRepository.findByNewTitleNotLikeAndNewsContentLikeAndNewsPressEqualsAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsPress(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), pageRequest);
+                    newsRepository.findByNewTitleNotLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
         }
 
-
-
-
-        List<NewsList> newsList = new ArrayList<>();
+        List<NewsListDto> newsList = new ArrayList<>();
         for (News n:
-                newsTitleAndNewsContentPage.toList()) {
+                newsTitleAndNewsContentPage) {
             newsList.add(
-                    NewsList.builder()
+                    NewsListDto.builder()
                             .newsId(n.getNewsId())
                             .newsTitle(n.getNewTitle())
                             .newsContent(n.getNewsContent())
@@ -92,9 +82,9 @@ public class NewsService {
         }
 
         for (News n:
-                newsTitlePage.toList()) {
+                newsTitlePage) {
             newsList.add(
-                    NewsList.builder()
+                    NewsListDto.builder()
                             .newsId(n.getNewsId())
                             .newsTitle(n.getNewTitle())
                             .newsContent(n.getNewsContent())
@@ -111,9 +101,9 @@ public class NewsService {
         }
 
         for (News n:
-                newsContentPage.toList()) {
+                newsContentPage) {
             newsList.add(
-                    NewsList.builder()
+                    NewsListDto.builder()
                             .newsId(n.getNewsId())
                             .newsTitle(n.getNewTitle())
                             .newsContent(n.getNewsContent())
@@ -128,16 +118,141 @@ public class NewsService {
                             .build()
             );
         }
-        Long totalCount = newsTitleAndNewsContentPage.getTotalElements() + newsTitlePage.getTotalElements() + newsContentPage.getTotalElements();
+        List<NewsPressMapping> pressList = newsRepository.findDistinctBy();
+
+        List<CountPerPressDto> countPerPressList = pressList.stream()
+                .map(p -> new CountPerPressDto(p.getNewsPress(), newsList.stream().filter(n -> n.getNewsPress().equals(p.getNewsPress())).count()))
+                .sorted(Comparator.comparing(CountPerPressDto::getCount).reversed())
+                .collect(Collectors.toList());
+
+        List<NewsListDto> list = null;
+        Long totalCount = 0L;
+        if(reqNewsSearch.getNewsPressList() != null){
+            List<String> press = reqNewsSearch.getNewsPressList().stream().map(p -> p.getNewsPress()).collect(Collectors.toList());
+            totalCount = newsList.stream().filter(n -> press.contains(n.getNewsPress())).count();
+            list = newsList.stream()
+                    .filter(n -> press.contains(n.getNewsPress()))
+                    .limit(reqNewsSearch.getLimit())
+                    .skip(reqNewsSearch.getOffset() * reqNewsSearch.getLimit())
+                    .collect(Collectors.toList());
+        }else{
+            totalCount = newsList.stream().count();
+            list = newsList.stream()
+                    .limit(reqNewsSearch.getLimit())
+                    .skip(reqNewsSearch.getOffset() * reqNewsSearch.getLimit())
+                    .collect(Collectors.toList());
+        }
+
+
         Integer totalPage = 0;
         if(reqNewsSearch.getLimit() != null && reqNewsSearch.getLimit() != 0){
-            totalPage= totalCount%reqNewsSearch.getLimit() == 0 ? (int)(totalCount/reqNewsSearch.getLimit()) : (int)(totalCount/ reqNewsSearch.getLimit()) + 1;
+            totalPage = totalCount%reqNewsSearch.getLimit() == 0 ? (int)(totalCount/reqNewsSearch.getLimit()) : (int)(totalCount/ reqNewsSearch.getLimit()) + 1;
         }
 
-        resNewsSearch.setList(newsList);
+        resNewsSearch.setList(list);
         resNewsSearch.setTotalPage(totalPage);
         resNewsSearch.setTotalCount(totalCount);
 
         return resNewsSearch;
+    }
+
+    @Transactional
+    public List<CountPerPressDto> newsCount(ReqNewsSearch reqNewsSearch) {
+        ResNewsSearch resNewsSearch = new ResNewsSearch();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(reqNewsSearch.getWord());
+        sb.append("%");
+//        PageRequest pageRequest =PageRequest.of(reqNewsSearch.getOffset(), reqNewsSearch.getLimit(), Sort.by("newsDate","newsTime").descending());
+        Sort sort = Sort.by(
+                Sort.Order.desc("newsDate"),
+                Sort.Order.desc("newsTime")
+        );
+        List<News> newsTitleAndNewsContentPage = null;
+        List<News> newsTitlePage = null;
+        List<News> newsContentPage = null;
+
+        if(reqNewsSearch.getNewsStartDt() == null && reqNewsSearch.getNewsEndDt() == null){
+            newsTitleAndNewsContentPage =
+                    newsRepository.findByNewTitleLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
+            newsTitlePage =
+                    newsRepository.findByNewTitleLikeAndNewsContentNotLike(sb.toString(), sb.toString(), sort);
+            newsContentPage =
+                    newsRepository.findByNewTitleNotLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
+        }else if(reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
+            newsTitleAndNewsContentPage =
+                    newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
+            newsTitlePage =
+                    newsRepository.findByNewTitleLikeAndNewsContentNotLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
+            newsContentPage =
+                    newsRepository.findByNewTitleNotLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
+        }
+
+        List<NewsListDto> newsList = new ArrayList<>();
+        for (News n:
+                newsTitleAndNewsContentPage) {
+            newsList.add(
+                    NewsListDto.builder()
+                            .newsId(n.getNewsId())
+                            .newsTitle(n.getNewTitle())
+                            .newsContent(n.getNewsContent())
+                            .newsSource(n.getNewsSource())
+                            .newsReporter(n.getNewsReporter())
+                            .newsPress(n.getNewsPress())
+                            .newsThumbnail(n.getNewsThumbnail())
+                            .newsDate(n.getNewsDate())
+                            .newsTime(n.getNewsTime())
+                            .newsType(n.getNewsType().name())
+                            .newsTypeCode(n.getNewsType().getCode())
+                            .build()
+            );
+        }
+
+        for (News n:
+                newsTitlePage) {
+            newsList.add(
+                    NewsListDto.builder()
+                            .newsId(n.getNewsId())
+                            .newsTitle(n.getNewTitle())
+                            .newsContent(n.getNewsContent())
+                            .newsSource(n.getNewsSource())
+                            .newsReporter(n.getNewsReporter())
+                            .newsPress(n.getNewsPress())
+                            .newsThumbnail(n.getNewsThumbnail())
+                            .newsDate(n.getNewsDate())
+                            .newsTime(n.getNewsTime())
+                            .newsType(n.getNewsType().name())
+                            .newsTypeCode(n.getNewsType().getCode())
+                            .build()
+            );
+        }
+
+        for (News n:
+                newsContentPage) {
+            newsList.add(
+                    NewsListDto.builder()
+                            .newsId(n.getNewsId())
+                            .newsTitle(n.getNewTitle())
+                            .newsContent(n.getNewsContent())
+                            .newsSource(n.getNewsSource())
+                            .newsReporter(n.getNewsReporter())
+                            .newsPress(n.getNewsPress())
+                            .newsThumbnail(n.getNewsThumbnail())
+                            .newsDate(n.getNewsDate())
+                            .newsTime(n.getNewsTime())
+                            .newsType(n.getNewsType().name())
+                            .newsTypeCode(n.getNewsType().getCode())
+                            .build()
+            );
+        }
+        List<NewsPressMapping> pressList = newsRepository.findDistinctBy();
+
+        List<CountPerPressDto> countPerPressList = pressList.stream()
+                .map(p -> new CountPerPressDto(p.getNewsPress(), newsList.stream().filter(n -> n.getNewsPress().equals(p.getNewsPress())).count()))
+                .sorted(Comparator.comparing(CountPerPressDto::getCount).reversed())
+                .collect(Collectors.toList());
+
+        return countPerPressList;
     }
 }
