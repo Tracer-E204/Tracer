@@ -4,6 +4,10 @@ import MainPage from 'pages/MainPage/MainPage';
 import NotFound from 'pages/NotFound/NotFound';
 import ArticlePage from 'pages/ArticlePage/ArticlePage';
 import SearchResult from 'pages/SearchResultPage/SearchResult';
+import LoginLayout from 'layouts/LoginLayout';
+import Login from 'pages/Login/Login';
+import KakaoLogin from 'pages/Login/SNSLogin/Kakao/KakaoLogin';
+import GoogleLogin from 'pages/Login/SNSLogin/Google/GoogleLogin';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +22,16 @@ const router = createBrowserRouter([
   {
     path: '/',
     children: [{ index: true, path: '/', element: <MainPage /> }],
+  },
+  {
+    path: '/login',
+    element: <LoginLayout />,
+    errorElement: <giNotFound />,
+    children: [
+      { index: true, element: <Login /> },
+      { path: 'kakao', element: <KakaoLogin /> },
+      { path: 'google', element: <GoogleLogin /> },
+    ],
   },
 ]);
 

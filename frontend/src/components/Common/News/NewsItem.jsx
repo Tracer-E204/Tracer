@@ -8,11 +8,11 @@ export default function NewsItem({ article }) {
     <div className={styles['itemcontainer']}>
       <div className={styles['title-content']}>
         <div className={styles['sub-info']}>
-          <div className={styles['press']}>{article.news_press}</div>
+          <div className={styles['press']}>{article.newsPress}</div>
           <div classname={styles['time']}>1일 전</div>
         </div>
-        <div className={styles['title']}>{article.news_title}</div>
-        <div className={styles['content']}>{article.news_content}</div>
+        <div className={styles['title']}>{article.newsTitle}</div>
+        <div className={styles['content']}>{article.newsContent}</div>
       </div>
       <div className={styles['thumbnail']}>
         <img src={article.news_thumbnail} alt="thumb" />
