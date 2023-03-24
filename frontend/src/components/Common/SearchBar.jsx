@@ -17,17 +17,16 @@ export default function SearchBar() {
     setText(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async e => {
+    e.preventDefault();
     try {
-      console.log('시도');
-      const response = axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
+      const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
         word: '러시아',
         limit: 5,
         offset: 0,
       });
-      console.log('신청 굳');
       setResult(response.data);
-      navigate(`/searchresult`, { state: response.data });
+      navigate(`/searchresult`, { state: { result: response.data } });
     } catch (error) {
       console.error('Error sending POST request:', error);
     }
