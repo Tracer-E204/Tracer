@@ -20,6 +20,7 @@
   font-size: 17px;
   font-weight: bold;
   padding-top: 3px;
+  cursor: pointer;
 }
 
 .content {
@@ -36,6 +37,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
+  cursor: pointer;
 }
 
 .thumbnail {
@@ -45,6 +47,7 @@
     width: 160px;
     height: 100px;
     object-fit: cover;
+    cursor: pointer;
   }
 }
 
