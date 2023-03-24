@@ -21,7 +21,7 @@
 - 중간 발표 PPT
 - 포트
 - 아키텍처
-- 사용 알고리즘
+- 분석 과정
 
 ### 자료 제출 및 링크
 
@@ -64,3 +64,6 @@
   - ![image](https://user-images.githubusercontent.com/109326214/227414443-30cc9454-1069-4221-a9fa-bdde4de51fa9.png)
 - 아키텍처
   - ![아키텍처](https://user-images.githubusercontent.com/109326214/227414337-02fdbde0-3ec8-4b3b-9b97-dcca37ed210e.png)
+
+- 분석과정
+  - ![Image Pasted at 2023-3-24 12-13](https://user-images.githubusercontent.com/109326214/227415134-4af1301e-128a-4130-827e-fbd3a9ea697c.png)
