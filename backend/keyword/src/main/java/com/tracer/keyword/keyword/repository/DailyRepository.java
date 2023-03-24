@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface DailyRepository extends JpaRepository<Daily, Long> {
     List<Daily>findByDailyDateGreaterThanEqual(LocalDate dailyDate);
+
+    List<Daily>findByDailyDateBetween(LocalDate startDate, LocalDate endDate);
 }
