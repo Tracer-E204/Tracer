@@ -8,11 +8,11 @@
   position: relative;
   overflow-y: auto;
 
-  @include breakpoint(md) {
-    padding: 0 $spacing-md;
-  }
+  // @include breakpoint(md) {
+  //   padding: 0 $spacing-md;
+  // }
 
-  @include breakpoint(sm) {
-    padding: 0 $spacing-sm;
-  }
+  // @include breakpoint(sm) {
+  //   padding: 0 $spacing-sm;
+  // }
 }
