@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import Xbutton from '../../assets/images/Xbutton.png';
 import styles from './ArticleModal.module.scss';
-import Test2 from './ModalContent';
+import ModalContent from './ModalContent';
 import FloatingBar from './FloatingBar.jsx';
 import styles1 from './FloatingBar.moudle.scss';
 
-function Test1({ setModalOpen }) {
+function ArticleModal({ article, setModalOpen }) {
   // 모달 외부 클릭시 끄기 처리
   const modalRef = useRef();
 
@@ -40,9 +40,9 @@ function Test1({ setModalOpen }) {
         width="15px"
         style={{ position: 'absolute', right: '2.5%', zIndex: 10000, cursor: 'pointer' }}
       ></img>
-      <Test2 />
+      <ModalContent article={article} />
       <FloatingBar className={styles1['floating-bar']} />
     </div>
   );
 }
-export default Test1;
+export default ArticleModal;
