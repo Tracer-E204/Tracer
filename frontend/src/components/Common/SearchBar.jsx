@@ -21,7 +21,7 @@ export default function SearchBar() {
     e.preventDefault();
     try {
       const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
-        word: '러시아',
+        word: text,
         limit: 5,
         offset: 0,
       });
