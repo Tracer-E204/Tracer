@@ -1,15 +1,14 @@
 .newsList {
-  box-sizing: border-box;
   display: grid;
-  gap: 5px;
+  gap: 0px;
   padding-bottom: 3rem;
   margin: 0 auto;
-  margin-top: 2rem;
-  height: 1080px;
   overflow: auto;
   width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
+  // height: 970px;
+  // width: 850px;
 }
 
 .newsList::-webkit-scrollbar {

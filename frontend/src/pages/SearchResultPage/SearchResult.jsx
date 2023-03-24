@@ -7,6 +7,7 @@ import Filter from 'components/Common/News/Filter';
 export default function SearchResult() {
   const location = useLocation();
   const { result } = location.state;
+  window.scrollTo(0, 0);
   return (
     <div className={styles.searchresult}>
       <Filter />
