@@ -1,13 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import NewsList from 'components/Common/News/NewsList';
 import styles from './SearchResult.module.scss';
 import Filter from 'components/Common/News/Filter';
 
 export default function SearchResult() {
+  const location = useLocation();
+  const { result } = location.state;
   return (
-    <div className={styles['searchresult']}>
+    <div className={styles.searchresult}>
       <Filter />
-      <NewsList />
+      <NewsList result={result} />
     </div>
   );
 }
