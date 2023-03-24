@@ -1,3 +1,5 @@
+
+=======
 # E204_ReadMe
 
 ### 개요
@@ -6,23 +8,20 @@
 
 - 팀명 : 한의원 (E204)
 
-- 팀원 : 엄형규, 이승민, 이영재, 이재혁, 정경훈, 최창근
+- 팀원 : 엄형규(BE), 이승민(FE), 이영재(BE), 이재혁(BE), 정경훈(BE), 최창근(팀장, FE)
 
 #### 목차
 
 - 아이디어 브레인스토밍
-
 - 프로젝트 기획서
-
 - 기능 명세 및 우선순위
-
 - API 연동 규격서 (진행 중)
-
 - 간트차트 (진행 중)
-
 - ERD
-
 - 중간 발표 PPT
+- 포트
+- 아키텍처
+- 사용 알고리즘
 
 ### 자료 제출 및 링크
 
@@ -44,7 +43,7 @@
 
 - ERD
   
-  - ![E204_ERD](/uploads/8945800ca57974076c4ffdacbf8eb66e/E204_ERD.png)
+  - ![Image Pasted at 2023-3-23 15-33](https://user-images.githubusercontent.com/109326214/227414267-035a14e0-73cd-4d20-8710-d506dff81599.png)
 
 - 간트차트 (진행 중)
   
@@ -59,3 +58,9 @@
   - https://www.figma.com/file/uUDdHXoiwxVG0hc7D2ACcJ/Tracer?node-id=0%3A1&t=HfDK5yXH08jBljAt-1
   
   - ![E204_figma](/uploads/d79995095b462c8ba79fefdd34d8f542/E204_figma.png)
+
+- 포트
+  - https://colossal-whip-d19.notion.site/e3331c79904649da999b6402fb336d6f
+  - ![image](https://user-images.githubusercontent.com/109326214/227414443-30cc9454-1069-4221-a9fa-bdde4de51fa9.png)
+- 아키텍처
+  - ![아키텍처](https://user-images.githubusercontent.com/109326214/227414337-02fdbde0-3ec8-4b3b-9b97-dcca37ed210e.png)
