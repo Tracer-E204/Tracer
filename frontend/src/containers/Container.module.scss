@@ -2,14 +2,17 @@
 .container {
   max-width: 120rem;
   margin: 0 auto;
-  padding: 0 $spacing-lg;
+  padding: 5rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
   position: relative;
-  overflow: hidden;
-  @include breakpoint(md) {
-    padding: 0 $spacing-md;
-  }
+  overflow-y: auto;
 
-  @include breakpoint(sm) {
-    padding: 0 $spacing-sm;
-  }
+  // @include breakpoint(md) {
+  //   padding: 0 $spacing-md;
+  // }
+
+  // @include breakpoint(sm) {
+  //   padding: 0 $spacing-sm;
+  // }
 }

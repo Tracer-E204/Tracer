@@ -39,7 +39,7 @@ export default function NewsSlide() {
     }, 5000);
 
     const getStyle = idx => {
-      const distanceLeft = idx - activeIndex;
+      const distanceLeft = activeIndex - idx;
       const distanceRight = distanceLeft > 0 ? distanceLeft - len : distanceLeft + len;
       const distance = Math.abs(distanceLeft) > Math.abs(distanceRight) ? distanceRight : distanceLeft;
 
