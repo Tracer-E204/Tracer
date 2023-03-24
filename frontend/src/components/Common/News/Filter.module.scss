@@ -1,0 +1,41 @@
+.filter-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .tag {
+    padding-left: 10px;
+  }
+}
+
+.searchfilter {
+  border: 2px solid #e8e8e8;
+  padding: 5px;
+  height: fit-content;
+}
+
+.pe-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8e8e8;
+
+  .title {
+    font-weight: bolder;
+  }
+
+  .plus {
+    font-weight: bolder;
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.period-list {
+  background-color: #fafbfc;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8e8e8;
+}

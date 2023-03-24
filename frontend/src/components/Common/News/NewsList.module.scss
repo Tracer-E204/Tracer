@@ -1,0 +1,16 @@
+.newsList {
+  display: grid;
+  gap: 0px;
+  padding-bottom: 3rem;
+  margin: 0 auto;
+  overflow: auto;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  // height: 970px;
+  // width: 850px;
+}
+
+.newsList::-webkit-scrollbar {
+  display: none;
+}
