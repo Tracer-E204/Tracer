@@ -2,6 +2,7 @@ package com.tracer.keyword.keyword.service;
 
 import com.tracer.keyword.keyword.entity.Daily;
 import com.tracer.keyword.keyword.repository.DailyRepository;
+import com.tracer.keyword.keyword.vo.ReqDailyKeyword;
 import com.tracer.keyword.keyword.vo.ResDailyKeyword;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -44,6 +45,34 @@ public class DailyService {
                    }else{
                        map.put(d.getKeyword().getKeyword(), count + d.getCount());
                    }
+                });
+
+        map.forEach((keyword, count) -> {
+            list.add(
+                    ResDailyKeyword.builder()
+                            .keyword(keyword)
+                            .count(count)
+                            .build()
+            );
+        });
+
+        return list;
+    }
+
+    @Transactional
+    public List<ResDailyKeyword> dailySelectKeyword(ReqDailyKeyword reqDailyKeyword){
+        List<ResDailyKeyword> list = new ArrayList<>();
+        List<Daily> dailies = dailyRepository.findByDailyDateBetween(reqDailyKeyword.getStartDate(), reqDailyKeyword.getEndDate());
+
+        Map<String, Integer> map = new HashMap<>();
+        dailies.stream()
+                .forEach(d -> {
+                    Integer count = map.get(d.getKeyword().getKeyword());
+                    if(count == null){
+                        map.put(d.getKeyword().getKeyword(), d.getCount());
+                    }else{
+                        map.put(d.getKeyword().getKeyword(), count + d.getCount());
+                    }
                 });
 
         map.forEach((keyword, count) -> {
