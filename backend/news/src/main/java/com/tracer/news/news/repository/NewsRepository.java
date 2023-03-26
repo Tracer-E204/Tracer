@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -15,9 +16,27 @@ import java.util.List;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
     /** no filter **/
-    List<News> findByNewTitleLikeAndNewsContentNotLike(String word1, String word2, Sort sort);
-    List<News> findByNewTitleNotLikeAndNewsContentLike(String word1, String word2, Sort sort);
-    List<News> findByNewTitleLikeAndNewsContentLike(String word1, String word2, Sort sort);
+    @Query(nativeQuery = true,
+    value = "select * from news" +
+            " where match(news_title) against(? in boolean mode)" +
+            " and not match(news_content) against(? in boolean mode)" +
+            " order by news_date desc," +
+            " news_time desc")
+    List<News> findByNewTitleLikeAndNewsContentNotLike(String word1, String word2);
+    @Query(nativeQuery = true,
+            value = "select * from news" +
+                    " where not match(news_title) against(? in boolean mode)" +
+                    " and match(news_content) against(? in boolean mode)" +
+                    " order by news_date desc," +
+                    " news_time desc")
+    List<News> findByNewTitleNotLikeAndNewsContentLike(String word1, String word2);
+    @Query(nativeQuery = true,
+            value = "select * from news" +
+                    " where match(news_title) against(? in boolean mode)" +
+                    " and match(news_content) against(? in boolean mode)" +
+                    " order by news_date desc," +
+                    " news_time desc")
+    List<News> findByNewTitleLikeAndNewsContentLike(String word1, String word2);
 
     /** 신문사 필터 **/
     List<News> findByNewTitleLikeAndNewsContentNotLikeAndNewsPressIn(String word1, String word2, List<String> press, Sort sort);
