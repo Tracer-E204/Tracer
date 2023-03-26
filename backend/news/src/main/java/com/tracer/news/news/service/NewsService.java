@@ -33,9 +33,7 @@ public class NewsService {
         ResNewsSearch resNewsSearch = new ResNewsSearch();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("%");
-        sb.append(reqNewsSearch.getWord());
-        sb.append("%");
+
 //        PageRequest pageRequest =PageRequest.of(reqNewsSearch.getOffset(), reqNewsSearch.getLimit(), Sort.by("newsDate","newsTime").descending());
         Sort sort = Sort.by(
                 Sort.Order.desc("newsDate"),
@@ -46,13 +44,19 @@ public class NewsService {
         List<News> newsContentPage = null;
 
         if(reqNewsSearch.getNewsStartDt() == null && reqNewsSearch.getNewsEndDt() == null){
+            sb.append("+");
+            sb.append(reqNewsSearch.getWord());
+            sb.append("*");
             newsTitleAndNewsContentPage =
-                    newsRepository.findByNewTitleLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
+                    newsRepository.findByNewTitleLikeAndNewsContentLike(sb.toString(), sb.toString());
             newsTitlePage =
-                    newsRepository.findByNewTitleLikeAndNewsContentNotLike(sb.toString(), sb.toString(), sort);
+                    newsRepository.findByNewTitleLikeAndNewsContentNotLike(sb.toString(), sb.toString());
             newsContentPage =
-                    newsRepository.findByNewTitleNotLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
+                    newsRepository.findByNewTitleNotLikeAndNewsContentLike(sb.toString(), sb.toString());
         }else if(reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
+            sb.append("%");
+            sb.append(reqNewsSearch.getWord());
+            sb.append("%");
             newsTitleAndNewsContentPage =
                     newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
             newsTitlePage =
@@ -118,12 +122,6 @@ public class NewsService {
                             .build()
             );
         }
-        List<NewsPressMapping> pressList = newsRepository.findDistinctBy();
-
-        List<CountPerPressDto> countPerPressList = pressList.stream()
-                .map(p -> new CountPerPressDto(p.getNewsPress(), newsList.stream().filter(n -> n.getNewsPress().equals(p.getNewsPress())).count()))
-                .sorted(Comparator.comparing(CountPerPressDto::getCount).reversed())
-                .collect(Collectors.toList());
 
         List<NewsListDto> list = null;
         Long totalCount = 0L;
@@ -161,9 +159,7 @@ public class NewsService {
         ResNewsSearch resNewsSearch = new ResNewsSearch();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("%");
-        sb.append(reqNewsSearch.getWord());
-        sb.append("%");
+
 //        PageRequest pageRequest =PageRequest.of(reqNewsSearch.getOffset(), reqNewsSearch.getLimit(), Sort.by("newsDate","newsTime").descending());
         Sort sort = Sort.by(
                 Sort.Order.desc("newsDate"),
@@ -174,13 +170,19 @@ public class NewsService {
         List<News> newsContentPage = null;
 
         if(reqNewsSearch.getNewsStartDt() == null && reqNewsSearch.getNewsEndDt() == null){
+            sb.append("+");
+            sb.append(reqNewsSearch.getWord());
+            sb.append("*");
             newsTitleAndNewsContentPage =
-                    newsRepository.findByNewTitleLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
+                    newsRepository.findByNewTitleLikeAndNewsContentLike(sb.toString(), sb.toString());
             newsTitlePage =
-                    newsRepository.findByNewTitleLikeAndNewsContentNotLike(sb.toString(), sb.toString(), sort);
+                    newsRepository.findByNewTitleLikeAndNewsContentNotLike(sb.toString(), sb.toString());
             newsContentPage =
-                    newsRepository.findByNewTitleNotLikeAndNewsContentLike(sb.toString(), sb.toString(), sort);
+                    newsRepository.findByNewTitleNotLikeAndNewsContentLike(sb.toString(), sb.toString());
         }else if(reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
+            sb.append("%");
+            sb.append(reqNewsSearch.getWord());
+            sb.append("%");
             newsTitleAndNewsContentPage =
                     newsRepository.findByNewTitleLikeAndNewsContentLikeAndNewsDateBetween(sb.toString(), sb.toString(), reqNewsSearch.getNewsStartDt(), reqNewsSearch.getNewsEndDt(), sort);
             newsTitlePage =
