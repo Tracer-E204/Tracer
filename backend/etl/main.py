@@ -112,7 +112,7 @@ def dump():
 
     result = []
     hmap = ['society', 'economic', 'foreign', 'digital', 'culture']
-    start = "2023-02-15"
+    start = "2023-02-17"
     last = "2023-03-27"
     start_date = datetime.strptime(start, "%Y-%m-%d")
     last_date = datetime.strptime(last, "%Y-%m-%d")
