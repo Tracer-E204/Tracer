@@ -19,12 +19,12 @@ export default function SearchBar() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('간다');
     try {
       const response = await axios.post('http://200.0.0.60/news/search', {
         word: text,
         limit: 5,
         offset: 0,
+        type: 0,
       });
       setResult(response.data);
       navigate(`/searchresult`, { state: { result: response.data } });
