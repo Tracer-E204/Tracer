@@ -52,7 +52,4 @@ public class News implements Serializable {
     @Column(name = "news_thumbnail")
     private String newsThumbnail;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "shortcut_id")
-    private Shortcut shortcut;
 }

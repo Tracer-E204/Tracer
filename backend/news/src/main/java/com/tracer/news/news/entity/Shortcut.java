@@ -27,4 +27,7 @@ public class Shortcut {
     @Column(name = "content_3rd")
     private String content3rd;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "news_id")
+    private News news;
 }
