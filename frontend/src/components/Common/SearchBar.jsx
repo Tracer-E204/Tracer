@@ -19,8 +19,9 @@ export default function SearchBar() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    console.log('간다');
     try {
-      const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
+      const response = await axios.post('http://200.0.0.60/news/search', {
         word: text,
         limit: 5,
         offset: 0,
