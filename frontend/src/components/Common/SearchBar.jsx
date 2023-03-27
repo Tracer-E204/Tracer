@@ -33,10 +33,8 @@ export default function SearchBar() {
     }
   };
   return (
-    <div className={styles['searchbar-container']}>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="찾고asdas입력" value={text} onChange={handleChange} />
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input type="text" placeholder="Search ..." value={text} onChange={handleChange} />
+    </form>
   );
 }
