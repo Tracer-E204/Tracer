@@ -38,19 +38,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
                     " news_time desc")
     List<News> findByNewTitleLikeAndNewsContentLike(String word1, String word2);
 
-    /** 신문사 필터 **/
-    List<News> findByNewTitleLikeAndNewsContentNotLikeAndNewsPressIn(String word1, String word2, List<String> press, Sort sort);
-    List<News> findByNewTitleNotLikeAndNewsContentLikeAndNewsPressIn(String word1, String word2, List<String> press, Sort sort);
-    List<News> findByNewTitleLikeAndNewsContentLikeAndNewsPressIn(String word1, String word2, List<String> press, Sort sort);
-
-    /** 날짜 필터 **/
-    List<News> findByNewTitleLikeAndNewsContentNotLikeAndNewsDateBetween(String word1, String word2, LocalDate startTime, LocalDate endTime, Sort sort);
-    List<News> findByNewTitleNotLikeAndNewsContentLikeAndNewsDateBetween(String word1, String word2, LocalDate startTime, LocalDate endTime, Sort sort);
-    List<News> findByNewTitleLikeAndNewsContentLikeAndNewsDateBetween(String word1, String word2, LocalDate startTime, LocalDate endTime, Sort sort);
-
-    List<News> findByNewTitleLikeAndNewsContentNotLikeAndNewsPressInAndNewsDateBetween(String word1, String word2, List<String> press, LocalDate startTime, LocalDate endTime, Sort sort);
-    List<News> findByNewTitleNotLikeAndNewsContentLikeAndNewsPressInAndNewsDateBetween(String word1, String word2, List<String> press, LocalDate startTime, LocalDate endTime, Sort sort);
-    List<News> findByNewTitleLikeAndNewsContentLikeAndNewsPressInAndNewsDateBetween(String word1, String word2, List<String> press, LocalDate startTime, LocalDate endTime, Sort sort);
 
     List<NewsPressMapping> findDistinctBy();
 }
