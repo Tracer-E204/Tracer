@@ -8,6 +8,7 @@ import com.tracer.news.news.entity.News;
 import com.tracer.news.news.entity.Shortcut;
 import com.tracer.news.news.mapping.NewsPressMapping;
 import com.tracer.news.news.repository.NewsRepository;
+import com.tracer.news.news.repository.ShortcutRepository;
 import com.tracer.news.news.vo.ReqNewsSearch;
 import com.tracer.news.news.vo.ResNewsSearch;
 import com.tracer.news.news.vo.ResShortcut;
@@ -31,6 +32,7 @@ public class NewsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsService.class);
     private final NewsRepository newsRepository;
+    private final ShortcutRepository shortcutRepository;
     private final RedisService redisService;
 
     @Transactional
@@ -267,7 +269,7 @@ public class NewsService {
 
     @Transactional
     public ResShortcut shortcut(Long newsId){
-        Shortcut shortcut = newsRepository.findById(newsId).get().getShortcut();
+        Shortcut shortcut = shortcutRepository.findByNewsNewsId(newsId);
         ResShortcut resShortcut = ResShortcut.builder()
                 .shortcutId(shortcut.getShortcutId())
                 .content1st(shortcut.getContent1st())
