@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,7 +19,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @DynamicUpdate
 @DynamicInsert
-public class News {
+public class News implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_id")
@@ -50,4 +51,5 @@ public class News {
 
     @Column(name = "news_thumbnail")
     private String newsThumbnail;
+
 }
