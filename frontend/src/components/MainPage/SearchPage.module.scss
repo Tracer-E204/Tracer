@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700');
+.searchbar-container {
+  height: 100vh;
+  font-family: Roboto, sans-serif;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  video {
+    position: absolute;
+    z-index: -999;
+  }
+}
+
+.searchbar {
+}
+
+.search-component {
+  justify-content: flex-start;
+  z-index: 1;
+  color: white;
+}
