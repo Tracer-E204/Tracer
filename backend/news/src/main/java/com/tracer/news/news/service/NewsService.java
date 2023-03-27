@@ -7,6 +7,7 @@ import com.tracer.news.news.dto.NewsListDto;
 import com.tracer.news.news.entity.News;
 import com.tracer.news.news.entity.Shortcut;
 import com.tracer.news.news.mapping.NewsPressMapping;
+import com.tracer.news.news.repository.NewsKeywordRepository;
 import com.tracer.news.news.repository.NewsRepository;
 import com.tracer.news.news.repository.ShortcutRepository;
 import com.tracer.news.news.vo.ReqNewsSearch;
@@ -33,6 +34,7 @@ public class NewsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsService.class);
     private final NewsRepository newsRepository;
     private final ShortcutRepository shortcutRepository;
+    private final NewsKeywordRepository newsKeywordRepository;
     private final RedisService redisService;
 
     @Transactional
@@ -278,4 +280,13 @@ public class NewsService {
                 .build();
         return resShortcut;
     }
+
+    @Transactional
+    public ResNewsSearch dailyNews(){
+
+        // keywordId 10개 받아오기
+        // ㅜ
+        return null;
+    }
+
 }
