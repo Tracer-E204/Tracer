@@ -5,10 +5,12 @@ import com.tracer.news.config.redis.RedisService;
 import com.tracer.news.news.dto.CountPerPressDto;
 import com.tracer.news.news.dto.NewsListDto;
 import com.tracer.news.news.entity.News;
+import com.tracer.news.news.entity.Shortcut;
 import com.tracer.news.news.mapping.NewsPressMapping;
 import com.tracer.news.news.repository.NewsRepository;
 import com.tracer.news.news.vo.ReqNewsSearch;
 import com.tracer.news.news.vo.ResNewsSearch;
+import com.tracer.news.news.vo.ResShortcut;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -261,5 +263,17 @@ public class NewsService {
                 .collect(Collectors.toList());
 
         return countPerPressList;
+    }
+
+    @Transactional
+    public ResShortcut shortcut(Long newsId){
+        Shortcut shortcut = newsRepository.findById(newsId).get().getShortcut();
+        ResShortcut resShortcut = ResShortcut.builder()
+                .shortcutId(shortcut.getShortcutId())
+                .content1st(shortcut.getContent1st())
+                .content2nd(shortcut.getContent2nd())
+                .content3rd(shortcut.getContent3rd())
+                .build();
+        return resShortcut;
     }
 }
