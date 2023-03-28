@@ -20,6 +20,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  redis:
+    port: 6379
+    host: j8e204.p.ssafy.io
+    password: tracer204
+
+client:
+  keyword: "local-keyword-service"
 
 eureka:
   client:
