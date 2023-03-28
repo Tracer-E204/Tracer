@@ -3,6 +3,7 @@ package com.tracer.keyword.keyword.controller;
 import com.tracer.keyword.keyword.service.DailyService;
 import com.tracer.keyword.keyword.vo.ReqDailyKeyword;
 import com.tracer.keyword.keyword.vo.ResDailyKeyword;
+import com.tracer.keyword.keyword.vo.ResNewsKeyword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,12 @@ public class KeywordController {
     @PostMapping("/daily/select")
     public ResponseEntity<Object> dailySelectKeyword(ReqDailyKeyword reqDailyKeyword){
         List<ResDailyKeyword> list = dailyService.dailySelectKeyword(reqDailyKeyword);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
+    @GetMapping("/news")
+    public ResponseEntity<Object> newsKeyword(){
+        List<ResNewsKeyword> list = dailyService.newsKeywords();
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 }
