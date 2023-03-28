@@ -4,6 +4,7 @@ import com.tracer.keyword.keyword.entity.Daily;
 import com.tracer.keyword.keyword.repository.DailyRepository;
 import com.tracer.keyword.keyword.vo.ReqDailyKeyword;
 import com.tracer.keyword.keyword.vo.ResDailyKeyword;
+import com.tracer.keyword.keyword.vo.ResNewsKeyword;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -84,6 +86,13 @@ public class DailyService {
             );
         });
 
+        return list;
+    }
+
+    @Transactional
+    public List<ResNewsKeyword> newsKeywords(){
+        List<Daily> dailies = dailyRepository.findTop10ByDailyDateOrderByCountDesc(LocalDate.of(2023,03,23));
+        List<ResNewsKeyword> list = dailies.stream().map(d->new ResNewsKeyword(d.getKeyword().getKeywordId())).collect(Collectors.toList());
         return list;
     }
 }
