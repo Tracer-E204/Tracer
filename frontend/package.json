@@ -11,6 +11,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.0",
     "@mui/joy": "^5.0.0-alpha.71",
+    "@mui/lab": "^5.0.0-alpha.124",
     "@mui/material": "^5.11.12",
     "@ramonak/react-progress-bar": "^5.0.3",
     "@reduxjs/toolkit": "^1.9.2",
