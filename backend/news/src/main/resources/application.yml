@@ -25,6 +25,9 @@ spring:
     host: j8e204.p.ssafy.io
     password: tracer204
 
+client:
+  keyword: "local-keyword-service"
+
 eureka:
   client:
     register-with-eureka: true
