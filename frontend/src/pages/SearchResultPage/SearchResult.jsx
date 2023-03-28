@@ -6,12 +6,12 @@ import Filter from 'components/Common/News/Filter';
 
 export default function SearchResult() {
   const location = useLocation();
-  const { result } = location.state;
+  const { state } = location;
   window.scrollTo(0, 0);
   return (
     <div className={styles.searchresult}>
       <Filter />
-      <NewsList result={result} />
+      <NewsList result={state.result} text={state.text} />
     </div>
   );
 }
