@@ -17,6 +17,7 @@ public class ReqNewsSearch {
     private String word;
     private Integer offset;
     private Integer limit;
+    private Integer type;
     private List<SearchPressDto> newsPressList;
     private LocalDate newsStartDt;
     private LocalDate newsEndDt;

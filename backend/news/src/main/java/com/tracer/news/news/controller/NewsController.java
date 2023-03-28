@@ -3,7 +3,9 @@ package com.tracer.news.news.controller;
 import com.tracer.news.news.dto.CountPerPressDto;
 import com.tracer.news.news.service.NewsService;
 import com.tracer.news.news.vo.ReqNewsSearch;
+import com.tracer.news.news.vo.ResNews;
 import com.tracer.news.news.vo.ResNewsSearch;
+import com.tracer.news.news.vo.ResShortcut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +31,17 @@ public class NewsController {
         List<CountPerPressDto> countList = newsService.newsCount(reqNewsSearch);
         return ResponseEntity.status(HttpStatus.OK).body(countList);
     }
+
+    @GetMapping("/shortcut/{newsId}")
+    public ResponseEntity<Object> shortcut(@PathVariable Long newsId){
+        ResShortcut resShortcut = newsService.shortcut(newsId);
+        return ResponseEntity.status(HttpStatus.OK).body(resShortcut);
+    }
+
+    @GetMapping("/daily")
+    public ResponseEntity<Object> dailyNews(){
+        List<ResNews> list = newsService.dailyNews();
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
 }
