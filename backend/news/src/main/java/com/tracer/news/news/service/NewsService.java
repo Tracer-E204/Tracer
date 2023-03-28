@@ -1,17 +1,20 @@
 package com.tracer.news.news.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracer.news.config.redis.RedisNews;
 import com.tracer.news.config.redis.RedisService;
+import com.tracer.news.news.client.KeywordServiceClient;
 import com.tracer.news.news.dto.CountPerPressDto;
 import com.tracer.news.news.dto.NewsListDto;
 import com.tracer.news.news.entity.News;
+import com.tracer.news.news.entity.NewsKeyword;
 import com.tracer.news.news.entity.Shortcut;
 import com.tracer.news.news.mapping.NewsPressMapping;
+import com.tracer.news.news.repository.NewsKeywordRepository;
 import com.tracer.news.news.repository.NewsRepository;
 import com.tracer.news.news.repository.ShortcutRepository;
-import com.tracer.news.news.vo.ReqNewsSearch;
-import com.tracer.news.news.vo.ResNewsSearch;
-import com.tracer.news.news.vo.ResShortcut;
+import com.tracer.news.news.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +37,8 @@ public class NewsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsService.class);
     private final NewsRepository newsRepository;
     private final ShortcutRepository shortcutRepository;
+    private final NewsKeywordRepository newsKeywordRepository;
+    private final KeywordServiceClient keywordServiceClient;
     private final RedisService redisService;
 
     @Transactional
@@ -183,9 +189,10 @@ public class NewsService {
 
         Long totalCount = newsList.stream().count();
         List<NewsListDto> list = newsList.stream()
-                .limit(reqNewsSearch.getLimit())
                 .skip(reqNewsSearch.getOffset() * reqNewsSearch.getLimit())
+                .limit(reqNewsSearch.getLimit())
                 .collect(Collectors.toList());
+        LOGGER.info("skip : {}" , list.size());
 
 
         Integer totalPage = 0;
@@ -278,4 +285,36 @@ public class NewsService {
                 .build();
         return resShortcut;
     }
+
+    @Transactional
+    public List<ResNews> dailyNews(){
+        // keywordId 10개 받아오기
+        ObjectMapper om = new ObjectMapper();
+        List<ResNewsKeyword> list = om.convertValue(keywordServiceClient.newsKeyword().getBody(), new TypeReference<List<ResNewsKeyword>>() {});
+        List<ResNews> newsList = list.stream()
+                .map( k -> {
+                    Optional<NewsKeyword> newsKeyword = newsKeywordRepository.findTop1ByNewsKeywordPKKeywordId(k.getKeywordId());
+                    ResNews resNews = null;
+                    if (newsKeyword.isPresent()) {
+                        News news = newsKeyword.get().getNewsKeywordPK().getNews();
+                        resNews = ResNews.builder()
+                                .newsContent(news.getNewsContent())
+                                .newsThumbnail(news.getNewsThumbnail())
+                                .newsDate(news.getNewsDate())
+                                .newsTitle(news.getNewTitle())
+                                .newsType(news.getNewsType().name())
+                                .newsTime(news.getNewsTime())
+                                .newsSource(news.getNewsSource())
+                                .newsId(news.getNewsId())
+                                .newsPress(news.getNewsPress())
+                                .newsReporter(news.getNewsReporter())
+                                .newsTypeCode(news.getNewsType().getCode())
+                                .build();
+
+                    }
+                    return resNews;
+                }).collect(Collectors.toList());
+        return newsList;
+    }
+
 }
