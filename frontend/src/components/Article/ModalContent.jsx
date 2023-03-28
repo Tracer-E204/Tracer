@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Three from '../../assets/images/three.png';
 import styles from './ModalContent.module.scss';
+import axios from 'axios';
 
 export default function ModalContent({ article }) {
   function get_title() {
@@ -15,6 +16,19 @@ export default function ModalContent({ article }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const [shortcut, setShortcut] = useState('');
+  useEffect(() => {
+    const fetchShortcut = async () => {
+      try {
+        const response = await axios.get(`http://j8e204.p.ssafy.io:8001/news/shortcut/${article.newsId}`);
+        setShortcut(response.data);
+      } catch (error) {
+        console.error('Error fetching shortcut:', error);
+      }
+    };
+    fetchShortcut();
+  }, [article.newsId]);
 
   return (
     <div className={styles['article-modal']}>
@@ -54,13 +68,13 @@ export default function ModalContent({ article }) {
           <div
             style={{ fontSize: '15px', lineHeight: '25px', fontWeight: 400, letterSpacing: '-1px', marginBottom: 4 }}
           >
-            이 노동자가 살던 숙소의 참혹한 여건이 공개되면서 공분이 일고 있습니다.
+            {shortcut.content1st}
             <br />
             <br />
-            하지만 외국인 노동자들은 여전히 기본적인 주거 환경조차 보장받지 못하고 있습니다.
+            {shortcut.content2nd}
             <br />
             <br />
-            이들의 열악한 주거 환경을 개선하고 반복되는 죽음을 막기 위한 대책이 시급합니다. <br />
+            {shortcut.content3rd} <br />
             &nbsp;
           </div>
         </div>
@@ -72,7 +86,14 @@ export default function ModalContent({ article }) {
           {article.newsPress} | {article.newsDate} {article.newsTime}
         </span>
         <span>
-          <img className={styles.three} src={Three} alt="" onClick={handleExpandClick} />
+          {shortcut.content1st &&
+            shortcut.content1st.length >= 15 &&
+            shortcut.content2nd &&
+            shortcut.content2nd.length >= 15 &&
+            shortcut.content3rd &&
+            shortcut.content3rd.length >= 15 && (
+              <img className={styles.three} src={Three} alt="" onClick={handleExpandClick} />
+            )}
         </span>
       </div>
       <div className={styles.description}>
