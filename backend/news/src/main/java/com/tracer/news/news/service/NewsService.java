@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracer.news.config.redis.RedisNews;
 import com.tracer.news.config.redis.RedisService;
 import com.tracer.news.news.client.KeywordServiceClient;
+import com.tracer.news.news.client.TimelineServiceClient;
 import com.tracer.news.news.dto.CountPerPressDto;
+import com.tracer.news.news.dto.NewsIdDto;
 import com.tracer.news.news.dto.NewsListDto;
 import com.tracer.news.news.entity.News;
 import com.tracer.news.news.entity.NewsKeyword;
@@ -39,6 +41,7 @@ public class NewsService {
     private final ShortcutRepository shortcutRepository;
     private final NewsKeywordRepository newsKeywordRepository;
     private final KeywordServiceClient keywordServiceClient;
+    private final TimelineServiceClient timelineServiceClient;
     private final RedisService redisService;
 
     @Transactional
@@ -51,9 +54,9 @@ public class NewsService {
                 Sort.Order.desc("newsDate"),
                 Sort.Order.desc("newsTime")
         );
-        List<News> newsTitleAndNewsContentPage = null;
-        List<News> newsTitlePage = null;
-        List<News> newsContentPage = null;
+        List<News> newsTitleAndNewsContentPage = new ArrayList<>();
+        List<News> newsTitlePage = new ArrayList<>();
+        List<News> newsContentPage = new ArrayList<>();
 
         if(!redisService.checkKeys(reqNewsSearch.getWord())){
             StringBuilder sb = new StringBuilder();
@@ -75,8 +78,11 @@ public class NewsService {
         }else{
             LOGGER.info("ALREADY IN REDIS : {}", "OK");
             newsTitleAndNewsContentPage = redisService.getValues(reqNewsSearch.getWord(), 0);
+            if(newsTitleAndNewsContentPage == null) newsTitleAndNewsContentPage= new ArrayList<>();
             newsTitlePage = redisService.getValues(reqNewsSearch.getWord(), 1);
+            if(newsTitlePage == null) newsTitlePage = new ArrayList<>();
             newsContentPage = redisService.getValues(reqNewsSearch.getWord(), 2);
+            if(newsContentPage == null) newsContentPage = new ArrayList<>();
         }
         if(reqNewsSearch.getType() == 1){
             newsContentPage.clear();
@@ -317,4 +323,29 @@ public class NewsService {
         return newsList;
     }
 
+    @Transactional
+    public List<ResNews> clusterNews(Long clusterId){
+        // 클러스터별 news 리스트 불러오기
+        ObjectMapper om = new ObjectMapper();
+        List<NewsIdDto> list = om.convertValue(timelineServiceClient.clusterNews(clusterId).getBody(), new TypeReference<List<NewsIdDto>>() {});
+        List<Long> ids = list.stream().map(n -> n.getNewsId()).collect(Collectors.toList());
+        List<News> news = newsRepository.findByNewsIdIn(ids);
+
+        List<ResNews> newsList = news.stream()
+                .map( n -> ResNews.builder()
+                        .newsContent(n.getNewsContent())
+                        .newsThumbnail(n.getNewsThumbnail())
+                        .newsDate(n.getNewsDate())
+                        .newsTitle(n.getNewTitle())
+                        .newsType(n.getNewsType().name())
+                        .newsTime(n.getNewsTime())
+                        .newsSource(n.getNewsSource())
+                        .newsId(n.getNewsId())
+                        .newsPress(n.getNewsPress())
+                        .newsReporter(n.getNewsReporter())
+                        .newsTypeCode(n.getNewsType().getCode())
+                        .build())
+                .collect(Collectors.toList());
+        return newsList;
+    }
 }
