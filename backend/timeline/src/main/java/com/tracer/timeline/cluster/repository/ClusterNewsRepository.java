@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ClusterNewsRepository extends JpaRepository<ClusterNews, ClusterNewsPK> {
-    List<ClusterNews> findByClusterNewsPKClusterId(Long clusterId);
+    List<ClusterNews> findByClusterNewsPKClusterClusterId(Long clusterId);
+    List<ClusterNews> findByClusterNewsPKNewsId(Long newsId);
 }

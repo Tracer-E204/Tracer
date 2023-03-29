@@ -54,9 +54,9 @@ public class NewsService {
                 Sort.Order.desc("newsDate"),
                 Sort.Order.desc("newsTime")
         );
-        List<News> newsTitleAndNewsContentPage = null;
-        List<News> newsTitlePage = null;
-        List<News> newsContentPage = null;
+        List<News> newsTitleAndNewsContentPage = new ArrayList<>();
+        List<News> newsTitlePage = new ArrayList<>();
+        List<News> newsContentPage = new ArrayList<>();
 
         if(!redisService.checkKeys(reqNewsSearch.getWord())){
             StringBuilder sb = new StringBuilder();
@@ -78,8 +78,11 @@ public class NewsService {
         }else{
             LOGGER.info("ALREADY IN REDIS : {}", "OK");
             newsTitleAndNewsContentPage = redisService.getValues(reqNewsSearch.getWord(), 0);
+            if(newsTitleAndNewsContentPage == null) newsTitleAndNewsContentPage= new ArrayList<>();
             newsTitlePage = redisService.getValues(reqNewsSearch.getWord(), 1);
+            if(newsTitlePage == null) newsTitlePage = new ArrayList<>();
             newsContentPage = redisService.getValues(reqNewsSearch.getWord(), 2);
+            if(newsContentPage == null) newsContentPage = new ArrayList<>();
         }
         if(reqNewsSearch.getType() == 1){
             newsContentPage.clear();

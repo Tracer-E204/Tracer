@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "${client.timeline}")
 public interface TimelineServiceClient {
     @GetMapping("/timeline/cluster/news/{clusterId}")
-    ResponseEntity<Object> clusterNews(@PathVariable Long clusterId);
+    ResponseEntity<Object> clusterNews(@PathVariable("clusterId") Long clusterId);
 }
