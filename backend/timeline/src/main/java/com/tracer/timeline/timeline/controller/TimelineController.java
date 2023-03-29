@@ -2,6 +2,7 @@ package com.tracer.timeline.timeline.controller;
 
 import com.tracer.timeline.timeline.service.TimelineService;
 import com.tracer.timeline.timeline.vo.ResTimeline;
+import com.tracer.timeline.timeline.vo.ResTimelineClusterList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,13 @@ public class TimelineController {
 
     private final TimelineService timelineService;
 
-    @GetMapping("/{newsId}")
+    @GetMapping("/{timelineId}")
+    public ResponseEntity<Object> selectTimeline(@PathVariable Long timelineId){
+        ResTimelineClusterList list = timelineService.selectTimeline(timelineId);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
+    @GetMapping("/news/{newsId}")
     public ResponseEntity<Object> newsTimeline(@PathVariable Long newsId){
         List<ResTimeline> list = timelineService.newsTimeline(newsId);
         return ResponseEntity.status(HttpStatus.OK).body(list);
