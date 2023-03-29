@@ -51,6 +51,7 @@ public class RedisService {
     // 키값으로 벨류 가져오기
     public List<News> getValues(String word, Integer type){
         ListOperations<String, RedisWord> values = redisTemplate.opsForList();
+        if(values.index(word, type) == null) return null;
         return values.index(word, type).getNews();
     }
 
