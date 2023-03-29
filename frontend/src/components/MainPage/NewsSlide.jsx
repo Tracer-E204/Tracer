@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './NewsSlide.module.scss';
-import image1 from './assets/images/1.jpg';
-import image2 from './assets/images/2.png';
-import image3 from './assets/images/3.jpg';
-import image4 from './assets/images/4.jpg';
-import image5 from './assets/images/5.jpg';
-import image6 from './assets/images/6.png';
+
 import thumbnail from 'assets/images/tracer_thumbnail.png';
 
 export default function NewsSlide() {
@@ -26,128 +21,30 @@ export default function NewsSlide() {
   //     }
   //   }, [delay]);
   // };
+  //Autoplay
+  // useInterval(() => {
+  //   setActive((activeIndex + 1) % len);
+  // }, 5000);
 
-  const articles = [
-    {
-      page: 9,
-      title: '0',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image1,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '1',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image2,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '2',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image3,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '3',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image4,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '4',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image5,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '5',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image6,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '6',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image1,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '7',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image2,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '8',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image3,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '9',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image4,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '10',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image5,
-      type: 0,
-    },
-    {
-      page: 9,
-      title: '11',
-      press: 'KBS',
-      time: '12:53',
-      reporter: '홍화경',
-      thumbnail: image6,
-      type: 0,
-    },
-  ];
-  const images = [image1, image2, image3, image4, image5, image6, image1, image2, image3, image4, image5, image6];
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    fetch('http://j8e204.p.ssafy.io:8001/news/daily', {
+      method: 'GET',
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(1, res);
+        setList(res);
+      });
+  }, []);
+  list.pop();
+  list.pop();
+  console.log(3, list);
 
   const Carousel = props => {
-    const { images } = props;
-    const len = images.length;
+    const len = 12;
     const [activeIndex, setActive] = useState(0);
-
-    //Autoplay
-    // useInterval(() => {
-    //   setActive((activeIndex + 1) % len);
-    // }, 5000);
 
     const zBase = 998;
     const getStyle = idx => {
@@ -177,7 +74,7 @@ export default function NewsSlide() {
           styleObj.zIndex = zBase - Math.abs(distance);
         }
         styleObj.transform = `scale(${scale})`;
-        styleObj.opacity = Math.max(0.93, scale); // decrease opacity based on scale
+        styleObj.opacity = Math.max(0.9, scale); // decrease opacity based on scale
       }
 
       // The distance is not less than 2, hide
@@ -192,20 +89,21 @@ export default function NewsSlide() {
     return (
       <div className={styles['slide-container']}>
         <div className={styles['background']}>
-          <img src={articles[activeIndex].thumbnail} alt="logo" />
+          <img src={thumbnail} alt="logo" />
         </div>
-        {articles.map((article, idx) => (
+        {list.map((article, idx) => (
           <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
             <div className={styles.itemcontainer}>
               <div className={styles.thumbnail}>
-                {article.thumbnail ? (
-                  <img src={thumbnail} alt="thumbnail" />
+                {console.log(article)}
+                {article.newsThumbnail ? (
+                  <img src={article.newsThumbnail} alt={`Slide ${idx}`} />
                 ) : (
-                  <imxg src={article.thumbnail} alt={`Slide ${idx}`} />
+                  <img src={thumbnail} alt="thumbnail" />
                 )}
               </div>
-              <div className={styles.press}>{article.press}</div>
-              <div className={styles.title}>{article.title}</div>
+              <div className={styles.press}>{article.newsPress}</div>
+              <div className={styles.title}>{article.newsTitle}</div>
               <div className={styles.time}>1일 전</div>
             </div>
           </div>
@@ -214,5 +112,5 @@ export default function NewsSlide() {
     );
   };
 
-  return <Carousel images={images} />;
+  return <Carousel />;
 }

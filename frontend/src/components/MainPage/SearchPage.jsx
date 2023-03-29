@@ -6,7 +6,7 @@ import video from './assets/SearchPageBackground.mp4';
 export default function SearchPage() {
   return (
     <div className={styles['searchbar-container']}>
-      <video autoPlay muted>
+      <video autoPlay muted loop>
         <source src={video} type="video/mp4" />
       </video>
       <div className={styles['search-component']}>
