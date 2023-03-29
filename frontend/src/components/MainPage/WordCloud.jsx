@@ -4,6 +4,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import WordCloud from 'react-d3-cloud';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
+import HotelsResult from './test';
 
 export default function WordCloudPage() {
   const words = [
@@ -285,12 +286,14 @@ export default function WordCloudPage() {
 
   return (
     <div className={styles['cloud-container']}>
-      <h1>Check this fucking awesome WordCloud</h1>
+      <h1>
+        Check <span>this</span> fucking awesome WordCloud
+      </h1>
       <div className={styles['stick']}>
         <div className={styles['bar']} />
       </div>
       <div className={styles['calendar']}>
-        <WordCloud data={words} />
+        <WordCloud data={words} fill="white" />
       </div>
     </div>
   );
