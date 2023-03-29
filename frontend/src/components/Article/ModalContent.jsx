@@ -20,12 +20,8 @@ export default function ModalContent({ article }) {
   const [shortcut, setShortcut] = useState('');
   useEffect(() => {
     const fetchShortcut = async () => {
-      try {
-        const response = await axios.get(`http://j8e204.p.ssafy.io:8001/news/shortcut/${article.newsId}`);
-        setShortcut(response.data);
-      } catch (error) {
-        console.error('Error fetching shortcut:', error);
-      }
+      const response = await axios.get(`http://j8e204.p.ssafy.io:8001/news/shortcut/${article.newsId}`);
+      setShortcut(response.data);
     };
     fetchShortcut();
   }, [article.newsId]);
