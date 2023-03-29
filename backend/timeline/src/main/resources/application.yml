@@ -2,6 +2,15 @@ server:
   port: 0
   shutdown: graceful
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: true
+
 spring:
   application:
     name: local-timeline-service
@@ -29,3 +38,5 @@ eureka:
       defaultZone: http://j8e204.p.ssafy.io:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
+    lease-renewal-interval-in-seconds: 15
+    lease-expiration-duration-in-seconds: 45
