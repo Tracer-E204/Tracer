@@ -6,11 +6,16 @@ import com.tracer.news.news.vo.ReqNewsSearch;
 import com.tracer.news.news.vo.ResNews;
 import com.tracer.news.news.vo.ResNewsSearch;
 import com.tracer.news.news.vo.ResShortcut;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,6 +25,19 @@ public class NewsController {
 
     private final NewsService newsService;
     // 뉴스 검색 리스트
+
+    @GetMapping("/shutdown")
+    public ResponseEntity<String> actuator(HttpServletRequest request) {
+        String url = request.getServerName() + ":" + request.getServerPort();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        HttpEntity<MultiValueMap<String, String>> req = new HttpEntity<>(headers);
+        RestTemplate rt = new RestTemplate();
+        ResponseEntity<String> res = rt.exchange("http://"+ url + "/actuator/shutdown", HttpMethod.POST,req,String.class);
+//        ResponseEntity<String> res = rt.exchange("http://"+ url + "/actuator", HttpMethod.GET,null,String.class);
+        return res;
+    }
+
     @PostMapping("/search")
     public ResponseEntity<Object> search(@RequestBody ReqNewsSearch reqNewsSearch){
         ResNewsSearch resNewsSearch = newsService.newsSearch(reqNewsSearch);
@@ -41,6 +59,12 @@ public class NewsController {
     @GetMapping("/daily")
     public ResponseEntity<Object> dailyNews(){
         List<ResNews> list = newsService.dailyNews();
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
+    @GetMapping("/cluster/{clusterId}")
+    public ResponseEntity<Object> clusterNews(@PathVariable Long clusterId){
+        List<ResNews> list = newsService.clusterNews(clusterId);
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
