@@ -1,301 +1,296 @@
 import React, { useState } from 'react';
 import styles from './WordCloud.module.scss';
-import ReactWordcloud from 'react-wordcloud';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import WordCloud from 'react-d3-cloud';
+import { scaleOrdinal } from 'd3-scale';
+import { schemeCategory10 } from 'd3-scale-chromatic';
 
-export default function WordCloud() {
+export default function WordCloudPage() {
   const words = [
     {
-      keyword: '러시아',
-      count: 10000,
+      text: '러시아',
+      value: 10000,
     },
     {
-      keyword: '우크라이나',
-      count: 10222,
+      text: '우크라이나',
+      value: 10222,
     },
     {
-      keyword: '젤렌스키',
-      count: 8000,
+      text: '젤렌스키',
+      value: 8000,
     },
     {
-      keyword: '크림반도',
-      count: 7000,
+      text: '크림반도',
+      value: 7000,
     },
     {
-      keyword: '푸틴',
-      count: 9000,
+      text: '푸틴',
+      value: 9000,
     },
     {
-      keyword: '러우전쟁',
-      count: 17000,
+      text: '러우전쟁',
+      value: 17000,
     },
     {
-      keyword: '키이우',
-      count: 8700,
+      text: '키이우',
+      value: 8700,
     },
     {
-      keyword: '무기대여법',
-      count: 1400,
+      text: '무기대여법',
+      value: 1400,
     },
     {
-      keyword: 'SU-27',
-      count: 100,
+      text: 'SU-27',
+      value: 100,
     },
     {
-      keyword: 'MQ-9 무인기',
-      count: 400,
+      text: 'MQ-9 무인기',
+      value: 400,
     },
     {
-      keyword: 'MQ-9 무인기',
-      count: 400,
+      text: 'MQ-9 무인기',
+      value: 400,
     },
     {
-      keyword: '군대',
-      count: 1400,
+      text: '군대',
+      value: 1400,
     },
     {
-      keyword: '철수',
-      count: 2400,
+      text: '철수',
+      value: 2400,
     },
     {
-      keyword: '사태',
-      count: 3400,
+      text: '사태',
+      value: 3400,
     },
     {
-      keyword: '영향',
-      count: 4400,
+      text: '영향',
+      value: 4400,
     },
     {
-      keyword: '바이든',
-      count: 5400,
+      text: '바이든',
+      value: 5400,
     },
     {
-      keyword: '서방',
-      count: 6400,
+      text: '서방',
+      value: 6400,
     },
     {
-      keyword: '나토',
-      count: 280,
+      text: '나토',
+      value: 280,
     },
     {
-      keyword: '가능성',
-      count: 300,
+      text: '가능성',
+      value: 300,
     },
     {
-      keyword: '증시',
-      count: 110,
+      text: '증시',
+      value: 110,
     },
     {
-      keyword: '키에프',
-      count: 194,
+      text: '키에프',
+      value: 194,
     },
     {
-      keyword: '돈바스',
-      count: 260,
+      text: '돈바스',
+      value: 260,
     },
     {
-      keyword: '소련',
-      count: 460,
+      text: '소련',
+      value: 460,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
     {
-      keyword: '제재',
-      count: 6400,
+      text: '제재',
+      value: 6400,
     },
     {
-      keyword: '대만',
-      count: 900,
+      text: '대만',
+      value: 900,
     },
     {
-      keyword: '한국',
-      count: 1200,
+      text: '한국',
+      value: 1200,
     },
     {
-      keyword: '일본',
-      count: 2500,
+      text: '일본',
+      value: 2500,
     },
     {
-      keyword: '터키',
-      count: 400,
+      text: '터키',
+      value: 400,
     },
   ];
-  const options = {
-    colors: ['#001f3f', '#0074D9', '#7FDBFF', '#39CCCC', '#3D9970'],
-    enableTooltip: true,
-    deterministic: false,
-    fontFamily: 'impact',
-    fontSizes: [20, 80],
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    padding: 1,
-    rotations: 3,
-    rotationAngles: [0],
-    scale: 'sqrt',
-    spiral: 'archimedean',
-    transitionDuration: 1000,
-  };
+
+  const schemeCategory10ScaleOrdinal = scaleOrdinal(schemeCategory10);
+
   return (
     <div className={styles['cloud-container']}>
-      <div style={{ width: 1500, height: 800 }}>
-        <ReactWordcloud words={words} options={options} />
+      <h1>Check this fucking awesome WordCloud</h1>
+      <div className={styles['stick']}>
+        <div className={styles['bar']} />
+      </div>
+      <div className={styles['calendar']}>
+        <WordCloud data={words} />
       </div>
     </div>
   );
