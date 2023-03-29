@@ -40,4 +40,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
 
     List<NewsPressMapping> findDistinctBy();
+
+    List<News> findByNewsIdIn(List<Long> newsIds);
 }
