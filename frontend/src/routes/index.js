@@ -7,13 +7,17 @@ import LoginLayout from 'layouts/LoginLayout';
 import Login from 'pages/Login/Login';
 // import KakaoLogin from 'pages/Login/SNSLogin/Kakao/KakaoLogin';
 import GoogleLogin from 'pages/Login/SNSLogin/Google/GoogleLogin';
+import TimeLine from 'pages/TimeLine/TimeLine';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
     errorElement: <NotFound />, // 라우터에 없는 경로로 이동시 NotFound 컴포넌트 화면에 띄운다.
-    children: [{ path: 'searchresult', element: <SearchResult /> }],
+    children: [
+      { path: 'searchresult', element: <SearchResult /> },
+      { path: 'timeline', element: <TimeLine /> },
+    ],
   },
   {
     path: '/',
