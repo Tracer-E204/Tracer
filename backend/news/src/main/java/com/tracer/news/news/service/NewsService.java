@@ -230,8 +230,11 @@ public class NewsService {
         }
 
         List<News> newsTitleAndNewsContentPage = redisService.getValues(reqNewsSearch.getWord(), 0);
+        if(newsTitleAndNewsContentPage == null) newsTitleAndNewsContentPage= new ArrayList<>();
         List<News> newsTitlePage = redisService.getValues(reqNewsSearch.getWord(), 1);
+        if(newsTitlePage == null) newsTitlePage = new ArrayList<>();
         List<News> newsContentPage = redisService.getValues(reqNewsSearch.getWord(), 2);
+        if(newsContentPage == null) newsContentPage = new ArrayList<>();
 
         if(reqNewsSearch.getType() == 1){
             newsContentPage.clear();

@@ -13,5 +13,5 @@ public interface DailyRepository extends JpaRepository<Daily, Long> {
 
     List<Daily>findByDailyDateBetween(LocalDate startDate, LocalDate endDate);
 
-    List<Daily> findTop10ByDailyDateOrderByCountDesc(LocalDate dailyDate);
+    List<Daily> findTop12ByDailyDateOrderByCountDesc(LocalDate dailyDate);
 }
