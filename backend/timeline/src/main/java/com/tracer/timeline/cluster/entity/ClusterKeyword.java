@@ -2,6 +2,7 @@ package com.tracer.timeline.cluster.entity;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,4 +18,7 @@ import javax.persistence.Table;
 public class ClusterKeyword {
     @EmbeddedId
     private ClusterKeywordPK clusterKeywordPK;
+
+    @Column(name = "priority")
+    private Integer priority;
 }
