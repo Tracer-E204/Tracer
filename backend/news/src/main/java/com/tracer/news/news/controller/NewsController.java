@@ -6,6 +6,7 @@ import com.tracer.news.news.vo.ReqNewsSearch;
 import com.tracer.news.news.vo.ResNews;
 import com.tracer.news.news.vo.ResNewsSearch;
 import com.tracer.news.news.vo.ResShortcut;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,12 @@ public class NewsController {
     @GetMapping("/daily")
     public ResponseEntity<Object> dailyNews(){
         List<ResNews> list = newsService.dailyNews();
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
+    @GetMapping("/cluster/{clusterId}")
+    public ResponseEntity<Object> clusterNews(@PathVariable Long clusterId){
+        List<ResNews> list = newsService.clusterNews(clusterId);
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 

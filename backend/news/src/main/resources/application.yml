@@ -27,6 +27,7 @@ spring:
 
 client:
   keyword: "local-keyword-service"
+  timeline: "local-timeline-service"
 
 eureka:
   client:
