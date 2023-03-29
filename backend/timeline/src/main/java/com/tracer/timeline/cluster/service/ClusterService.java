@@ -21,7 +21,7 @@ public class ClusterService {
 
     @Transactional
     public List<ResClusterNews> clusterNews(Long clusterId){
-        List<ClusterNews> clusterNews = clusterNewsRepository.findByClusterNewsPKClusterId(clusterId);
+        List<ClusterNews> clusterNews = clusterNewsRepository.findByClusterNewsPKClusterClusterId(clusterId);
         List<ResClusterNews> list = clusterNews.stream()
                 .map(ResClusterNews::new).collect(Collectors.toList());
         return list;
