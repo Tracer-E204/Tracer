@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './NewsSlide.module.scss';
-
+import axios from 'axios';
 import thumbnail from 'assets/images/tracer_thumbnail.png';
 
 export default function NewsSlide() {
@@ -29,17 +29,13 @@ export default function NewsSlide() {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    fetch('http://j8e204.p.ssafy.io:8001/news/daily', {
-      method: 'GET',
-    })
+    fetch('http://j8e204.p.ssafy.io:8001/news/daily')
       .then(res => res.json())
       .then(res => {
         console.log(1, res);
         setList(res);
       });
   }, []);
-  list.pop();
-  list.pop();
   console.log(3, list);
 
   const Carousel = props => {
@@ -86,18 +82,32 @@ export default function NewsSlide() {
       return styleObj;
     };
 
+    function get_img(article) {
+      const regex = /https:\/\/.*?"/gi;
+      const matches = article.newsSource.match(regex);
+
+      if (matches) {
+        const imageURLs = matches.map(match => match.slice(0, -1));
+        return imageURLs[0];
+      }
+    }
+
     return (
       <div className={styles['slide-container']}>
         <div className={styles['background']}>
-          <img src={thumbnail} alt="logo" />
+          {/* {list[activeIndex].newsThumbnail ? (
+            <img src={get_img(list[activeIndex])} />
+          ) : (
+            <img src={thumbnail} alt="thumbnail" />
+          )} */}
         </div>
         {list.map((article, idx) => (
           <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
             <div className={styles.itemcontainer}>
               <div className={styles.thumbnail}>
-                {console.log(article)}
+                {console.log(article.newsThumbnail)}
                 {article.newsThumbnail ? (
-                  <img src={article.newsThumbnail} alt={`Slide ${idx}`} />
+                  <img src={get_img(article)} alt={`Slide ${idx}`} />
                 ) : (
                   <img src={thumbnail} alt="thumbnail" />
                 )}
