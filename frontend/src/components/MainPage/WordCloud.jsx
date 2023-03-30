@@ -293,7 +293,7 @@ export default function WordCloudPage() {
         <div className={styles['bar']} />
       </div>
       <div className={styles['calendar']}>
-        <WordCloud data={words} fill="white" />
+        <WordCloud data={words} fill="white" spiral="rectangular" />
       </div>
     </div>
   );
