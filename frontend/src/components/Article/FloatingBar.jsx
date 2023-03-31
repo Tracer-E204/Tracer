@@ -10,9 +10,8 @@ function FloatingBar({ result }) {
   const handleClick = async (event, timelineId) => {
     event.stopPropagation();
     setClicked(!clicked);
-    // const response = await axios.get(`http://j8e204.p.ssafy.io:8001/timeline/${timelineId}`);
-    const response = await axios.get(`http://j8e204.p.ssafy.io:8001/timeline/1`);
-    navigate(`/timeline`, { state: { result: response.data } });
+    const response = await axios.get(`http://j8e204.p.ssafy.io:8001/timeline/${timelineId}`);
+    navigate(`/timeline/${response.data.timelineKeyword}`, { state: { result: response.data } });
   };
 
   return (

@@ -32,11 +32,9 @@ export default function NewsSlide() {
     fetch('http://j8e204.p.ssafy.io:8001/news/daily')
       .then(res => res.json())
       .then(res => {
-        console.log(1, res);
         setList(res);
       });
   }, []);
-  console.log(3, list);
 
   const Carousel = props => {
     const len = 12;
@@ -94,7 +92,7 @@ export default function NewsSlide() {
 
     return (
       <div className={styles['slide-container']}>
-        <div className={styles['background']}>
+        <div className={styles.background}>
           {/* {list[activeIndex].newsThumbnail ? (
             <img src={get_img(list[activeIndex])} />
           ) : (
@@ -102,10 +100,9 @@ export default function NewsSlide() {
           )} */}
         </div>
         {list.map((article, idx) => (
-          <div className={styles['card']} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
+          <div className={styles.card} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
             <div className={styles.itemcontainer}>
               <div className={styles.thumbnail}>
-                {console.log(article.newsThumbnail)}
                 {article.newsThumbnail ? (
                   <img src={get_img(article)} alt={`Slide ${idx}`} />
                 ) : (
