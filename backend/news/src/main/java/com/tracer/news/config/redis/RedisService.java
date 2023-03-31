@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class RedisService {
     private final RedisTemplate redisTemplate;
 
-    private final Long expiration = 1000L*60L*60L*24L;
+    private final Long expiration = 1000L*60L*20L;
 
     // 키-벨류 설정
     public void setValues(String word, List<News> news){
