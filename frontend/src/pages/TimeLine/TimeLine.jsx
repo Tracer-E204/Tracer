@@ -9,21 +9,11 @@ import Pagination from 'components/Common/News/Pagination';
 function InterpolationChart() {
   const location = useLocation();
   const result = location.state.result;
-  const [resultData, setResultData] = useState();
+  const [resultData, setResultData] = useState([result]);
   const chartRef = useRef();
   const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState();
 
-  // const handleChange = async (event, value) => {
-  //   setCurrentPage(value);
-  //   const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
-  //     word: keyword,
-  //     limit: 5,
-  //     offset: value - 1,
-  //     type: 0,
-  //   });
-  //   setResultData(response.data);
-  // };
   useEffect(() => {
     const chart = new Chart(chartRef.current.getContext('2d'), {
       type: 'line',
@@ -54,6 +44,7 @@ function InterpolationChart() {
             // const label = chart.data.labels[index];
             // const value = chart.data.datasets[point[0].datasetIndex].data[index];
             const keyword = result.clusters[index].clusterKeyword;
+            console.log(keyword);
 
             // 1. 선택한 키워드 값을 이용해서 axios 요청 보내서 검색결과 받아오기
             const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
@@ -104,14 +95,15 @@ function InterpolationChart() {
       chart.resize();
     });
   }, []);
+
   return (
     <div>
       <div className={styles.chart}>
         <canvas ref={chartRef} />
       </div>
-      {/* {resultData.map(n => (
-        <NewsItem key={n.newsId} article={n} />
-      ))} */}
+      <div className={styles.item}>
+        {resultData.list && resultData.list.map(n => <NewsItem key={n.newsId} article={n} />)}
+      </div>
       {/* <Pagination
         count={resultData.totalPage}
         page={currentPage}

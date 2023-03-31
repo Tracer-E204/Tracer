@@ -29,8 +29,19 @@ export default function SearchBar() {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Search ..." value={text} onChange={handleChange} />
+    <form onSubmit={handleSubmit} style={{ display: 'flex' }}>
+      <input
+        type="text"
+        placeholder="Search ..."
+        value={text}
+        onChange={handleChange}
+        style={{
+          width: '100%',
+          border: '2px solid',
+          borderRadius: '10px',
+          height: '30px',
+        }}
+      />
     </form>
   );
 }
