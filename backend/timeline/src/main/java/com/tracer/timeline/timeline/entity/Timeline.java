@@ -4,6 +4,7 @@ import com.tracer.timeline.cluster.entity.Cluster;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,9 @@ public class Timeline {
     @Column(name = "top_keyword")
     private String topKeyword;
 
+    @Column(name = "resent_date")
+    private LocalDate resentDate;
+    
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "timeline_cluster",
