@@ -4,14 +4,28 @@ import styles from './TimeLine.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NewsItem from 'components/Common/News/NewsItem';
+import { Pagination } from '@mui/material';
 
 function InterpolationChart() {
-  const [chart, setChart] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const result = location.state.result;
   const [resultData, setResultData] = useState([]);
-  const chartRef = useRef();
+  const chartRef = useRef(null);
+  const [chart, setChart] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [keytext, setKeyText] = useState();
+
+  const handleChange = async (event, value) => {
+    setCurrentPage(value);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
+      word: keytext,
+      limit: 5,
+      offset: value - 1,
+      type: 0,
+    });
+    setResultData(response.data);
+  };
 
   useEffect(() => {
     setResultData([]);
@@ -41,8 +55,8 @@ function InterpolationChart() {
         responsive: true,
         events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
         onClick: async e => {
-          const chart = e.chart;
-          const point = chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+          const chart1 = e.chart;
+          const point = chart1.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
           if (point.length > 0) {
             const index = point[0].index;
             const keyword = result.clusters[index].clusterKeyword;
@@ -55,6 +69,8 @@ function InterpolationChart() {
               type: 0,
             });
             setResultData(response.data);
+            setKeyText(keyword);
+            setCurrentPage(1);
           }
         },
         interaction: {
@@ -96,6 +112,7 @@ function InterpolationChart() {
         Newchart.destroy();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
   return (
@@ -103,9 +120,22 @@ function InterpolationChart() {
       <div className={styles.chart}>
         <canvas ref={chartRef} />
       </div>
+      <hr className={styles.line} />
       <div className={styles.item}>
         {resultData.list && resultData.list.map(n => <NewsItem key={n.newsId} article={n} navigate={navigate} />)}
       </div>
+      {resultData.list && resultData.list.length > 0 && (
+        <div className={styles.pages}>
+          <Pagination
+            count={resultData.totalPage}
+            page={currentPage}
+            onChange={handleChange}
+            size="large"
+            showFirstButton
+            showLastButton
+          />
+        </div>
+      )}
     </div>
   );
 }

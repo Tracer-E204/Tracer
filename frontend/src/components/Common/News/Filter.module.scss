@@ -14,7 +14,7 @@
   height: fit-content;
 }
 
-.pe-header {
+.peheader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -30,10 +30,11 @@
     font-weight: bolder;
     background-color: transparent;
     border: none;
+    cursor: pointer;
   }
 }
 
-.period-list {
+.periodlist {
   background-color: #fafbfc;
   padding-top: 10px;
   padding-bottom: 10px;

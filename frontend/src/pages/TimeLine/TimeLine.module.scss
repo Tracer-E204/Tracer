@@ -2,7 +2,25 @@
   font-size: 20px;
 }
 
+canvas {
+  margin-top: 4%;
+}
 .chart {
   width: 70%;
   margin: auto;
+}
+.item {
+  width: 70%;
+  margin: auto;
+  padding-top: 4%;
+}
+.pages {
+  display: flex;
+  padding-top: 2rem;
+  justify-content: center;
+}
+
+.line {
+  width: 70%;
+  margin-top: 4%;
 }
