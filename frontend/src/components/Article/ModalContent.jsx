@@ -20,7 +20,7 @@ export default function ModalContent({ article }) {
   const [shortcut, setShortcut] = useState('');
   useEffect(() => {
     const fetchShortcut = async () => {
-      const response = await axios.get(`http://j8e204.p.ssafy.io:8001/news/shortcut/${article.newsId}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/news/shortcut/${article.newsId}`);
       setShortcut(response.data);
     };
     fetchShortcut();

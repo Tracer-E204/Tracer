@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function FloatingBar({ result }) {
+function FloatingBar({ result, setModalOpen }) {
   const [clicked, setClicked] = useState(false);
   const number = result.length;
   const navigate = useNavigate();
@@ -10,8 +10,9 @@ function FloatingBar({ result }) {
   const handleClick = async (event, timelineId) => {
     event.stopPropagation();
     setClicked(!clicked);
-    const response = await axios.get(`http://j8e204.p.ssafy.io:8001/timeline/${timelineId}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/timeline/${timelineId}`);
     navigate(`/timeline/${response.data.timelineKeyword}`, { state: { result: response.data } });
+    setModalOpen(false); // Close the modal when navigating to a new timeline page
   };
 
   return (

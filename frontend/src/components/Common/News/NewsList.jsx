@@ -18,7 +18,7 @@ export default function NewsList({ result, text }) {
   const handleTypeChange = async newType => {
     setType(newType);
     setCurrentPage(1);
-    const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/search`, {
       word: text,
       limit: 5,
       offset: 0,
@@ -29,7 +29,7 @@ export default function NewsList({ result, text }) {
 
   const handleChange = async (event, value) => {
     setCurrentPage(value);
-    const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
       word: text,
       limit: 5,
       offset: value - 1,
