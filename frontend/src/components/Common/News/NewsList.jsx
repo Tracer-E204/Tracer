@@ -18,7 +18,7 @@ export default function NewsList({ result, text }) {
   const handleTypeChange = async newType => {
     setType(newType);
     setCurrentPage(1);
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/search`, {
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
       word: text,
       limit: 5,
       offset: 0,
