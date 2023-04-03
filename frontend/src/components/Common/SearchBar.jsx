@@ -23,9 +23,12 @@ export default function SearchBar() {
         offset: 0,
         type: 0,
       });
+      if (response.data.totalCount === 0) {
+        throw new Error('검색결과가 존재하지 않습니다.');
+      }
       navigate(`/searchresult`, { state: { result: response.data, text: text } });
     } catch (error) {
-      console.error('Error sending POST request:', error);
+      alert(error.message);
     }
   };
   return (
