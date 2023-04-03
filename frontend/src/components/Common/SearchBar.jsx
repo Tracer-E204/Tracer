@@ -17,7 +17,7 @@ export default function SearchBar() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
         word: text,
         limit: 5,
         offset: 0,

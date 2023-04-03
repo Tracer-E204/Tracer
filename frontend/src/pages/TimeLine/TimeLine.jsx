@@ -1,21 +1,25 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Chart } from 'chart.js/auto';
 import styles from './TimeLine.module.scss';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NewsItem from 'components/Common/News/NewsItem';
-import Pagination from 'components/Common/News/Pagination';
 
 function InterpolationChart() {
+  const [chart, setChart] = useState(null);
+  const navigate = useNavigate();
   const location = useLocation();
   const result = location.state.result;
-  const [resultData, setResultData] = useState([result]);
+  const [resultData, setResultData] = useState([]);
   const chartRef = useRef();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [keyword, setKeyword] = useState();
 
   useEffect(() => {
-    const chart = new Chart(chartRef.current.getContext('2d'), {
+    setResultData([]);
+    if (chart) {
+      chart.destroy();
+    }
+
+    const Newchart = new Chart(chartRef.current.getContext('2d'), {
       type: 'line',
       data: {
         labels: result.clusters.map(item => `${item.date}\n${item.clusterKeyword}`),
@@ -41,23 +45,16 @@ function InterpolationChart() {
           const point = chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
           if (point.length > 0) {
             const index = point[0].index;
-            // const label = chart.data.labels[index];
-            // const value = chart.data.datasets[point[0].datasetIndex].data[index];
             const keyword = result.clusters[index].clusterKeyword;
-            console.log(keyword);
 
             // 1. 선택한 키워드 값을 이용해서 axios 요청 보내서 검색결과 받아오기
-            const response = await axios.post('http://j8e204.p.ssafy.io:8001/news/search', {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
               word: keyword,
               limit: 5,
               offset: 0,
               type: 0,
             });
-            console.log(response.data);
             setResultData(response.data);
-            // 2. 검색 결과를 result에 저장해서 NewsItem 가져오기
-            // 3. Pagination 가져오기
-            // 4. CSS 조정
           }
         },
         interaction: {
@@ -90,11 +87,16 @@ function InterpolationChart() {
         },
       },
     });
-
+    setChart(Newchart);
     window.addEventListener('resize', () => {
-      chart.resize();
+      Newchart.resize();
     });
-  }, []);
+    return () => {
+      if (Newchart) {
+        Newchart.destroy();
+      }
+    };
+  }, [result]);
 
   return (
     <div>
@@ -102,16 +104,8 @@ function InterpolationChart() {
         <canvas ref={chartRef} />
       </div>
       <div className={styles.item}>
-        {resultData.list && resultData.list.map(n => <NewsItem key={n.newsId} article={n} />)}
+        {resultData.list && resultData.list.map(n => <NewsItem key={n.newsId} article={n} navigate={navigate} />)}
       </div>
-      {/* <Pagination
-        count={resultData.totalPage}
-        page={currentPage}
-        onChange={handleChange}
-        size="large"
-        showFirstButton
-        showLastButton
-      /> */}
     </div>
   );
 }

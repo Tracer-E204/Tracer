@@ -29,7 +29,7 @@ export default function NewsSlide() {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    fetch('http://j8e204.p.ssafy.io:8001/news/daily')
+    fetch(`${process.env.REACT_APP_API_URL}/news/daily`)
       .then(res => res.json())
       .then(res => {
         setList(res);

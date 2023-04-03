@@ -4,7 +4,7 @@ import thumbnail from '../../../assets/images/tracer_thumbnail.png';
 import ArticleModal from '../../Article/ArticleModal';
 import styles1 from '../../Article/ArticleModal.module.scss';
 
-export default function NewsItem({ article }) {
+export default function NewsItem({ article, navigate }) {
   const [modalOpen, setModalOpen] = useState(false);
   const ModalOpen = () => {
     setModalOpen(true);
@@ -32,7 +32,7 @@ export default function NewsItem({ article }) {
       </div>
       {modalOpen && (
         <div className={styles1.container1}>
-          <ArticleModal article={article} setModalOpen={setModalOpen} />
+          <ArticleModal article={article} setModalOpen={setModalOpen} navigate={navigate} />
         </div>
       )}
     </div>

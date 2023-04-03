@@ -6,7 +6,7 @@ import FloatingBar from './FloatingBar.jsx';
 import styles1 from './FloatingBar.moudle.scss';
 import axios from 'axios';
 
-function ArticleModal({ article, setModalOpen }) {
+function ArticleModal({ article, setModalOpen, navigate }) {
   // 모달 외부 클릭시 끄기 처리
   const modalRef = useRef();
   const [result, setResult] = useState([]);
@@ -30,7 +30,7 @@ function ArticleModal({ article, setModalOpen }) {
 
   // axios 요청 함수
   async function fetchData() {
-    // const response = await axios.get(`http://j8e204.p.ssafy.io:8001/timeline/news/${article.newsId}`);
+    // const response = await axios.get(`${process.env.REACT_APP_API_URL}/timeline/news/${article.newsId}`);
     const response = await axios.get('http://j8e204.p.ssafy.io:8001/timeline/news/1');
     setResult(response.data);
   }
@@ -54,7 +54,9 @@ function ArticleModal({ article, setModalOpen }) {
         style={{ position: 'absolute', right: '2.5%', zIndex: 10000, cursor: 'pointer' }}
       ></img>
       <ModalContent article={article} />
-      {result.length > 0 && <FloatingBar result={result} className={styles1['floating-bar']} />}
+      {result.length > 0 && (
+        <FloatingBar result={result} setModalOpen={setModalOpen} className={styles1['floating-bar']} />
+      )}
     </div>
   );
 }
