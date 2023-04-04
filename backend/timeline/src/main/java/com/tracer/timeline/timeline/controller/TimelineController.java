@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/timeline")
+@RequestMapping("/api/timeline")
 public class TimelineController {
 
     private final TimelineService timelineService;
