@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Filter.module.scss';
-import MyCalendar from './MyCalendar';
+import My123 from './MyCalendar';
 
 export default function Filter() {
   const [expanded, setExpanded] = useState(false);
+  const my123Ref = useRef(null);
+  const handleApply = () => {
+    setExpanded(false);
+  };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        expanded &&
+        my123Ref.current &&
+        !my123Ref.current.contains(event.target) &&
+        !event.target.classList.contains('Filter_plus__vT9hn')
+      ) {
+        setExpanded(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [expanded, my123Ref]);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
   return (
     <div className={styles['filter-container']}>
       <div className={styles.tag}>검색필터</div>
@@ -19,11 +38,12 @@ export default function Filter() {
               +
             </button>
             <div
+              ref={my123Ref}
               style={{
                 visibility: expanded ? 'visible' : 'hidden',
               }}
             >
-              <MyCalendar />
+              <My123 onApply={handleApply} />
             </div>
           </div>
         </div>
