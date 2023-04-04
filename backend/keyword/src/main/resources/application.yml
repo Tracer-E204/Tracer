@@ -2,9 +2,18 @@ server:
   port: 0
   shutdown: graceful
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: true
+
 spring:
   application:
-    name: keyword-service
+    name: local-keyword-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://j8e204.p.ssafy.io:3306/keyword?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -26,6 +35,6 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://j8e204.p.ssafy.io:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
