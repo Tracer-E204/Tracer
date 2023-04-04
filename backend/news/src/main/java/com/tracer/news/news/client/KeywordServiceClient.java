@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(name = "${client.keyword}")
 public interface KeywordServiceClient {
-    @GetMapping("/keyword/news")
+    @GetMapping("/api/keyword/news")
     ResponseEntity<Object> newsKeyword();
 }
