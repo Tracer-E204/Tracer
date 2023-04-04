@@ -24,7 +24,7 @@ public class Timeline {
 
     @Column(name = "resent_date")
     private LocalDate resentDate;
-    
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "timeline_cluster",
