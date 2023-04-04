@@ -28,7 +28,7 @@ public class DailyService {
     @Transactional
     public List<ResDailyKeyword> dailyKeyword(Integer type){
         List<ResDailyKeyword> list = new ArrayList<>();
-        LocalDate date = LocalDate.now();
+        LocalDate date = LocalDate.now().minusDays(1);
         // 일주일전
         if(type == 1){
             date = date.minusWeeks(1);
@@ -91,7 +91,7 @@ public class DailyService {
 
     @Transactional
     public List<ResNewsKeyword> newsKeywords(){
-        List<Daily> dailies = dailyRepository.findTop12ByDailyDateOrderByCountDesc(LocalDate.of(2023,03,23));
+        List<Daily> dailies = dailyRepository.findTop12ByDailyDateOrderByCountDesc(LocalDate.now().minusDays(1));
         List<ResNewsKeyword> list = dailies.stream().map(d->new ResNewsKeyword(d.getKeyword().getKeywordId())).collect(Collectors.toList());
         return list;
     }
