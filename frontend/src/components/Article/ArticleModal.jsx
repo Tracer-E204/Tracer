@@ -30,8 +30,7 @@ function ArticleModal({ article, setModalOpen, navigate }) {
 
   // axios 요청 함수
   async function fetchData() {
-    // const response = await axios.get(`${process.env.REACT_APP_API_URL}/timeline/news/${article.newsId}`);
-    const response = await axios.get('http://j8e204.p.ssafy.io:8001/timeline/news/1');
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/timeline/news/${article.newsId}`);
     setResult(response.data);
   }
 
