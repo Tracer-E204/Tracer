@@ -285,13 +285,17 @@ public class NewsService {
 
     @Transactional
     public ResShortcut shortcut(Long newsId){
-        Shortcut shortcut = shortcutRepository.findByNewsNewsId(newsId);
-        ResShortcut resShortcut = ResShortcut.builder()
-                .shortcutId(shortcut.getShortcutId())
-                .content1st(shortcut.getContent1st())
-                .content2nd(shortcut.getContent2nd())
-                .content3rd(shortcut.getContent3rd())
-                .build();
+        Optional<Shortcut> shortcut = shortcutRepository.findByNewsNewsId(newsId);
+        ResShortcut resShortcut = null;
+        if(shortcut.isPresent()){
+            resShortcut = ResShortcut.builder()
+                    .shortcutId(shortcut.get().getShortcutId())
+                    .content1st(shortcut.get().getContent1st())
+                    .content2nd(shortcut.get().getContent2nd())
+                    .content3rd(shortcut.get().getContent3rd())
+                    .build();
+        }
+        
         return resShortcut;
     }
 
