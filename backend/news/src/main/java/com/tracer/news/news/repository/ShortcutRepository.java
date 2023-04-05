@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ShortcutRepository extends JpaRepository<Shortcut, Long> {
-    Shortcut findByNewsNewsId(Long newsId);
+    Optional<Shortcut> findByNewsNewsId(Long newsId);
 
 }
