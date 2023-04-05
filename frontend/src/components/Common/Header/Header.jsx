@@ -28,7 +28,10 @@ export default function Header() {
       if (response.data.totalCount === 0) {
         throw new Error('검색결과가 존재하지 않습니다.');
       }
-      navigate(`/searchresult`, { state: { result: response.data, text: text } });
+      navigate(`/searchresult`, { state: { result: response.data, text: text, startDate: null, EndDate: null } });
+      if (window.location.pathname === '/searchresult') {
+        window.location.reload();
+      }
     } catch (error) {
       alert(error.message);
     }
