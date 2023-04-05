@@ -33,6 +33,7 @@ export default function NewsSlide() {
       .then(res => res.json())
       .then(res => {
         setList(res);
+        console.log(res);
       });
   }, []);
 
