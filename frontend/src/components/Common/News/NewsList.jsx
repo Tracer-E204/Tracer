@@ -6,7 +6,7 @@ import { Pagination } from '@mui/material';
 import axios from 'axios';
 
 // 카테고리를 props로 받아옴
-export default function NewsList({ result, text }) {
+export default function NewsList({ result, text, startDt, endDt, index, setIndex }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [newsResult, setNewsResult] = useState(result);
   const [type, setType] = useState(0);
@@ -23,6 +23,8 @@ export default function NewsList({ result, text }) {
       limit: 5,
       offset: 0,
       type: newType,
+      newsStartDt: startDt,
+      newsEndDt: endDt,
     });
     setNewsResult(response.data);
   };
@@ -34,12 +36,14 @@ export default function NewsList({ result, text }) {
       limit: 5,
       offset: value - 1,
       type: type,
+      newsStartDt: startDt,
+      newsEndDt: endDt,
     });
     setNewsResult(response.data);
   };
   return (
     <div className={styles.newsList}>
-      <Category onTypeChange={handleTypeChange} />
+      <Category onTypeChange={handleTypeChange} index1={index} setIndex={setIndex} />
       {newsResult.list.map(n => (
         <NewsItem key={n.newsId} article={n} />
       ))}
