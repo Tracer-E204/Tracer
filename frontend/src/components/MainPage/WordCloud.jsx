@@ -1,299 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styles from './WordCloud.module.scss';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import WordCloud from 'react-d3-cloud';
-import { scaleOrdinal } from 'd3-scale';
-import { schemeCategory10 } from 'd3-scale-chromatic';
-import HotelsResult from './test';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function WordCloudPage() {
-  const words = [
-    {
-      text: '러시아',
-      value: 10000,
-    },
-    {
-      text: '우크라이나',
-      value: 10222,
-    },
-    {
-      text: '젤렌스키',
-      value: 8000,
-    },
-    {
-      text: '크림반도',
-      value: 7000,
-    },
-    {
-      text: '푸틴',
-      value: 9000,
-    },
-    {
-      text: '러우전쟁',
-      value: 17000,
-    },
-    {
-      text: '키이우',
-      value: 8700,
-    },
-    {
-      text: '무기대여법',
-      value: 1400,
-    },
-    {
-      text: 'SU-27',
-      value: 100,
-    },
-    {
-      text: 'MQ-9 무인기',
-      value: 400,
-    },
-    {
-      text: 'MQ-9 무인기',
-      value: 400,
-    },
-    {
-      text: '군대',
-      value: 1400,
-    },
-    {
-      text: '철수',
-      value: 2400,
-    },
-    {
-      text: '사태',
-      value: 3400,
-    },
-    {
-      text: '영향',
-      value: 4400,
-    },
-    {
-      text: '바이든',
-      value: 5400,
-    },
-    {
-      text: '서방',
-      value: 6400,
-    },
-    {
-      text: '나토',
-      value: 280,
-    },
-    {
-      text: '가능성',
-      value: 300,
-    },
-    {
-      text: '증시',
-      value: 110,
-    },
-    {
-      text: '키에프',
-      value: 194,
-    },
-    {
-      text: '돈바스',
-      value: 260,
-    },
-    {
-      text: '소련',
-      value: 460,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-    {
-      text: '제재',
-      value: 6400,
-    },
-    {
-      text: '대만',
-      value: 900,
-    },
-    {
-      text: '한국',
-      value: 1200,
-    },
-    {
-      text: '일본',
-      value: 2500,
-    },
-    {
-      text: '터키',
-      value: 400,
-    },
-  ];
+  const [data, setData] = useState([]);
 
-  const schemeCategory10ScaleOrdinal = scaleOrdinal(schemeCategory10);
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/keyword/daily?type=2`)
+      .then(res => res.json())
+      .then(res => {
+        setData(res);
+        console.log(res);
+      });
+  }, []);
+
+  const words = data.map(d => ({ text: d.keyword, value: d.count }));
+  console.log(words);
+  const navigate = useNavigate();
+
+  const handleWordClick = async e => {
+    // PointerEvent에서 target 속성을 사용하여 클릭된 엘리먼트에 액세스합니다.
+    console.log(e.target.innerHTML);
+    const target = e.target;
+    const children = target.innerHTML;
+
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
+        word: children,
+        limit: 5,
+        offset: 0,
+        type: 0,
+      });
+      if (response.data.totalCount === 0) {
+        throw new Error('검색결과가 존재하지 않습니다.');
+      }
+      navigate(`/searchresult`, { state: { result: response.data, text: children } });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  function fontSizeMapper(word) {
+    return word.value;
+  }
+
+  const fontSize = useCallback(word => Math.log2(word.value) * 5, []);
+  const handleWordMouseOver = (word, event) => {
+    // word.target.setAttribute(
+    //   'style',
+    //   `font-style: normal; font-weight: normal; font-size: ${
+    //     Math.log2(word.value) * 5
+    //   }px; fill: yellow; cursor:pointer `
+    // );
+    // console.log(word.target);
+  };
+
+  const handleWordMouseOut = (word, event) => {
+    // console.log(word);
+    // word.target.setAttribute(
+    //   'style',
+    //   `font-style: normal; font-weight: normal; font-size: ${fontSize}px; fill: white;`
+    // );
+  };
 
   return (
     <div className={styles['cloud-container']}>
       <h1>
-        Check <span>this</span> fucking awesome WordCloud
+        Check <span>this</span> WordCloud
       </h1>
       <div className={styles['stick']}>
         <div className={styles['bar']} />
       </div>
       <div className={styles['calendar']}>
-        <WordCloud data={words} fill="white" spiral="rectangular" />
+        <WordCloud
+          data={words}
+          style={{ pointer: 'cursor' }}
+          font="Times"
+          rotate="0"
+          spiral="rectangular"
+          onWordClick={handleWordClick}
+          onWordMouseOver={handleWordMouseOver}
+          onWordMouseOut={handleWordMouseOut}
+          padding={5}
+        />
       </div>
     </div>
   );
