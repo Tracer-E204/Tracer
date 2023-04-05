@@ -9,12 +9,32 @@ export default function NewsItem({ article, navigate }) {
   const ModalOpen = () => {
     setModalOpen(true);
   };
+  const get_time = (date, time) => {
+    const dateArr = [...date.split('-'), ...time.split(':')];
+    const date1 = dateArr.map(str => parseInt(str));
+    const now = new Date();
+    const then = new Date(date1[0], date1[1] - 1, date1[2], date1[3], date1[4], date1[5]);
+    const diffInMs = now.getTime() - then.getTime();
+    const weekInMs = 7 * 24 * 60 * 60 * 1000;
+    const dayInMs = 24 * 60 * 60 * 1000;
+    const hourInMs = 60 * 60 * 1000;
+    const minuteInMs = 60 * 1000;
+    if (weekInMs >= diffInMs >= dayInMs) {
+      return `${Math.floor(diffInMs / dayInMs)}일 전`;
+    } else if (dayInMs >= diffInMs >= hourInMs) {
+      return `${Math.floor(diffInMs / hourInMs)}시간 전`;
+    } else if (hourInMs >= diffInMs >= minuteInMs) {
+      return `${Math.floor(diffInMs / minuteInMs)}분 전`;
+    } else {
+      return `${date1[0]}.${date1[1] - 1}.${date1[2]}`;
+    }
+  };
   return (
     <div className={styles.itemcontainer}>
       <div className={styles['title-content']}>
         <div className={styles['sub-info']}>
           <div className={styles.press}>{article.newsPress}</div>
-          <div className={styles.time}>1일 전</div>
+          <div className={styles.time}>{get_time(article.newsDate, article.newsTime)}</div>
         </div>
         <div className={styles.title} onClick={() => ModalOpen()}>
           {article.newsTitle}
