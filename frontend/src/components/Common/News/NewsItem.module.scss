@@ -2,10 +2,14 @@
   width: 100%;
   margin: auto;
   display: grid;
-  grid-template-columns: 4fr 1fr;
-  gap: 30 px;
-  padding: 2px;
-  padding-bottom: 8px;
+  grid-template-columns: 0.1fr 3fr 1fr;
+  gap: 5px;
+  padding-top: 13px;
+  padding-bottom: 18px;
+  border-top: 1px solid #f1f4f6;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.03);
+  background-color: #fff;
 }
 
 .title-content {
@@ -20,6 +24,7 @@
   font-size: 17px;
   font-weight: bold;
   padding-top: 3px;
+  padding-right: 10px;
   cursor: pointer;
 }
 
@@ -37,14 +42,17 @@
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
+  padding-right: 10px;
   cursor: pointer;
 }
 
 .thumbnail {
   display: flex;
+  justify-content: center;
+  align-items: center;
   img {
     padding-top: 2%;
-    width: 160px;
+    width: 150px;
     height: 100px;
     object-fit: cover;
     cursor: pointer;
@@ -55,5 +63,5 @@
   display: flex;
   gap: 5px;
   color: gray;
-  font-size: 3%;
+  font-size: 12px;
 }
