@@ -26,7 +26,7 @@ export default function NewsItem({ article, navigate }) {
     } else if (hourInMs >= diffInMs >= minuteInMs) {
       return `${Math.floor(diffInMs / minuteInMs)}분 전`;
     } else {
-      return `${date1[0]}.${date1[1] - 1}.${date1[2]}`;
+      return `${date1[0]}.${date1[1]}.${date1[2]}`;
     }
   };
   return (

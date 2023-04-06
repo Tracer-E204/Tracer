@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import NewsList from 'components/Common/News/NewsList';
 import styles from './SearchResult.module.scss';
 import Filter from 'components/Common/News/Filter';
+import fail from '../../assets/images/fail.png';
 
 export default function SearchResult() {
   const location = useLocation();
@@ -27,6 +28,16 @@ export default function SearchResult() {
   const handleIndex = tf => {
     setIndex(tf);
   };
+  if (result && result.totalCount === 0) {
+    console.log(result);
+    return (
+      <div className={styles.searchresult}>
+        <img src={fail} alt="fail" style={{ margin: 'auto', paddingTop: '3%', width: '60vw', maxHeight: '70vh' }}></img>
+      </div>
+    );
+  }
+
+  // 검색 결과가 0이 아니면 Filter와 NewsList 출력
   return (
     <div className={styles.searchresult}>
       <Filter

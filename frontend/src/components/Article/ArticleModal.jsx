@@ -13,6 +13,7 @@ function ArticleModal({ article, setModalOpen, navigate }) {
 
   // mousedown 이벤트가 발생한 영역이 모달창이 아닐 때, 모달창 제거 처리
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
     function handleClickOutside(event) {
       if (modalRef.current && event.button === 0 && !modalRef.current.contains(event.target)) {
         setModalOpen(false);
@@ -24,6 +25,7 @@ function ArticleModal({ article, setModalOpen, navigate }) {
 
     // 이벤트 핸들러 해제
     return () => {
+      document.body.style.overflow = 'auto';
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [modalRef, setModalOpen]);

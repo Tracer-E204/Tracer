@@ -4,6 +4,7 @@ import logo from '../../../assets/tracerlogo.png';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../Loading';
 import axios from 'axios';
+import search from '../../../assets/images/search.png';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -27,9 +28,6 @@ export default function Header() {
         offset: 0,
         type: 0,
       });
-      if (response.data.totalCount === 0) {
-        throw new Error('검색결과가 존재하지 않습니다.');
-      }
       setLoading(false);
       navigate(`/searchresult`, { state: { result: response.data, text: text, startDate: null, EndDate: null } });
       if (window.location.pathname === '/searchresult') {
@@ -47,13 +45,18 @@ export default function Header() {
         <div className={styles.logo}>
           <img className={styles['logo-img']} src={logo} alt="logo" onClick={Gomain} />
         </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            className={styles.searchbar}
-            type="text"
-            placeholder="type keword you want to search"
-            onChange={handleChange}
-          />
+        <form onSubmit={handleSubmit} className={styles.form1}>
+          <div className={styles['search-container']}>
+            <input
+              className={styles.searchbar}
+              type="text"
+              placeholder="검색어를 입력해주세요"
+              onChange={handleChange}
+            />
+            <button type="submit" className={styles['search-button']}>
+              <img src={search} alt="search" />
+            </button>
+          </div>
         </form>
       </header>
     </div>

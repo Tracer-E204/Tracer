@@ -87,14 +87,6 @@ export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex
             {startDt} ~ {endDt} <img src={xbutton} alt="xx" className={styles.xbuttonimg} onClick={resetDate}></img>
           </div>
         )}
-        <div className={styles.press}>
-          <div className={styles.peheader}>
-            <div className={styles.title}>언론사</div>
-            <button className={styles.plus}>+</button>
-          </div>
-          {/* mapping  */}
-          <div className={styles.periodlist}>data</div>
-        </div>
       </div>
     </div>
   );
