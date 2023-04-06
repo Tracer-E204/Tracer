@@ -34,7 +34,7 @@ spring:
       routes:
         - id: local-news-service
           predicates:
-            - Path=/news/**
+            - Path=/api/news/**
           uri: lb://LOCAL-NEWS-SERVICE
           filters:
             - name: NewsFilter
@@ -44,7 +44,7 @@ spring:
                 postLogger: true
         - id: local-keyword-service
           predicates:
-            - Path=/keyword/**
+            - Path=/api/keyword/**
           uri: lb://LOCAL-KEYWORD-SERVICE
           filters:
             - name: KeywordFilter
@@ -54,7 +54,7 @@ spring:
                 postLogger: true
         - id: local-timeline-service
           predicates:
-            - Path=/timeline/**
+            - Path=/api/timeline/**
           uri: lb://LOCAL-TIMELINE-SERVICE
           filters:
             - name: TimelineFilter
