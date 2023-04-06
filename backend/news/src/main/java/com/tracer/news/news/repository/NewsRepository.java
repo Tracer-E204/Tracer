@@ -33,7 +33,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     @Query(nativeQuery = true,
             value = "select * from news" +
                     " where match(news_title) against(? in boolean mode)" +
-                    " or match(news_content) against(? in boolean mode)" +
+                    " and match(news_content) against(? in boolean mode)" +
                     " order by news_date desc," +
                     " news_time desc")
     List<News> findByNewTitleLikeAndNewsContentLike(String word1, String word2);
