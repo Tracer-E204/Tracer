@@ -1,31 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styles from './NewsSlide.module.scss';
-import axios from 'axios';
 import thumbnail from 'assets/images/tracer_thumbnail.png';
+import ArticleModal from '../Article/ArticleModal';
+import styles1 from '../Article/ArticleModal.module.scss';
 
 export default function NewsSlide() {
-  // const useInterval = (callback, delay) => {
-  //   const savedCallback = useRef();
-
-  //   useEffect(() => {
-  //     savedCallback.current = callback;
-  //   });
-
-  //   useEffect(() => {
-  //     function tick() {
-  //       savedCallback.current();
-  //     }
-  //     if (delay !== null) {
-  //       let id = setInterval(tick, delay);
-  //       return () => clearInterval(id);
-  //     }
-  //   }, [delay]);
-  // };
-  //Autoplay
-  // useInterval(() => {
-  //   setActive((activeIndex + 1) % len);
-  // }, 5000);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [article, setArticle] = useState(null);
+  const ModalOpen = article => {
+    setArticle(article);
+    setModalOpen(true);
+  };
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -33,7 +18,6 @@ export default function NewsSlide() {
       .then(res => res.json())
       .then(res => {
         setList(res);
-        console.log(res);
       });
   }, []);
 
@@ -55,6 +39,7 @@ export default function NewsSlide() {
         styleObj.zIndex = zBase;
         styleObj.opacity = 1;
         styleObj.transform = 'scale(1)';
+        styleObj.cursor = 'pointer';
       } else {
         const scale = 1 - Math.abs(distance) * 0.27; // decrease scale based on distance
         const overlap = 16 * Math.abs(distance); // overlap distance between images
@@ -102,20 +87,44 @@ export default function NewsSlide() {
         </div>
         {list.map((article, idx) => (
           <div className={styles.card} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
-            <div className={styles.itemcontainer}>
-              <div className={styles.thumbnail}>
-                {article.newsThumbnail ? (
-                  <img src={get_img(article)} alt={`Slide ${idx}`} />
-                ) : (
-                  <img src={thumbnail} alt="thumbnail" />
-                )}
+            {article && (
+              <div className={styles.itemcontainer}>
+                <div
+                  className={styles.thumbnail}
+                  onClick={() => {
+                    const distance = activeIndex - idx;
+                    if (Math.abs(distance) === 0) {
+                      ModalOpen(article);
+                    }
+                  }}
+                >
+                  {article.newsThumbnail ? (
+                    <img src={get_img(article)} alt={`Slide ${idx}`} />
+                  ) : (
+                    <img src={thumbnail} alt="thumbnail" />
+                  )}
+                </div>
+                <div className={styles.press}>{article.newsPress}</div>
+                <div
+                  className={styles.title}
+                  onClick={() => {
+                    const distance = activeIndex - idx;
+                    if (Math.abs(distance) === 0) {
+                      ModalOpen(article);
+                    }
+                  }}
+                >
+                  {article.newsTitle}
+                </div>
               </div>
-              <div className={styles.press}>{article.newsPress}</div>
-              <div className={styles.title}>{article.newsTitle}</div>
-              <div className={styles.time}>1일 전</div>
-            </div>
+            )}
           </div>
         ))}
+        {modalOpen && (
+          <div className={styles1.container1}>
+            <ArticleModal article={article} setModalOpen={setModalOpen} />
+          </div>
+        )}
       </div>
     );
   };

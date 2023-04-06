@@ -10,9 +10,9 @@ export default function SearchPage() {
         <source src={video} type="video/mp4" />
       </video>
       <div className={styles['search-component']}>
-        <h1> 관심있는 키워드를 검색하고 </h1>
-        <h3> 뉴스의 흐름을 알아보세요! </h3>
-        <SearchBar className={styles['searchbar']} />
+        <h1 className={styles.h1tag}> 관심있는 키워드를 검색하고 </h1>
+        <h3 className={styles.h1tag}> 뉴스의 흐름을 알아보세요! </h3>
+        <SearchBar />
       </div>
     </div>
   );

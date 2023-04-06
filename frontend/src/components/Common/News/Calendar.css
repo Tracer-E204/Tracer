@@ -1,7 +1,7 @@
 .calendar-container {
   border: 2px solid gray;
   width: fit-content;
-  z-index: 111100;
+  z-index: 111;
   position: absolute;
   background-color: white;
 }
