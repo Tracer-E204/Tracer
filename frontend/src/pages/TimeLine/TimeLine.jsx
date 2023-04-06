@@ -14,7 +14,7 @@ function InterpolationChart() {
   const [chart, setChart] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [idvalue, setIdvalue] = useState();
-
+  const [text, setText] = useState(null);
   const handleChange = async (event, value) => {
     setCurrentPage(value);
     const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/cluster`, {
@@ -50,6 +50,11 @@ function InterpolationChart() {
         ],
       },
       options: {
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
         responsive: true,
         events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
         onClick: async e => {
@@ -59,6 +64,7 @@ function InterpolationChart() {
             const index = point[0].index;
             const keyId = result.clusters[index].clusterId;
             setIdvalue(keyId);
+            setText(result.clusters[index].clusterKeyword);
 
             // 1. 선택한 키워드 값을 이용해서 axios 요청 보내서 검색결과 받아오기
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/cluster`, {
@@ -113,26 +119,38 @@ function InterpolationChart() {
   }, [result]);
 
   return (
-    <div>
-      <div className={styles.chart}>
-        <canvas ref={chartRef} />
-      </div>
-      <hr className={styles.line} />
-      <div className={styles.item}>
-        {resultData.list && resultData.list.map(n => <NewsItem key={n.newsId} article={n} />)}
-      </div>
-      {resultData.list && resultData.list.length > 0 && (
-        <div className={styles.pages}>
-          <Pagination
-            count={resultData.totalPage}
-            page={currentPage}
-            onChange={handleChange}
-            size="large"
-            showFirstButton
-            showLastButton
-          />
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <div className={styles.title}>
+          <span className={styles.nocolor}>"</span>
+          <span>{result.timelineKeyword}</span>
+          <span className={styles.nocolor}>"</span> 타임라인
         </div>
-      )}
+        <div className={styles.chart}>
+          <canvas ref={chartRef} />
+        </div>
+        {resultData.list && resultData.list.length > 0 && (
+          <>
+            <hr className={styles.line} />
+            <div className={styles.intro}>"{text}" 관련 기사</div>
+            <div className={styles.item}>
+              {resultData.list.map(n => (
+                <NewsItem key={n.newsId} article={n} />
+              ))}
+            </div>
+            <div className={styles.pages}>
+              <Pagination
+                count={resultData.totalPage}
+                page={currentPage}
+                onChange={handleChange}
+                size="large"
+                showFirstButton
+                showLastButton
+              />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
