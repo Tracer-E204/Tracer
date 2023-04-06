@@ -29,14 +29,20 @@ export default function SearchResult() {
   };
   return (
     <div className={styles.searchresult}>
-      <Filter
-        text={state.text}
-        onApply={handleApply}
-        onDate={handleDate}
-        startDt={startDate}
-        endDt={EndDate}
-        setIndex={handleIndex}
-      />
+      <div className={styles['filter-container']}>
+        <div>
+          "<span>{state.text}</span>"
+        </div>
+        <div>뉴스 검색 결과 총 {result.totalCount}건입니다</div>
+        <Filter
+          text={state.text}
+          onApply={handleApply}
+          onDate={handleDate}
+          startDt={startDate}
+          endDt={EndDate}
+          setIndex={handleIndex}
+        />
+      </div>
       <NewsList
         result={result}
         text={state.text}
