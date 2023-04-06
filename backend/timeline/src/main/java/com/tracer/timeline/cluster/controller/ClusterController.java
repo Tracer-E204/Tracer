@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/timeline/cluster")
+@RequestMapping("/api/timeline/cluster")
 public class ClusterController {
 
     private final ClusterService clusterService;
