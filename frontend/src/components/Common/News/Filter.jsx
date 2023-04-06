@@ -3,11 +3,14 @@ import styles from './Filter.module.scss';
 import My123 from './MyCalendar';
 import xbutton from '../../../assets/images/xxxx.png';
 import axios from 'axios';
+import Loading from '../../Loading';
 
 export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex }) {
   const [expanded, setExpanded] = useState(false);
   const my123Ref = useRef(null);
   const [check, setCheck] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const handleApply1 = () => {
     setExpanded(false);
   };
@@ -15,6 +18,7 @@ export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex
     setCheck(tf);
   };
   const resetDate = async () => {
+    setLoading(true);
     onDate(null, null);
     setIndex(true);
     setCheck(true);
@@ -28,6 +32,7 @@ export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex
     });
     onApply(response.data);
     handleApply1();
+    setLoading(false);
   };
   useEffect(() => {
     function handleClickOutside(event) {
@@ -50,6 +55,7 @@ export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex
   };
   return (
     <div className={styles['filter-container']}>
+      {loading ? <Loading /> : null}
       <div className={styles.tag}>검색필터</div>
       <div className={styles.searchfilter}>
         <div className={styles.period}>
