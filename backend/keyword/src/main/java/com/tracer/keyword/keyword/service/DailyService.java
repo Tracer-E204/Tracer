@@ -92,7 +92,7 @@ public class DailyService {
     @Transactional
     public List<ResNewsKeyword> newsKeywords(){
 //        List<Daily> dailies = dailyRepository.findTop12ByDailyDateOrderByCountDesc(LocalDate.now().minusDays(1));
-        List<Daily> dailies = dailyRepository.findTop12ByDailyDateOrderByCountDesc(LocalDate.of(2023,03,07));
+        List<Daily> dailies = dailyRepository.findTop12ByDailyDateOrderByCountDesc(LocalDate.of(2023,3,7));
         List<ResNewsKeyword> list = dailies.stream().map(d->new ResNewsKeyword(d.getKeyword().getKeywordId())).collect(Collectors.toList());
         return list;
     }
