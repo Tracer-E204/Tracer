@@ -4,13 +4,14 @@ import My123 from './MyCalendar';
 import xbutton from '../../../assets/images/xxxx.png';
 import axios from 'axios';
 import Loading from '../../Loading';
+import plus from '../../../assets/images/plus.png';
 
-export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex }) {
+export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex, result }) {
   const [expanded, setExpanded] = useState(false);
   const my123Ref = useRef(null);
   const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const word = useState(text);
   const handleApply1 = () => {
     setExpanded(false);
   };
@@ -56,13 +57,12 @@ export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex
   return (
     <div className={styles['filter-container']}>
       {loading ? <Loading /> : null}
-      <div className={styles.tag}>검색필터</div>
       <div className={styles.searchfilter}>
         <div className={styles.period}>
           <div className={styles.peheader}>
-            <div className={styles.title}>기간</div>
+            <div className={styles.title}>기간설정</div>
             <button id="expand-button" className={styles.plus} onClick={handleExpandClick}>
-              +
+              <img src={plus} alt=""></img>
             </button>
             <div
               ref={my123Ref}

@@ -26,14 +26,24 @@ export default function NewsItem({ article, navigate }) {
     } else if (hourInMs >= diffInMs >= minuteInMs) {
       return `${Math.floor(diffInMs / minuteInMs)}분 전`;
     } else {
-      return `${date1[0]}.${date1[1]}.${date1[2]}`;
+      const dateStr = then
+        .toLocaleString('ko-KR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+        .replace(/-/g, '')
+        .replace(/\s/g, '')
+        .slice(0, -1);
+      return dateStr;
     }
   };
   return (
     <div className={styles.itemcontainer}>
+      <div>&nbsp;</div>
       <div className={styles['title-content']}>
         <div className={styles['sub-info']}>
-          <div className={styles.press}>{article.newsPress}</div>
+          <div className={styles.press}>{article.newsPress}</div> |
           <div className={styles.time}>{get_time(article.newsDate, article.newsTime)}</div>
         </div>
         <div className={styles.title} onClick={() => ModalOpen()}>
