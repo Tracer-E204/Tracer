@@ -6,6 +6,7 @@ import com.tracer.news.config.redis.RedisNews;
 import com.tracer.news.config.redis.RedisService;
 import com.tracer.news.news.client.KeywordServiceClient;
 import com.tracer.news.news.client.TimelineServiceClient;
+import com.tracer.news.news.dto.ClusterPageDto;
 import com.tracer.news.news.dto.CountPerPressDto;
 import com.tracer.news.news.dto.NewsIdDto;
 import com.tracer.news.news.dto.NewsListDto;
@@ -285,13 +286,17 @@ public class NewsService {
 
     @Transactional
     public ResShortcut shortcut(Long newsId){
-        Shortcut shortcut = shortcutRepository.findByNewsNewsId(newsId);
-        ResShortcut resShortcut = ResShortcut.builder()
-                .shortcutId(shortcut.getShortcutId())
-                .content1st(shortcut.getContent1st())
-                .content2nd(shortcut.getContent2nd())
-                .content3rd(shortcut.getContent3rd())
-                .build();
+        Optional<Shortcut> shortcut = shortcutRepository.findByNewsNewsId(newsId);
+        ResShortcut resShortcut = null;
+        if(shortcut.isPresent()){
+            resShortcut = ResShortcut.builder()
+                    .shortcutId(shortcut.get().getShortcutId())
+                    .content1st(shortcut.get().getContent1st())
+                    .content2nd(shortcut.get().getContent2nd())
+                    .content3rd(shortcut.get().getContent3rd())
+                    .build();
+        }
+        
         return resShortcut;
     }
 
@@ -303,7 +308,7 @@ public class NewsService {
         List<ResNews> newsList = list.stream()
                 .map( k -> {
                     Optional<NewsKeyword> newsKeyword = newsKeywordRepository.findTop1ByNewsKeywordPKKeywordId(k.getKeywordId());
-                    ResNews resNews = null;
+                    ResNews resNews = new ResNews();
                     if (newsKeyword.isPresent()) {
                         News news = newsKeyword.get().getNewsKeywordPK().getNews();
                         resNews = ResNews.builder()
@@ -327,15 +332,16 @@ public class NewsService {
     }
 
     @Transactional
-    public List<ResNews> clusterNews(Long clusterId){
+    public ResNewsSearch clusterNews(ReqCluster reqCluster){
         // 클러스터별 news 리스트 불러오기
         ObjectMapper om = new ObjectMapper();
-        List<NewsIdDto> list = om.convertValue(timelineServiceClient.clusterNews(clusterId).getBody(), new TypeReference<List<NewsIdDto>>() {});
+        ClusterPageDto clusterPageDto = om.convertValue(timelineServiceClient.clusterNews(reqCluster).getBody(), ClusterPageDto.class);
+        List<NewsIdDto> list = clusterPageDto.getList();
         List<Long> ids = list.stream().map(n -> n.getNewsId()).collect(Collectors.toList());
         List<News> news = newsRepository.findByNewsIdIn(ids);
 
-        List<ResNews> newsList = news.stream()
-                .map( n -> ResNews.builder()
+        List<NewsListDto> newsList = news.stream()
+                .map( n -> NewsListDto.builder()
                         .newsContent(n.getNewsContent())
                         .newsThumbnail(n.getNewsThumbnail())
                         .newsDate(n.getNewsDate())
@@ -349,6 +355,10 @@ public class NewsService {
                         .newsTypeCode(n.getNewsType().getCode())
                         .build())
                 .collect(Collectors.toList());
-        return newsList;
+        ResNewsSearch resNewsSearch = new ResNewsSearch();
+        resNewsSearch.setTotalCount(clusterPageDto.getTotalCount());
+        resNewsSearch.setTotalPage(clusterPageDto.getTotalPage());
+        resNewsSearch.setList(newsList);
+        return resNewsSearch;
     }
 }
