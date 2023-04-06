@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/keyword")
+@RequestMapping("/api/keyword")
 public class KeywordController {
 
     private final DailyService dailyService;
