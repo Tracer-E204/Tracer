@@ -15,7 +15,7 @@ engine = engineconn()
 session = engine.sessionmaker()
 
 # 뉴스 디테일 크롤러
-def getContent(str):
+def getContent(str,press):
     result = []
     nextUrl = str
     response = requests.get(nextUrl)
@@ -26,13 +26,21 @@ def getContent(str):
         html = soup.select('div.article_view')
         reporter = soup.find('span', {'class': 'txt_info'}).get_text()
         con = soup.select('div.article_view p')
+        if press == 'KBS':
+            if soup.find_all('figure'):
+                tags = soup.find_all('figure')
+                tag_to_remove = tags[-1]
+                tag_to_remove.extract()
         for p in con:
             ret_content += p.text
         result.insert(0, html[0])
         result.insert(1, ret_content)
-        result.insert(2, reporter)
+        if reporter[-1].isdigit():
+            result.insert(2, "")
+        else:
+            result.insert(2, reporter)
     else:
-        ret_content = 'status_code:{}'.format(status_code)
+        return
     return result
 # 매일 수행하는 뉴스 리스트 크롤러
 def root():
@@ -42,9 +50,7 @@ def root():
     }
     init_date = datetime.today()
     date = init_date.strftime("%Y%m%d")
-
     url = 'https://news.daum.net/breakingnews/{}?regDate={}&page={}'
-
     hmap = ['society','economic','foreign','digital']
     for t,subject in enumerate(hmap, start=0):
         i = 0
@@ -79,7 +85,6 @@ def root():
                             news_type=content[3],
                             news_thumbnail=str(thumbnail)
                         )
-                        print(news.news_thumbnail)
                         # session.add(news)
                         # session.commit()
                         # hdfs 파일에 저장될 것들
@@ -106,9 +111,9 @@ def dump():
     url = 'https://news.daum.net/breakingnews/{}?regDate={}&page={}'
 
     result = []
-    hmap = ['society', 'economic', 'foreign', 'digital']
-    start = "2022-02-07"
-    last = "2023-03-17"
+    hmap = ['society', 'economic', 'foreign', 'digital', 'culture']
+    start = "2023-04-03"
+    last = "2023-04-04"
     start_date = datetime.strptime(start, "%Y-%m-%d")
     last_date = datetime.strptime(last, "%Y-%m-%d")
     while start_date <= last_date:
@@ -139,7 +144,7 @@ def dump():
                             thumbnail = ''
                             if item.find('img'):
                                 thumbnail = item.find('img')['src']
-                            content = getContent(tit['href'])
+                            content = getContent(tit['href'],tit_press[0])
                             news = News(
                                 news_title=tit.get_text(),
                                 news_source=str(content[0]),
@@ -147,13 +152,13 @@ def dump():
                                 news_press=tit_press[0],
                                 news_date=str(start_date.strftime('%Y-%m-%d')),
                                 news_time=tit_press[1],
-                                news_reporter=str(content[2])[0:3],
+                                news_reporter=str(content[2]),
                                 news_type=t,
                                 news_thumbnail=str(thumbnail)
                             )
-                            print(news.news_thumbnail)
-                            # session.add(news)
-                            # session.commit()
+                            #print(news)
+                            session.add(news)
+                            session.commit()
         start_date += timedelta(days=1)
     # with open('dump.json', 'w', encoding='utf-8') as f:
     #     for item in result:
@@ -165,5 +170,5 @@ scheduler.start()
 
 # 매일 0시 0분에 배치 처리 작업 예약
 # scheduler.add_job(root, "cron", hour=15, minute=48)
-scheduler.add_job(dump, "cron", hour=13, minute=22)
+# scheduler.add_job(dump, "cron", hour=13, minute=22)
 dump()
