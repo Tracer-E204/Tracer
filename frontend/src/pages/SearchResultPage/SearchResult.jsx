@@ -29,7 +29,6 @@ export default function SearchResult() {
     setIndex(tf);
   };
   if (result && result.totalCount === 0) {
-    console.log(result);
     return (
       <div className={styles.searchresult}>
         <img src={fail} alt="fail" style={{ margin: 'auto', paddingTop: '3%', width: '60vw', maxHeight: '70vh' }}></img>

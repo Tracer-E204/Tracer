@@ -38,6 +38,7 @@ function ArticleModal({ article, setModalOpen, navigate }) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 모달 끄기
