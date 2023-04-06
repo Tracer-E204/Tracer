@@ -50,8 +50,8 @@ sudo docker build --no-cache -t frontend:v1 .
 
 - —no-cache 명령어는 이미지 레이어를 무시하고 전원을 실행한다.
 
-![Untitled](frontEnd%20%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5%202d9c73f4bc8e4dfc9e6412d71ce4fe11/Untitled.png)
+![Untitled](FrontEnd/Untitled.png)
 
-![Untitled](frontEnd%20%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5%202d9c73f4bc8e4dfc9e6412d71ce4fe11/Untitled%201.png)
+![Untitled](FrontEnd/Untitled1.png)
 
 - 생성완료

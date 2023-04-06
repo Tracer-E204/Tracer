@@ -91,45 +91,6 @@ public class NewsService {
             newsTitlePage.clear();
         }
 
-        if(reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
-            newsTitleAndNewsContentPage = newsTitleAndNewsContentPage.stream()
-                    .filter(news ->
-                            news.getNewsDate().isAfter(reqNewsSearch.getNewsStartDt())
-                                    && news.getNewsDate().isBefore(reqNewsSearch.getNewsEndDt()))
-                    .sorted(Comparator.comparing(News::getNewsDate).reversed())
-                    .sorted(Comparator.comparing(News::getNewsTime).reversed())
-                    .collect(Collectors.toList());
-
-            newsTitlePage = newsTitlePage.stream()
-                    .filter(news ->
-                            news.getNewsDate().isAfter(reqNewsSearch.getNewsStartDt())
-                                    && news.getNewsDate().isBefore(reqNewsSearch.getNewsEndDt()))
-                    .sorted(Comparator.comparing(News::getNewsDate).reversed())
-                    .sorted(Comparator.comparing(News::getNewsTime).reversed())
-                    .collect(Collectors.toList());
-
-            newsContentPage = newsContentPage.stream()
-                    .filter(news ->
-                            news.getNewsDate().isAfter(reqNewsSearch.getNewsStartDt())
-                                    && news.getNewsDate().isBefore(reqNewsSearch.getNewsEndDt()))
-                    .sorted(Comparator.comparing(News::getNewsDate).reversed())
-                    .sorted(Comparator.comparing(News::getNewsTime).reversed())
-                    .collect(Collectors.toList());
-        }
-
-        if(reqNewsSearch.getNewsPressList()!=null){
-            List<String> press = reqNewsSearch.getNewsPressList().stream().map(p -> p.getNewsPress()).collect(Collectors.toList());
-            newsTitleAndNewsContentPage = newsTitleAndNewsContentPage.stream()
-                    .filter(news -> press.contains(news.getNewsPress()))
-                    .collect(Collectors.toList());
-            newsTitlePage = newsTitlePage.stream()
-                    .filter(news -> press.contains(news.getNewsPress()))
-                    .collect(Collectors.toList());
-            newsContentPage = newsContentPage.stream()
-                    .filter(news -> press.contains(news.getNewsPress()))
-                    .collect(Collectors.toList());
-        }
-
         List<NewsListDto> newsList = new ArrayList<>();
         for (News n:
                 newsTitleAndNewsContentPage) {
@@ -187,6 +148,56 @@ public class NewsService {
                             .build()
             );
         }
+
+        if(reqNewsSearch.getNewsPressList()!=null){
+            List<String> press = reqNewsSearch.getNewsPressList().stream().map(p -> p.getNewsPress()).collect(Collectors.toList());
+            newsList = newsList.stream()
+                    .filter(news -> press.contains(news.getNewsPress()))
+                    .collect(Collectors.toList());
+//            newsTitleAndNewsContentPage = newsTitleAndNewsContentPage.stream()
+//                    .filter(news -> press.contains(news.getNewsPress()))
+//                    .collect(Collectors.toList());
+//            newsTitlePage = newsTitlePage.stream()
+//                    .filter(news -> press.contains(news.getNewsPress()))
+//                    .collect(Collectors.toList());
+//            newsContentPage = newsContentPage.stream()
+//                    .filter(news -> press.contains(news.getNewsPress()))
+//                    .collect(Collectors.toList());
+        }
+
+        if(reqNewsSearch.getNewsStartDt() != null && reqNewsSearch.getNewsEndDt() != null){
+            Comparator<NewsListDto> comparator = Comparator.comparing(NewsListDto::getNewsDate)
+                    .thenComparing(NewsListDto::getNewsTime).reversed();
+
+            newsList = newsList.stream()
+                    .filter(news ->
+                            news.getNewsDate().isAfter(reqNewsSearch.getNewsStartDt())
+                                    && news.getNewsDate().isBefore(reqNewsSearch.getNewsEndDt()))
+                    .sorted(comparator)
+                    .collect(Collectors.toList());
+
+//            newsTitleAndNewsContentPage = newsTitleAndNewsContentPage.stream()
+//                    .filter(news ->
+//                            news.getNewsDate().isAfter(reqNewsSearch.getNewsStartDt())
+//                                    && news.getNewsDate().isBefore(reqNewsSearch.getNewsEndDt()))
+//                    .sorted(comparator)
+//                    .collect(Collectors.toList());
+//
+//            newsTitlePage = newsTitlePage.stream()
+//                    .filter(news ->
+//                            news.getNewsDate().isAfter(reqNewsSearch.getNewsStartDt())
+//                                    && news.getNewsDate().isBefore(reqNewsSearch.getNewsEndDt()))
+//                    .sorted(comparator)
+//                    .collect(Collectors.toList());
+//
+//            newsContentPage = newsContentPage.stream()
+//                    .filter(news ->
+//                            news.getNewsDate().isAfter(reqNewsSearch.getNewsStartDt())
+//                                    && news.getNewsDate().isBefore(reqNewsSearch.getNewsEndDt()))
+//                    .sorted(comparator)
+//                    .collect(Collectors.toList());
+        }
+
 
 //        List<RedisNews> rn = redisService.getValues(reqNewsSearch.getWord());
 //        for (RedisNews r:
