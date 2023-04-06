@@ -46,6 +46,7 @@ export default function SearchResult() {
         startDt={startDate}
         endDt={EndDate}
         setIndex={handleIndex}
+        result={result}
       />
       <NewsList
         result={result}
