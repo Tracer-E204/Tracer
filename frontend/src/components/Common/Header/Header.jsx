@@ -32,9 +32,9 @@ export default function Header() {
       }
 
       navigate(`/searchresult`, { state: { result: response.data, text: text, startDate: null, EndDate: null } });
-      window.location.reload();
+      console.log(window.location.pathname);
       if (window.location.pathname === '/searchresult') {
-        console.log(window.location.pathname);
+        window.location.reload();
       }
     } catch (error) {
       alert(error.message);
