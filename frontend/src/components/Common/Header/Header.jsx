@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import styles from './Header.module.scss';
 import logo from '../../../assets/tracerlogo.png';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../Loading';
 import axios from 'axios';
-import { useEffect } from 'react';
+import search from '../../../assets/images/search.png';
 
 export default function Header() {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [text, setText] = useState('');
-  const [result, setResult] = useState(null);
   const Gomain = () => {
     navigate('/');
   };
@@ -21,18 +21,15 @@ export default function Header() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
         word: text,
         limit: 5,
         offset: 0,
         type: 0,
       });
-      if (response.data.totalCount === 0) {
-        throw new Error('검색결과가 존재하지 않습니다.');
-      }
-
+      setLoading(false);
       navigate(`/searchresult`, { state: { result: response.data, text: text, startDate: null, EndDate: null } });
-      console.log(window.location.pathname);
       if (window.location.pathname === '/searchresult') {
         window.location.reload();
       }
@@ -42,18 +39,26 @@ export default function Header() {
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}>
-        <img className={styles['logo-img']} src={logo} alt="logo" onClick={Gomain} />
-      </div>
-      <form onSubmit={handleSubmit}>
-        <input
-          className={styles.searchbar}
-          type="text"
-          placeholder="type keword you want to search"
-          onChange={handleChange}
-        />
-      </form>
-    </header>
+    <div>
+      {loading ? <Loading /> : null}
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <img className={styles['logo-img']} src={logo} alt="logo" onClick={Gomain} />
+        </div>
+        <form onSubmit={handleSubmit} className={styles.form1}>
+          <div className={styles['search-container']}>
+            <input
+              className={styles.searchbar}
+              type="text"
+              placeholder="검색어를 입력해주세요"
+              onChange={handleChange}
+            />
+            <button type="submit" className={styles['search-button']}>
+              <img src={search} alt="search" />
+            </button>
+          </div>
+        </form>
+      </header>
+    </div>
   );
 }

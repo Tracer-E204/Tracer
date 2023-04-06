@@ -3,8 +3,10 @@ import Calendar from 'react-calendar';
 import './Calendar.css';
 import moment from 'moment/moment';
 import axios from 'axios';
+import Loading from '../../Loading';
 
 export default function My123({ onApply, text, onApply1, onDate, setIndex, check, handlecheck }) {
+  const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState({ startDate: null, endDate: null });
   const today = new Date();
   const [startDate, setStartDate] = useState();
@@ -22,6 +24,7 @@ export default function My123({ onApply, text, onApply1, onDate, setIndex, check
   }, [check, handlecheck]);
 
   const handleApply = async () => {
+    setLoading(true);
     const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
       word: text,
       limit: 5,
@@ -30,10 +33,11 @@ export default function My123({ onApply, text, onApply1, onDate, setIndex, check
       newsStartDt: startDate,
       newsEndDt: endDate,
     });
+    setIndex(true);
     onApply(response.data);
     onApply1();
     onDate(startDate, endDate);
-    setIndex(true);
+    setLoading(false);
   };
 
   const changeDate = e => {
@@ -45,41 +49,44 @@ export default function My123({ onApply, text, onApply1, onDate, setIndex, check
   };
 
   return (
-    <div className="calendar-container">
-      <Calendar
-        calendarType="US"
-        onChange={changeDate}
-        value={dateRange.startDate && dateRange.endDate ? [dateRange.startDate, dateRange.endDate] : null}
-        selectRange={true}
-        tileClassName={({ date, view }) => {
-          if (view !== 'month') {
-            return;
-          }
-          const momentDate = moment(date);
-          if (momentDate.isSameOrAfter(start, 'day') && momentDate.isSameOrBefore(end, 'day')) {
-            return 'react-calendar__tile--gray';
-          }
-          if (date.getDay() === 6) {
-            return 'react-calendar__tile--saturday';
-          }
-          if (date.getDay() === 0) {
-            return 'react-calendar__tile--weekend';
-          }
-        }}
-        formatDay={(locale, date) => moment(date).format('DD')}
-        maxDate={today}
-      />
-      {startDate && endDate && (
-        <p style={{ textAlign: 'center' }}>
-          {startDate} ~ {endDate}
-        </p>
-      )}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div>
+      {loading ? <Loading /> : null}
+      <div className="calendar-container">
+        <Calendar
+          calendarType="US"
+          onChange={changeDate}
+          value={dateRange.startDate && dateRange.endDate ? [dateRange.startDate, dateRange.endDate] : null}
+          selectRange={true}
+          tileClassName={({ date, view }) => {
+            if (view !== 'month') {
+              return;
+            }
+            const momentDate = moment(date);
+            if (momentDate.isSameOrAfter(start, 'day') && momentDate.isSameOrBefore(end, 'day')) {
+              return 'react-calendar__tile--gray';
+            }
+            if (date.getDay() === 6) {
+              return 'react-calendar__tile--saturday';
+            }
+            if (date.getDay() === 0) {
+              return 'react-calendar__tile--weekend';
+            }
+          }}
+          formatDay={(locale, date) => moment(date).format('DD')}
+          maxDate={today}
+        />
         {startDate && endDate && (
-          <button type="button" className="button1" onClick={handleApply}>
-            적용
-          </button>
+          <p style={{ textAlign: 'center' }}>
+            {startDate} ~ {endDate}
+          </p>
         )}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {startDate && endDate && (
+            <button type="button" className="button1" onClick={handleApply}>
+              적용
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
