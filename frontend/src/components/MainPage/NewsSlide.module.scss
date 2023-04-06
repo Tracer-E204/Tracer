@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   background-color: black;
 }
 .header {
@@ -30,6 +29,7 @@
 
 .itemcontainer {
   width: 100%;
+  max-height: 60vh;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -47,6 +47,7 @@
   display: flex;
   img {
     // border-radius: 8%;
+    max-height:40vh;
     margin: auto;
     object-fit: fill;
     cursor: pointer;

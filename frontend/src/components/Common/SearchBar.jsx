@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import styles from './SearchBar.module.scss';
+import styles from './SearchBar.module.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/Loading';
@@ -25,9 +25,6 @@ export default function SearchBar() {
         offset: 0,
         type: 0,
       });
-      if (response.data.totalCount === 0) {
-        throw new Error('검색결과가 존재하지 않습니다.');
-      }
       setLoading(false);
       navigate(`/searchresult`, { state: { result: response.data, text: text, startDate: null, EndDate: null } });
     } catch (error) {
@@ -38,18 +35,7 @@ export default function SearchBar() {
     <div>
       {loading ? <Loading /> : null}
       <form onSubmit={handleSubmit} style={{ display: 'flex' }}>
-        <input
-          type="text"
-          placeholder="Search ..."
-          value={text}
-          onChange={handleChange}
-          style={{
-            width: '100%',
-            border: '2px solid',
-            borderRadius: '10px',
-            height: '30px',
-          }}
-        />
+        <input className={styles.search__input} type="text" placeholder="Search" onChange={handleChange} />
       </form>
     </div>
   );

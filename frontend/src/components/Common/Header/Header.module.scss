@@ -66,8 +66,33 @@
 }
 
 .searchbar {
-  align-items: center;
-  margin: auto;
-  width: 60%;
-  height: 50%;
+  display: flex;
+  z-index: 3;
+  height: 35px;
+  background: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+  border-radius: 24px;
+  margin-top: 2%;
+  min-width: 700px;
+  padding-left: 16px;
+}
+.search-container {
+  position: relative;
+}
+.search-button {
+  position: absolute;
+  top: 54%;
+  right: 0;
+  transform: translateY(-50%);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding-right: 16px;
+  width: 40px;
+  height: 40px;
+}
+
+.form1 {
+  margin-left: 15%;
 }
