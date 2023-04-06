@@ -33,7 +33,6 @@ export default function NewsSlide() {
       .then(res => res.json())
       .then(res => {
         setList(res);
-        console.log(res);
       });
   }, []);
 
@@ -102,18 +101,20 @@ export default function NewsSlide() {
         </div>
         {list.map((article, idx) => (
           <div className={styles.card} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
-            <div className={styles.itemcontainer}>
-              <div className={styles.thumbnail}>
-                {article.newsThumbnail ? (
-                  <img src={get_img(article)} alt={`Slide ${idx}`} />
-                ) : (
-                  <img src={thumbnail} alt="thumbnail" />
-                )}
+            {article && (
+              <div className={styles.itemcontainer}>
+                <div className={styles.thumbnail}>
+                  {article.newsThumbnail ? (
+                    <img src={get_img(article)} alt={`Slide ${idx}`} />
+                  ) : (
+                    <img src={thumbnail} alt="thumbnail" />
+                  )}
+                </div>
+                <div className={styles.press}>{article.newsPress}</div>
+                <div className={styles.title}>{article.newsTitle}</div>
+                <div className={styles.time}>1일 전</div>
               </div>
-              <div className={styles.press}>{article.newsPress}</div>
-              <div className={styles.title}>{article.newsTitle}</div>
-              <div className={styles.time}>1일 전</div>
-            </div>
+            )}
           </div>
         ))}
       </div>
