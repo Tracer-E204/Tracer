@@ -6,12 +6,12 @@ import axios from 'axios';
 import Loading from '../../Loading';
 import plus from '../../../assets/images/plus.png';
 
-export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex }) {
+export default function Filter({ text, onApply, onDate, startDt, endDt, setIndex, result }) {
   const [expanded, setExpanded] = useState(false);
   const my123Ref = useRef(null);
   const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const word = useState(text);
   const handleApply1 = () => {
     setExpanded(false);
   };

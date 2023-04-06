@@ -12,7 +12,9 @@ export default function SearchPage() {
       <div className={styles['search-component']}>
         <h1 className={styles.h1tag}> 관심있는 키워드를 검색하고 </h1>
         <h3 className={styles.h1tag}> 뉴스의 흐름을 알아보세요! </h3>
-        <SearchBar />
+        <div className={styles.bar}>
+          <SearchBar />
+        </div>
       </div>
     </div>
   );
