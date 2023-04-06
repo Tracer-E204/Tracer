@@ -3,11 +3,13 @@ import styles from './Header.module.scss';
 import logo from '../../../assets/tracerlogo.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 export default function Header() {
   const navigate = useNavigate();
 
   const [text, setText] = useState('');
+  const [result, setResult] = useState(null);
   const Gomain = () => {
     navigate('/');
   };
@@ -28,7 +30,9 @@ export default function Header() {
       if (response.data.totalCount === 0) {
         throw new Error('검색결과가 존재하지 않습니다.');
       }
+
       navigate(`/searchresult`, { state: { result: response.data, text: text, startDate: null, EndDate: null } });
+      console.log(window.location.pathname);
       if (window.location.pathname === '/searchresult') {
         window.location.reload();
       }
