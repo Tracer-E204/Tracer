@@ -11,6 +11,7 @@ function FloatingBar({ result, setModalOpen }) {
     event.stopPropagation();
     setClicked(!clicked);
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/timeline/${timelineId}`);
+
     navigate(`/timeline/${response.data.timelineKeyword}`, { state: { result: response.data } });
     setModalOpen(false); // Close the modal when navigating to a new timeline page
   };
