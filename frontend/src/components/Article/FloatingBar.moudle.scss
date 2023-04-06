@@ -48,7 +48,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 50%;
+  width: fit-content;
   min-width: 500px;
   left: 50%;
   transform: translateX(-50%);
@@ -59,7 +59,7 @@
 .new-box2 {
   position: absolute;
   justify-content: center;
-  width: 50%;
+  width: fit-content;
   min-width: 130px;
   left: 50%;
   transform: translateX(-50%);
@@ -67,7 +67,6 @@
   /* Add any other styles you want for the new-box element */
 }
 .new-box > div {
-  max-width: 15%;
   min-width: 15%;
   height: fit-content;
   padding: 10px 10px 10px 10px;
@@ -75,11 +74,7 @@
   border-radius: 24px;
   background: #fff;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
-  margin: 0 10px;
-  white-space: nowrap;
-  overflow: hidden;
   text-align: center;
-  text-overflow: ellipsis;
 }
 
 .new-box2 > div {
@@ -89,11 +84,7 @@
   border-radius: 24px;
   background: #fff;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
-  margin: 0 10px;
-  white-space: nowrap;
-  overflow: hidden;
   text-align: center;
-  text-overflow: ellipsis;
 }
 /* 애니메이션 시작 시 상태 */
 .first,

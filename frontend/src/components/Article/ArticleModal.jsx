@@ -33,7 +33,17 @@ function ArticleModal({ article, setModalOpen, navigate }) {
   // axios 요청 함수
   async function fetchData() {
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/timeline/news/${article.newsId}`);
-    setResult(response.data);
+    const uniqueData = [];
+    const topKeywordsSet = new Set();
+    for (let i = 0; i < response.data.length; i++) {
+      const currentItem = response.data[i];
+      // currentItem의 topKeyword가 이미 Set에 있는 경우 중복이므로 제외
+      if (!topKeywordsSet.has(currentItem.topKeyword)) {
+        topKeywordsSet.add(currentItem.topKeyword);
+        uniqueData.push(currentItem);
+      }
+    }
+    setResult(uniqueData);
   }
 
   useEffect(() => {

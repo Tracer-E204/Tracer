@@ -44,9 +44,11 @@ export default function NewsList({ result, text, startDt, endDt, index, setIndex
   return (
     <div className={styles.newsList}>
       <Category onTypeChange={handleTypeChange} index1={index} setIndex={setIndex} />
-      {newsResult.list.map(n => (
-        <NewsItem key={n.newsId} article={n} />
-      ))}
+      <div className={styles.items}>
+        {newsResult.list.map(n => (
+          <NewsItem key={n.newsId} article={n} />
+        ))}
+      </div>
       <div className={styles.pages}>
         <Pagination
           count={newsResult.totalPage}

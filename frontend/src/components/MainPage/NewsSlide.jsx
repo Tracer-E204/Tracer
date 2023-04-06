@@ -79,11 +79,11 @@ export default function NewsSlide() {
     return (
       <div className={styles['slide-container']}>
         <div className={styles.background}>
-          {/* {list[activeIndex].newsThumbnail ? (
-            <img src={get_img(list[activeIndex])} />
+          {list && list[activeIndex] && list[activeIndex].newsThumbnail ? (
+            <img src={get_img(list[activeIndex])} alt="" />
           ) : (
             <img src={thumbnail} alt="thumbnail" />
-          )} */}
+          )}
         </div>
         {list.map((article, idx) => (
           <div className={styles.card} key={idx} onClick={() => setActive(idx)} style={getStyle(idx)}>
