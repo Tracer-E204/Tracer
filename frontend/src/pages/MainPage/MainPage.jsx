@@ -8,7 +8,7 @@ import { FullPage, Slide } from 'react-full-page';
 
 export default function MainPage() {
   return (
-    <div className={styles['mainpage']}>
+    <div className={styles.mainpage}>
       <FullPage controls={false}>
         <Slide>
           <Intro />

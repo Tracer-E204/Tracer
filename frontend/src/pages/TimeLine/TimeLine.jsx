@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NewsItem from 'components/Common/News/NewsItem';
 import { Pagination } from '@mui/material';
+import Loading from '../../components/Loading';
 
 function InterpolationChart() {
   const navigate = useNavigate();
@@ -15,8 +16,10 @@ function InterpolationChart() {
   const [chart, setChart] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [keytext, setKeyText] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = async (event, value) => {
+    setLoading(true);
     setCurrentPage(value);
     const response = await axios.post(`${process.env.REACT_APP_API_URL}/news/search`, {
       word: keytext,
@@ -25,6 +28,7 @@ function InterpolationChart() {
       type: 0,
     });
     setResultData(response.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -58,6 +62,7 @@ function InterpolationChart() {
           const chart1 = e.chart;
           const point = chart1.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
           if (point.length > 0) {
+            setLoading(true);
             const index = point[0].index;
             const keyword = result.clusters[index].clusterKeyword;
 
@@ -71,6 +76,7 @@ function InterpolationChart() {
             setResultData(response.data);
             setKeyText(keyword);
             setCurrentPage(1);
+            setLoading(false);
           }
         },
         interaction: {
@@ -117,6 +123,7 @@ function InterpolationChart() {
 
   return (
     <div>
+      {loading ? <Loading /> : null}
       <div className={styles.chart}>
         <canvas ref={chartRef} />
       </div>
