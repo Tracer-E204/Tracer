@@ -1,0 +1,71 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: local-apigateway-service
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allow-credentials: false
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Hello Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: local-news-service
+          predicates:
+            - Path=/api/news/**
+          uri: lb://LOCAL-NEWS-SERVICE
+          filters:
+            - name: NewsFilter
+              args:
+                baseMessage: News Service Filter
+                preLogger: true
+                postLogger: true
+        - id: local-keyword-service
+          predicates:
+            - Path=/api/keyword/**
+          uri: lb://LOCAL-KEYWORD-SERVICE
+          filters:
+            - name: KeywordFilter
+              args:
+                baseMessage: Keyword Service Filter
+                preLogger: true
+                postLogger: true
+        - id: local-timeline-service
+          predicates:
+            - Path=/api/timeline/**
+          uri: lb://LOCAL-TIMELINE-SERVICE
+          filters:
+            - name: TimelineFilter
+              args:
+                baseMessage: Timeline Service Filter
+                preLogger: true
+                postLogger: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://j8e204.p.ssafy.io:8761/eureka
