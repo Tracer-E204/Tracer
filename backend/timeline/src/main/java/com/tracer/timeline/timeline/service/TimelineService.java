@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +36,9 @@ public class TimelineService {
             list.setTotalCount(timeline.get().getClusters().stream().count());
             list.setTimelineKeyword(timeline.get().getTopKeyword());
             list.setClusters(timeline.get().getClusters().stream()
-                    .map(ClusterDto::new).collect(Collectors.toList()));
+                    .map(ClusterDto::new)
+                    .sorted(Comparator.comparing(ClusterDto::getDate))
+                    .collect(Collectors.toList()));
         }
         return list;
     }
