@@ -18,19 +18,19 @@ flush privileges;
 # 후 다시 접속 시도
 ```
 
-![Untitled](MySql%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%209a6bfcf26b9d45d8aed1e43b6bac4b62/Untitled.png)
+![Untitled](MySql/Untitled.png)
 
 - 여기서 db만들고 입력도 가능하지만 간편하게 workbench 사용
 
-![Untitled](MySql%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%209a6bfcf26b9d45d8aed1e43b6bac4b62/Untitled%201.png)
+![Untitled](MySql/Untitled1.png)
 
 1. + 선택
 2. 도메인 입력 (포트는 고정)
 3. 사전에 입력했던 비밀번호 입력
 - 이후 test connection 클릭하고 연결 확인
 
-![Untitled](MySql%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%209a6bfcf26b9d45d8aed1e43b6bac4b62/Untitled%202.png)
+![Untitled](MySql/Untitled2.png)
 
 - 이름을 안적어서 이런 에러가 떴었다.
 
-![Untitled](MySql%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%209a6bfcf26b9d45d8aed1e43b6bac4b62/Untitled%203.png)
+![Untitled](MySql/Untitled3.png)
