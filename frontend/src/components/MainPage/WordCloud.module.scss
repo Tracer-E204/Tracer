@@ -3,9 +3,10 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: 100vh;
-  display: grid;
-  grid-template-columns: 2fr 1fr 5fr;
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
 
   h1 {
     color: white;
@@ -17,8 +18,7 @@
 }
 
 .stick {
-  flex-grow: 2;
-  padding-left: 12%;
+  padding-right: 12%;
   .bar {
     animation: slidestick 2s ease-out;
     height: 400px;
@@ -29,64 +29,17 @@
 
 .calendar {
   background-color: white;
-  margin-left: -10%;
-  width: 80%;
+  border-radius: 12%;
+  margin-right: 10%;
+
+  width: 600px !important;
   & > div > svg > g > text {
     cursor: pointer;
   }
-  & > div > svg {
+  & > div {
     padding: 0;
   }
-}
-
-@keyframes slidestick {
-  from {
-    top: 250px;
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slidetext {
-  from {
-    left: -100px;
-    opacity: 0;
-  }
-
-  to {
-    left: 200px;
-    opacity: 1;
-  }
-}
-
-@keyframes disappeartext {
-  from {
-    left: 100px;
-    opacity: 1;
-  }
-
-  to {
-    left: -100px;
-    opacity: 0;
-  }
-}
-
-.icon {
-  width: 200px;
-  background-color: transparent;
-}
-
-.WordCloud_calendar__AwNUp {
-  div {
-    svg {
-      g {
-        text {
-          fill: white;
-        }
-      }
-    }
+  & > div > svg {
+    padding: 0;
   }
 }
