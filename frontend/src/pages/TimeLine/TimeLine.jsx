@@ -39,8 +39,9 @@ function InterpolationChart() {
           {
             label: '기사 수 ',
             data: result.clusters.map(item => `${item.newsCount}`),
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            fill: true,
+            borderColor: 'rgb(13,7,100)',
+            backgroundColor: 'rgb(212, 244, 250)',
             cubicInterpolationMode: 'monotone',
             tension: 0.1,
             borderWidth: 2,
