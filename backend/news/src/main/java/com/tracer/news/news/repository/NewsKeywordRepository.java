@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface NewsKeywordRepository extends JpaRepository<NewsKeyword, NewsKeywordPK> {
 
-    Optional<NewsKeyword> findTop1ByNewsKeywordPKKeywordId(Long keywordId);
+    List<NewsKeyword> findByNewsKeywordPKKeywordId(Long keywordId);
 }
