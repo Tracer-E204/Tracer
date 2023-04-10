@@ -39,22 +39,6 @@ export default function SearchResult() {
   // 검색 결과가 0이 아니면 Filter와 NewsList 출력
   return (
     <div className={styles.searchresult}>
-<<<<<<< HEAD
-      <div className={styles['filter-container']}>
-        <div>
-          "<span>{state.text}</span>"
-        </div>
-        <div>뉴스 검색 결과 총 {result.totalCount}건입니다</div>
-        <Filter
-          text={state.text}
-          onApply={handleApply}
-          onDate={handleDate}
-          startDt={startDate}
-          endDt={EndDate}
-          setIndex={handleIndex}
-        />
-      </div>
-=======
       <Filter
         text={state.text}
         onApply={handleApply}
@@ -64,7 +48,6 @@ export default function SearchResult() {
         setIndex={handleIndex}
         result={result}
       />
->>>>>>> 159b3116fcd47515e8e08d92b3410c9731eec0d7
       <NewsList
         result={result}
         text={state.text}
