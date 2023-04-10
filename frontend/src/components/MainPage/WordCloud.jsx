@@ -13,11 +13,15 @@ export default function WordCloudPage() {
     fetch(`${process.env.REACT_APP_API_URL}/keyword/daily?type=2`)
       .then(res => res.json())
       .then(res => {
-        setData(res);
+        if (res.length > 60) {
+          setData(res.slice(0, 60)); // res의 0부터 29번째까지만 사용
+        } else {
+          setData(res); // res의 모든 요소 사용
+        }
       });
   }, []);
 
-  const words = data.map(d => ({ text: d.keyword, value: d.count }));
+  const words = data.map(d => ({ text: d.keyword, value: d.count * 5.3 }));
   const navigate = useNavigate();
 
   const handleWordClick = async e => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import Intro from 'components/MainPage/Intro';
 import styles from './MainPage.module.scss';
 import WordCloudPage from 'components/MainPage/WordCloud';
 import NewsSlide from 'components/MainPage/NewsSlide';
@@ -11,16 +10,13 @@ export default function MainPage() {
     <div className={styles.mainpage}>
       <FullPage controls={false}>
         <Slide>
-          <Intro />
+          <SearchPage />
         </Slide>
         <Slide>
           <WordCloudPage />
         </Slide>
         <Slide>
           <NewsSlide />
-        </Slide>
-        <Slide>
-          <SearchPage />
         </Slide>
       </FullPage>
     </div>
