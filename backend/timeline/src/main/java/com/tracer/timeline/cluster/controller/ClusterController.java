@@ -1,14 +1,13 @@
 package com.tracer.timeline.cluster.controller;
 
 import com.tracer.timeline.cluster.service.ClusterService;
+import com.tracer.timeline.cluster.vo.ReqCluster;
 import com.tracer.timeline.cluster.vo.ResClusterNews;
+import com.tracer.timeline.cluster.vo.ResClusterPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +18,9 @@ public class ClusterController {
 
     private final ClusterService clusterService;
 
-    @GetMapping("/news/{clusterId}")
-    public ResponseEntity<Object> clusterNews(@PathVariable Long clusterId){
-        List<ResClusterNews> list = clusterService.clusterNews(clusterId);
+    @PostMapping("/news")
+    public ResponseEntity<Object> clusterNews(@RequestBody ReqCluster reqCluster){
+        ResClusterPage list = clusterService.clusterNews(reqCluster);
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 }
