@@ -319,15 +319,15 @@ public class NewsService {
         List<ResNewsKeyword> list = om.convertValue(keywordServiceClient.newsKeyword().getBody(), new TypeReference<List<ResNewsKeyword>>() {});
         List<ResNews> newsList = list.stream()
                 .map( k -> {
-                    List<NewsKeyword> newsKeyword = newsKeywordRepository.findByNewsKeywordPKKeywordId(k.getKeywordId());
+                    Optional<NewsKeyword> newsKeyword = newsKeywordRepository.findTop1ByNewsKeywordPKKeywordId(k.getKeywordId());
                     ResNews resNews = new ResNews();
-                    if (newsKeyword != null) {
+                    if (newsKeyword.isPresent()) {
 
-                        Optional<News> N = newsKeyword.stream()
-                                .map(n -> n.getNewsKeywordPK().getNews())
-                                .filter(n -> n.getNewsDate().equals(LocalDate.of(2023,3,31)))
-                                .findFirst();
-                        News news = N.get();
+//                        Optional<News> N = newsKeyword.stream()
+//                                .map(n -> n.getNewsKeywordPK().getNews())
+//                                .filter(n -> n.getNewsDate().equals(LocalDate.of(2023,3,31)))
+//                                .findFirst();
+                        News news = newsKeyword.get().getNewsKeywordPK().getNews();
                         resNews = ResNews.builder()
                                 .newsContent(news.getNewsContent())
                                 .newsThumbnail(news.getNewsThumbnail())
