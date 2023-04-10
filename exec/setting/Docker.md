@@ -39,6 +39,6 @@ systemctl status docker.service
 sudo docker run hello-world
 ```
 
-![Untitled](%E1%84%83%E1%85%A9%E1%84%8F%E1%85%A5%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20588f9f1f7ab14675b314f18ffdd92456/Untitled.png)
+![Untitled](Docker/Untitled.png)
 
-![Untitled](%E1%84%83%E1%85%A9%E1%84%8F%E1%85%A5%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20588f9f1f7ab14675b314f18ffdd92456/Untitled%201.png)
+![Untitled](Docker/Untitled1.png)

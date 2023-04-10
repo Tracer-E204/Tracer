@@ -2,7 +2,24 @@
 
 # 사용 기술 스택
 
-[기술 스택 (1)](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/%E1%84%80%E1%85%B5%E1%84%89%E1%85%AE%E1%86%AF%20%E1%84%89%E1%85%B3%E1%84%90%E1%85%A2%E1%86%A8%20(1)%2095d5ff6ea9854512bc64aa9a84255e33.md)
+| 분류 | 이름 | 버전 |
+| --- | --- | --- |
+| SERVER | AWS | Ubuntu 20.04 LTS (GNU/Linux 5.4.0-1018-aws x86_64) |
+|  | Docker | 23.0.1 |
+|  | Portainer | 2.16.2 |
+|  | nginx-proxy-manger | 2.9.19 |
+| CI/CD | Jenkins | 2.395 |
+| DB | Redis | 7.0.10 |
+|  | MySQL | 8.0.32 |
+| FE | VisualStudioCode | 1.74.2 |
+|  | nodeJS | 17.8.0 |
+|  | npm | 8.1.2 |
+|  | React | 6 |
+| BE | intelliJ | 2022.3.1 |
+|  | Spring-Boot | 2.7.9 |
+|  | JAVA | 11 |
+|  | Gradle | 7.6 |
+| data | bareun | 2.0.1 |
 
 # 환경 변수 설정
 
@@ -287,40 +304,40 @@ eureka:
 
 ## 도커
 
-[도커 설치](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/%E1%84%83%E1%85%A9%E1%84%8F%E1%85%A5%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20588f9f1f7ab14675b314f18ffdd92456.md)
+[도커 설치](setting/Docker.md)
 
 ## dev_tool docker-compose 생성
 
-[dev_tool docker compose 생성](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/dev_tool%20docker%20compose%20%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%2087005b74b105424e96468fdc19b6ff0d.md)
+[dev_tool docker compose 생성](setting/Devtool.md)
 
 ## develop docker-compose 생성
 
-[develop docker-compose 생성](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/develop%20docker-compose%20%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC%20370f07f119254f2d9399986c70327634.md)
+[develop docker-compose 생성](setting/Develop.md)
 
 ## Portainer
 
-[Portainer 설정](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/Portainer%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%20f2ea54f49aed4a7b8b0f16bd615bbdb6.md)
+[Portainer 설정](setting/Portainer.md)
 
 ## MySql
 
-[MySql 설정](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/MySql%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%209a6bfcf26b9d45d8aed1e43b6bac4b62.md)
+[MySql 설정](setting/MySql.md)
 
 ## Redis
 
-[Redis 설정](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/Redis%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%2008898bd8fbd34adca1095a1a51797e9a.md)
+[Redis 설정](setting/Redis.md)
 
 ## Jenkins
 
-[Jenkins 설정](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/Jenkins%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%206919c94cbabd416faa65125003562d71.md)
+[Jenkins 설정](setting/Jenkins.md)
 
 ## python 이미지 생성
 
-[python 이미지](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/python%20%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5%209f417361b376444a888a03725d9afd02.md)
+[python 이미지](setting/Python.md)
 
 ## Front 이미지 생성
 
-[frontEnd 이미지](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/frontEnd%20%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5%202d9c73f4bc8e4dfc9e6412d71ce4fe11.md)
+[frontEnd 이미지](setting/FrontEnd.md)
 
 ## Back 이미지 생성
 
-[backend 이미지](Tracer%20%E1%84%87%E1%85%B5%E1%86%AF%E1%84%83%E1%85%B3%20%E1%84%86%E1%85%B5%E1%86%BE%20%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5%20%E1%84%86%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%20c1b7377d03c74667b2b20bcd83d58715/backend%20%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5%20f062b2c5daf54eab901f2c931cde76f4.md)
+[backend 이미지](setting/BackEnd.md)
