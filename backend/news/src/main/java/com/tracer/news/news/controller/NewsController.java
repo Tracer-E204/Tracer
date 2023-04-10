@@ -2,10 +2,7 @@ package com.tracer.news.news.controller;
 
 import com.tracer.news.news.dto.CountPerPressDto;
 import com.tracer.news.news.service.NewsService;
-import com.tracer.news.news.vo.ReqNewsSearch;
-import com.tracer.news.news.vo.ResNews;
-import com.tracer.news.news.vo.ResNewsSearch;
-import com.tracer.news.news.vo.ResShortcut;
+import com.tracer.news.news.vo.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -62,9 +59,9 @@ public class NewsController {
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
-    @GetMapping("/cluster/{clusterId}")
-    public ResponseEntity<Object> clusterNews(@PathVariable Long clusterId){
-        List<ResNews> list = newsService.clusterNews(clusterId);
+    @PostMapping("/cluster")
+    public ResponseEntity<Object> clusterNews(@RequestBody ReqCluster reqCluster){
+        ResNewsSearch list = newsService.clusterNews(reqCluster);
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
