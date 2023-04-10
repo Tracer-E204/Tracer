@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
@@ -42,4 +43,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     List<NewsPressMapping> findDistinctBy();
 
     List<News> findByNewsIdIn(List<Long> newsIds);
+
+    Optional<News> findTop1ByNewsIdInAndNewsDate(List<Long> newsId, LocalDate newsDate);
 }
