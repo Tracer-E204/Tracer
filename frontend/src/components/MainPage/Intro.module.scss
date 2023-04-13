@@ -1,0 +1,28 @@
+.intro-container {
+  background-image: url(./assets/images/intro.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro-title {
+  color: white;
+  margin-right: 2rem;
+  text-align: right;
+  text-shadow: 4px 2px 2px gray;
+  font-size: 1.15rem;
+}
+
+.intro-script {
+  color: white;
+  margin-right: 2rem;
+  text-align: right;
+  text-shadow: 4px 2px 2px gray;
+}
+
+.h1t {
+  margin-bottom: 0;
+}
