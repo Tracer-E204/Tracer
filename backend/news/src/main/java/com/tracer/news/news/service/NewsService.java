@@ -27,6 +27,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -321,6 +322,11 @@ public class NewsService {
                     Optional<NewsKeyword> newsKeyword = newsKeywordRepository.findTop1ByNewsKeywordPKKeywordId(k.getKeywordId());
                     ResNews resNews = new ResNews();
                     if (newsKeyword.isPresent()) {
+
+//                        Optional<News> N = newsKeyword.stream()
+//                                .map(n -> n.getNewsKeywordPK().getNews())
+//                                .filter(n -> n.getNewsDate().equals(LocalDate.of(2023,3,31)))
+//                                .findFirst();
                         News news = newsKeyword.get().getNewsKeywordPK().getNews();
                         resNews = ResNews.builder()
                                 .newsContent(news.getNewsContent())
