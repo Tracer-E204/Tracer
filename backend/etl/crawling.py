@@ -59,8 +59,8 @@ def dump():
 
     result = []
     hmap = ['society', 'economic', 'foreign', 'digital', 'culture']
-    start = start_date
-    last = start_date
+    start = "2023-04-07"
+    last = "2023-04-09"
     start_date = datetime.strptime(start, "%Y-%m-%d")
     last_date = datetime.strptime(last, "%Y-%m-%d")
     while start_date <= last_date:
@@ -117,4 +117,4 @@ scheduler.start()
 
 # 매일 0시 0분에 배치 처리 작업 예약
 # scheduler.add_job(dump, "cron", hour=13, minute=22)
-#dump()
+dump()
