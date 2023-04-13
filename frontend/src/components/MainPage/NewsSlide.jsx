@@ -68,11 +68,18 @@ export default function NewsSlide() {
 
     function get_img(article) {
       const regex = /https:\/\/.*?"/gi;
-      const matches = article.newsSource.match(regex);
+      let matches = article.newsSource.match(regex);
 
       if (matches) {
-        const imageURLs = matches.map(match => match.slice(0, -1));
-        return imageURLs[0];
+        matches = matches.map(match => match.replace(/amp;/g, ''));
+        const imageURL = matches.find(match => match.includes('youtube')) || matches[0];
+
+        if (imageURL.includes('youtube')) {
+          const videoID = imageURL.match(/\/([a-zA-Z0-9_-]+)\?/)[1];
+          return `https://img.youtube.com/vi/${videoID}/hqdefault.jpg`;
+        } else {
+          return imageURL.slice(0, -1);
+        }
       }
     }
 

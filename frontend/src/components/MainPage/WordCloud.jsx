@@ -10,7 +10,7 @@ export default function WordCloudPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/keyword/daily?type=2`)
+    fetch(`${process.env.REACT_APP_API_URL}/keyword/daily?type=1`)
       .then(res => res.json())
       .then(res => {
         if (res.length > 60) {
@@ -21,7 +21,7 @@ export default function WordCloudPage() {
       });
   }, []);
 
-  const words = data.map(d => ({ text: d.keyword, value: d.count * 5.3 }));
+  const words = data.map(d => ({ text: d.keyword, value: d.count * 7 }));
   const navigate = useNavigate();
 
   const handleWordClick = async e => {
