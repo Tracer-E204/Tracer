@@ -1,5 +1,7 @@
+
 # Tracer
 ![Tracer](https://github.com/Tracer-E204/Tracer/assets/64730703/1463c088-4919-4cc1-ac6e-e625d2cbefa7)
+
 ### 개요
 
 - 도메인 : 빅데이터(분산)
@@ -62,6 +64,9 @@
 #### 알고리즘 전체 흐름도
 ![알고리즘1](https://github.com/Tracer-E204/Tracer/assets/64730703/e2449a6f-475c-4a64-95eb-d917a630ff4c)
 <br>
+- 분석과정  
+![Image Pasted at 2023-3-24 12-13](https://user-images.githubusercontent.com/109326214/227415134-4af1301e-128a-4130-827e-fbd3a9ea697c.png)
+<br>
 #### 사용된 알고리즘
 ![알고리즘2](https://github.com/Tracer-E204/Tracer/assets/64730703/83304822-2557-47fd-b388-219de706bcd9)
 <br>
@@ -101,15 +106,15 @@
   
   - https://colossal-whip-d19.notion.site/c89f3b40db464ddb8fad2ddf08a04f1f?v=f4565d39a6014ec9a8d4d1c8c88c553c
 
-- API 연동 규격서 (진행 중)
+- API 연동 규격서
   
   - https://colossal-whip-d19.notion.site/API-5d331483f18a40478cb77cb06e4af781
 
 - ERD
   
-  - ![E204_ERD](/uploads/8945800ca57974076c4ffdacbf8eb66e/E204_ERD.png)
+  - ![Image Pasted at 2023-3-23 15-33](https://user-images.githubusercontent.com/109326214/227414267-035a14e0-73cd-4d20-8710-d506dff81599.png)
 
-- 간트차트 (진행 중)
+- 간트차트
   
   - https://colossal-whip-d19.notion.site/8a33d8baac67494f889e3ab998c192e4
 
@@ -122,3 +127,9 @@
   - https://www.figma.com/file/uUDdHXoiwxVG0hc7D2ACcJ/Tracer?node-id=0%3A1&t=HfDK5yXH08jBljAt-1
   
   - ![E204_figma](/uploads/d79995095b462c8ba79fefdd34d8f542/E204_figma.png)
+
+- 포트
+  
+  - https://colossal-whip-d19.notion.site/e3331c79904649da999b6402fb336d6f
+  - ![image](https://user-images.githubusercontent.com/109326214/227414443-30cc9454-1069-4221-a9fa-bdde4de51fa9.png)
+
